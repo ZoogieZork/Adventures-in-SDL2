@@ -11,6 +11,7 @@
 *.swp
 *.tmp
 *.user
+=template.*
 Thumbs.db
 memory_leak_report.txt
 
