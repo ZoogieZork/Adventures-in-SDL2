@@ -34,6 +34,7 @@ memory_leak_report.txt
 /aclocal.m4
 /adventures-in-sdl2*
 /autom4te.cache
+/build
 /confdefs.h
 /config.h
 /config.h.in
