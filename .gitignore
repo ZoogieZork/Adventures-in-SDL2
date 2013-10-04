@@ -51,3 +51,6 @@ memory_leak_report.txt
 /stamp-h1
 /valgrind_report.txt
 
+# /srcdoc/
+/srcdoc/html
+/srcdoc/warnings.txt
