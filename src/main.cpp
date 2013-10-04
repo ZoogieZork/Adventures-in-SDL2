@@ -15,15 +15,42 @@
  * the License.
  */
 
-#include <exception>
 #include <iostream>
 #include <string>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
+#include "Exception.h"
+
+using namespace AISDL;
+
+/// Initialize each of the SDL subsystems.
 static void InitApp() {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-		std::cerr << "Init failed: " << SDL_GetError() << std::endl;
+	SDL_LogSetAllPriority(SDL_LOG_PRIORITY_INFO);
+
+	SDL_Log("Starting up all SDL subsystems and libraries.");
+
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		throw Exception(std::string("SDL init: ") + SDL_GetError());
+	}
+
+	int reqFmts = IMG_INIT_JPG | IMG_INIT_PNG;
+	int actualFmts = IMG_Init(reqFmts);
+	if ((actualFmts & reqFmts) != reqFmts) {
+		throw Exception(std::string("SDL_image init: ") + IMG_GetError());
+	}
+
+	if (TTF_Init() == -1) {
+		throw Exception(std::string("SDL_ttf init: ") + TTF_GetError());
+	}
+}
+
+/// Shutdown each of the SDL subsystems.
+static void ShutdownApp() {
+	TTF_Quit();
+	IMG_Quit();
 }
 
 #ifdef _WIN32
@@ -34,7 +61,19 @@ int main(int argc, char** argv)
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	InitApp();
+	try {
+		InitApp();
+	}
+	catch (Exception &ex) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
+			"Adventures in SDL2", ex.what(), NULL);
+
+		std::cerr << ex.what() << std::endl;
+
+		return 1;
+	}
+
+	ShutdownApp();
 
 	return 0;
 }
