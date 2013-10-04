@@ -11,12 +11,14 @@ add_executable(adventures-in-sdl2
 	src/Exception.h
 	src/main.cpp)
 
-include(FindPkgConfig)
-pkg_check_modules(DEPS REQUIRED sdl2 SDL2_image SDL2_ttf)
+if(UNIX)
+	include(FindPkgConfig)
+	pkg_check_modules(DEPS REQUIRED sdl2 SDL2_image SDL2_ttf)
 
-include_directories(${DEPS_INCLUDE_DIRS})
-link_directories(${DEPS_LIBRARY_DIRS})
-target_link_libraries(adventures-in-sdl2 ${DEPS_LIBRARIES})
+	include_directories(${DEPS_INCLUDE_DIRS})
+	link_directories(${DEPS_LIBRARY_DIRS})
+	target_link_libraries(adventures-in-sdl2 ${DEPS_LIBRARIES})
+endif()
 
 add_custom_target(run
 	COMMAND adventures-in-sdl2
