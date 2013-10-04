@@ -10,8 +10,9 @@ endif()
 add_executable(adventures-in-sdl2 src/main.cpp)
 
 include(FindPkgConfig)
-pkg_search_module(DEPS REQUIRED sdl2 SDL2_image SDL2_ttf)
+pkg_check_modules(DEPS REQUIRED sdl2 SDL2_image SDL2_ttf)
 
 include_directories(${DEPS_INCLUDE_DIRS})
+link_directories(${DEPS_LIBRARY_DIRS})
 target_link_libraries(adventures-in-sdl2 ${DEPS_LIBRARIES})
 
