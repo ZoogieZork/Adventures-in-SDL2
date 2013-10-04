@@ -7,7 +7,9 @@ if(UNIX)
 	add_definitions("-std=c++0x")
 endif()
 
-add_executable(adventures-in-sdl2 src/main.cpp)
+add_executable(adventures-in-sdl2
+	src/Exception.h
+	src/main.cpp)
 
 include(FindPkgConfig)
 pkg_check_modules(DEPS REQUIRED sdl2 SDL2_image SDL2_ttf)
