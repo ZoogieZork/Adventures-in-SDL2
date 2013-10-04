@@ -18,3 +18,8 @@ include_directories(${DEPS_INCLUDE_DIRS})
 link_directories(${DEPS_LIBRARY_DIRS})
 target_link_libraries(adventures-in-sdl2 ${DEPS_LIBRARIES})
 
+add_custom_target(run
+	COMMAND adventures-in-sdl2
+	DEPENDS adventures-in-sdl2
+	WORKING_DIRECTORY ${CMAKE_PROJECT_DIR})
+
