@@ -15,6 +15,8 @@
  * the License.
  */
 
+#include "StdAfx.h"
+
 #include <iostream>
 #include <string>
 
