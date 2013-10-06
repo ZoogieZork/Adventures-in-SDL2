@@ -55,7 +55,11 @@ static void ShutdownApp() {
 	IMG_Quit();
 }
 
+#ifdef _WIN32
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+#else
 int main(int argc, char** argv) {
+#endif
 	srand(static_cast<unsigned int>(time(nullptr)));
 
 	try {

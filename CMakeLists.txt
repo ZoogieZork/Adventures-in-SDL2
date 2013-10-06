@@ -21,7 +21,7 @@ elseif(WIN32)
 	link_directories(${CMAKE_SOURCE_DIR}/lib)
 endif()
 
-add_executable(adventures-in-sdl2
+add_executable(adventures-in-sdl2 WIN32
 	src/StdAfx.h
 	src/StdAfx.cpp
 	src/Exception.h
