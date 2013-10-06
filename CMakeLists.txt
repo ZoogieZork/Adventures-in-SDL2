@@ -12,6 +12,7 @@ if(UNIX)
 endif()
 
 add_executable(adventures-in-sdl2
+	src/StdAfx.h
 	src/StdAfx.cpp
 	src/Exception.h
 	src/main.cpp)
