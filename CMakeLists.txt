@@ -16,6 +16,8 @@ add_executable(adventures-in-sdl2
 	src/Exception.h
 	src/main.cpp)
 set_target_properties(adventures-in-sdl2 PROPERTIES
+	COTIRE_ADD_UNITY_BUILD FALSE)
+set_target_properties(adventures-in-sdl2 PROPERTIES
 	COTIRE_CXX_PREFIX_HEADER_INIT "src/StdAfx.h")
 cotire(adventures-in-sdl2)
 
