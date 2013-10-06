@@ -38,8 +38,9 @@ elseif(WIN32)
 	target_link_libraries(adventures-in-sdl2 SDL2 SDL2main SDL2_image SDL2_ttf)
 endif()
 
-add_custom_target(run
-	COMMAND adventures-in-sdl2
-	DEPENDS adventures-in-sdl2
-	WORKING_DIRECTORY ${CMAKE_PROJECT_DIR})
-
+if(UNIX)
+	add_custom_target(run
+		COMMAND adventures-in-sdl2
+		DEPENDS adventures-in-sdl2
+		WORKING_DIRECTORY ${CMAKE_PROJECT_DIR})
+endif()
