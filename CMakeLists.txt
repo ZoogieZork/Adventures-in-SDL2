@@ -36,6 +36,8 @@ if(UNIX)
 	target_link_libraries(adventures-in-sdl2 ${DEPS_LIBRARIES})
 elseif(WIN32)
 	target_link_libraries(adventures-in-sdl2 SDL2 SDL2main SDL2_image SDL2_ttf)
+	file(GLOB DLLS RELATIVE ${CMAKE_SOURCE_DIR} lib/*.dll)
+	file(COPY ${DLLS} DESTINATION ${CMAKE_BINARY_DIR})
 endif()
 
 if(UNIX)
