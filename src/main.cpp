@@ -24,6 +24,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "App.h"
 #include "Exception.h"
 
 using namespace AISDL;
@@ -64,6 +65,7 @@ int main(int argc, char** argv) {
 
 	try {
 		InitApp();
+		App().Run();
 	}
 	catch (Exception &ex) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,

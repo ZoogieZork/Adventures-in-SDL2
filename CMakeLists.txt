@@ -22,9 +22,18 @@ elseif(WIN32)
 endif()
 
 add_executable(adventures-in-sdl2 WIN32
-	src/StdAfx.h
 	src/StdAfx.cpp
+	src/StdAfx.h
+	src/App.cpp
+	src/App.h
+	src/Director.h
 	src/Exception.h
+	src/FinalScene.cpp
+	src/FinalScene.h
+	src/PreloadScene.cpp
+	src/PreloadScene.h
+	src/Scene.cpp
+	src/Scene.h
 	src/main.cpp)
 set_target_properties(adventures-in-sdl2 PROPERTIES
 	COTIRE_ADD_UNITY_BUILD FALSE)
