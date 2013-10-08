@@ -92,7 +92,7 @@ void App::RequestNextScene()
 		// The scene at -1 is the preload scene; it's followed by the
 		// requested starting scene.
 		sceneIdx = startingScene;
-		if (startingScene < 0 || startingScene >= scenes.size()) {
+		if (startingScene < 0 || startingScene >= (int)scenes.size()) {
 			std::ostringstream oss;
 			oss << "Invalid starting scene index [" << startingScene << "] -- "
 				"Starting scene must be in range 0.." << (scenes.size() - 1) <<
