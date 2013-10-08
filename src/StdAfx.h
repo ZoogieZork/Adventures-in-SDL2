@@ -32,7 +32,9 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <sstream>
 #include <string>
+#include <vector>
 #include <utility>
 
 #include <SDL2/SDL.h>
