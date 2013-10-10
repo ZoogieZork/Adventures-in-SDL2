@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include "Res.h"
+
 namespace AISDL {
 
 /**
@@ -29,6 +31,8 @@ public:
 	Display();
 	~Display();
 
+public:
+	Res res;
 private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;

@@ -34,8 +34,12 @@ add_executable(adventures-in-sdl2 WIN32
 	src/FinalScene.h
 	src/PreloadScene.cpp
 	src/PreloadScene.h
+	src/Res.cpp
+	src/Res.h
 	src/Scene.cpp
 	src/Scene.h
+	src/Ttf.cpp
+	src/Ttf.h
 	src/main.cpp)
 set_target_properties(adventures-in-sdl2 PROPERTIES
 	COTIRE_ADD_UNITY_BUILD FALSE)

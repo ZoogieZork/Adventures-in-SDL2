@@ -1,5 +1,5 @@
 
-/* PreloadScene.cpp
+/* Ttf.cpp
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -18,29 +18,43 @@
 
 #include "StdAfx.h"
 
-#include "PreloadScene.h"
+#include "Exception.h"
+
+#include "Ttf.h"
 
 namespace AISDL {
 
-PreloadScene::PreloadScene(Director &director, Display &display) :
-	SUPER(director, display)
+/**
+ * Constructor.
+ * @param font The SDL_ttf font to wrap (may be nullptr).
+ */
+Ttf::Ttf(TTF_Font *font) :
+	font(font)
 {
 }
 
-PreloadScene::~PreloadScene()
+Ttf::~Ttf()
 {
+	if (font) {
+		TTF_CloseFont(font);
+	}
 }
 
-void PreloadScene::Advance(Uint32 tick)
+/**
+ * Load a font from a file.
+ * @param filename The filename, relative to the current directory.
+ * @param size The size, in points.
+ * @return The loaded font.
+ * @throws Exception The font could not be loaded.
+ */
+std::shared_ptr<Ttf> Ttf::Load(const std::string &filename, int size)
 {
-	//TODO: Preload incrementally.
-	display.res.Preload();
-	director.RequestNextScene();
-}
+	TTF_Font *font = TTF_OpenFont(filename.c_str(), size);
+	if (!font) {
+		throw Exception(TTF_GetError());
+	}
 
-void PreloadScene::RenderContent()
-{
-	//TODO
+	return std::make_shared<Ttf>(font);
 }
 
 }  // namespace AISDL

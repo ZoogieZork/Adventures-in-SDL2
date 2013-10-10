@@ -1,5 +1,5 @@
 
-/* PreloadScene.cpp
+/* Res.cpp
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -18,29 +18,24 @@
 
 #include "StdAfx.h"
 
-#include "PreloadScene.h"
+#include "Res.h"
 
 namespace AISDL {
 
-PreloadScene::PreloadScene(Director &director, Display &display) :
-	SUPER(director, display)
+Res::Res()
 {
 }
 
-PreloadScene::~PreloadScene()
+Res::~Res()
 {
 }
 
-void PreloadScene::Advance(Uint32 tick)
+/**
+ * Preload all global resources.
+ */
+void Res::Preload()
 {
-	//TODO: Preload incrementally.
-	display.res.Preload();
-	director.RequestNextScene();
-}
-
-void PreloadScene::RenderContent()
-{
-	//TODO
+	pixelFont = Ttf::Load("share/fonts/FifteenNarrow.ttf", 16);
 }
 
 }  // namespace AISDL
