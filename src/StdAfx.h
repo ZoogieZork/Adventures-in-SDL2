@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <algorithm>
 #include <list>
 #include <map>
 #include <memory>
