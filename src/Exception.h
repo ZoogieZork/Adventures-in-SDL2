@@ -32,6 +32,8 @@ public:
 	Exception() : SUPER() { }
 	Exception(const std::string &msg) : SUPER(), msg(msg) { }
 	Exception(const char *msg) : SUPER(), msg(msg) { }
+	Exception(const std::string &msg, const std::string &cause) :
+		SUPER(), msg(msg + ": " + cause) { }
 	virtual ~Exception() throw() { }
 
 	virtual const char* what() const throw() { return msg.c_str(); }
