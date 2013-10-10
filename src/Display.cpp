@@ -1,5 +1,5 @@
 
-/* App.h
+/* Display.cpp
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -16,45 +16,34 @@
  * the License.
  */
 
-#pragma once
+#include "StdAfx.h"
+
+#include "Exception.h"
 
 #include "Display.h"
 
-#include "Director.h"
-
 namespace AISDL {
 
-class Scene;
+Display::Display() :
+	window(nullptr), renderer(nullptr)
+{
+	window = SDL_CreateWindow("Adventures in SDL2", 0, 0, 640, 480,
+		SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+	if (!window) {
+		throw Exception(SDL_GetError());
+	}
 
-/**
- * The main scene manager.
- * @author Michael Imamura
- */
-class App : public Director {
-	typedef Director SUPER;
+	renderer = SDL_CreateRenderer(window, -1,
+		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (!renderer) {
+		throw Exception(SDL_GetError());
+	}
+}
 
-public:
-	App(int startingScene=0);
-	~App();
-
-private:
-	void AddScene(std::shared_ptr<Scene> scene);
-
-public:
-	void Run();
-
-public:
-	// Director
-	virtual void RequestNextScene();
-	virtual void RequestShutdown();
-
-private:
-	Display display;
-	int startingScene;
-	int sceneIdx;
-	std::vector<std::shared_ptr<Scene>> scenes;
-	std::shared_ptr<Scene> nextScene;
-};
+Display::~Display()
+{
+	if (renderer) SDL_DestroyRenderer(renderer);
+	if (window) SDL_DestroyWindow(window);
+}
 
 }  // namespace AISDL
-

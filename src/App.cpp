@@ -33,6 +33,7 @@ namespace AISDL {
  */
 App::App(int startingScene) :
 	SUPER(),
+	display(),
 	startingScene(startingScene), sceneIdx(-1)
 {
 	AddScene(std::make_shared<FinalScene>(*this));

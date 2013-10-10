@@ -27,6 +27,8 @@ add_executable(adventures-in-sdl2 WIN32
 	src/App.cpp
 	src/App.h
 	src/Director.h
+	src/Display.cpp
+	src/Display.h
 	src/Exception.h
 	src/FinalScene.cpp
 	src/FinalScene.h

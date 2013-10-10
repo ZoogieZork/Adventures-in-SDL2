@@ -1,5 +1,5 @@
 
-/* App.h
+/* Display.h
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -18,42 +18,20 @@
 
 #pragma once
 
-#include "Display.h"
-
-#include "Director.h"
-
 namespace AISDL {
 
-class Scene;
-
 /**
- * The main scene manager.
+ * Interface for scene manager.
  * @author Michael Imamura
  */
-class App : public Director {
-	typedef Director SUPER;
-
+class Display {
 public:
-	App(int startingScene=0);
-	~App();
+	Display();
+	~Display();
 
 private:
-	void AddScene(std::shared_ptr<Scene> scene);
-
-public:
-	void Run();
-
-public:
-	// Director
-	virtual void RequestNextScene();
-	virtual void RequestShutdown();
-
-private:
-	Display display;
-	int startingScene;
-	int sceneIdx;
-	std::vector<std::shared_ptr<Scene>> scenes;
-	std::shared_ptr<Scene> nextScene;
+	SDL_Window *window;
+	SDL_Renderer *renderer;
 };
 
 }  // namespace AISDL
