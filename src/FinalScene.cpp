@@ -22,8 +22,8 @@
 
 namespace AISDL {
 
-FinalScene::FinalScene(Director &director) :
-	SUPER(director)
+FinalScene::FinalScene(Director &director, Display &display) :
+	SUPER(director, display)
 {
 }
 

@@ -19,6 +19,7 @@
 #pragma once
 
 #include "Director.h"
+#include "Display.h"
 
 namespace AISDL {
 
@@ -28,7 +29,7 @@ namespace AISDL {
  */
 class Scene {
 public:
-	Scene(Director &director);
+	Scene(Director &director, Display &display);
 	virtual ~Scene();
 
 public:
@@ -40,6 +41,7 @@ protected:
 
 protected:
 	Director &director;
+	Display &display;
 };
 
 }  // namespace AISDL

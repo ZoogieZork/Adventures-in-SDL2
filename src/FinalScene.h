@@ -29,7 +29,7 @@ namespace AISDL {
 class FinalScene : public Scene {
 	typedef Scene SUPER;
 public:
-	FinalScene(Director &director);
+	FinalScene(Director &director, Display &display);
 	virtual ~FinalScene();
 
 public:

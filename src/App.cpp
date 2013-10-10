@@ -36,7 +36,7 @@ App::App(int startingScene) :
 	display(),
 	startingScene(startingScene), sceneIdx(-1)
 {
-	AddScene(std::make_shared<FinalScene>(*this));
+	AddScene(std::make_shared<FinalScene>(*this, display));
 }
 
 App::~App()
@@ -62,7 +62,8 @@ void App::Run()
 
 	// Always start with the preload scene.
 	// When the preloader finishes, it'll request to switch to the next scene.
-	std::shared_ptr<Scene> scene = std::make_shared<PreloadScene>(*this);
+	std::shared_ptr<Scene> scene =
+		std::make_shared<PreloadScene>(*this, display);
 
 	while (!quit) {
 		while (SDL_PollEvent(&evt) && !quit) {

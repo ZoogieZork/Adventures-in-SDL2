@@ -39,6 +39,11 @@ public:
 
 private:
 	void AddScene(std::shared_ptr<Scene> scene);
+public:
+	template<typename Fn>
+	void ForEachScene(Fn fn) {
+		std::for_each(scenes.begin(), scenes.end(), fn);
+	}
 
 public:
 	void Run();

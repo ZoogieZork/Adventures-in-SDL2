@@ -29,7 +29,7 @@ namespace AISDL {
 class PreloadScene : public Scene {
 	typedef Scene SUPER;
 public:
-	PreloadScene(Director &director);
+	PreloadScene(Director &director, Display &display);
 	virtual ~PreloadScene();
 
 public:

@@ -22,8 +22,8 @@
 
 namespace AISDL {
 
-PreloadScene::PreloadScene(Director &director) :
-	SUPER(director)
+PreloadScene::PreloadScene(Director &director, Display &display) :
+	SUPER(director, display)
 {
 }
 
