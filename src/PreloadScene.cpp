@@ -23,7 +23,8 @@
 namespace AISDL {
 
 PreloadScene::PreloadScene(Director &director, Display &display) :
-	SUPER(director, display)
+	SUPER(director, display),
+	loading(false)
 {
 }
 
@@ -33,14 +34,25 @@ PreloadScene::~PreloadScene()
 
 void PreloadScene::Advance(Uint32 tick)
 {
-	//TODO: Preload incrementally.
-	display.res.Preload();
-	director.RequestNextScene();
+	// Wait for the first frame to be rendered before preloading.
+	if (loading) {
+		//TODO: Preload incrementally.
+		display.res.Preload();
+		director.RequestNextScene();
+
+		//FIXME
+		SDL_Delay(5000);
+	}
+	else {
+		loading = true;
+		SDL_Log("Starting preload.");
+	}
 }
 
 void PreloadScene::RenderContent()
 {
-	//TODO
+	SDL_SetRenderDrawColor(display.renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(display.renderer);
 }
 
 }  // namespace AISDL
