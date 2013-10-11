@@ -47,6 +47,8 @@ public:
 
 public:
 	void Run();
+private:
+	void RenderFrame(Scene &scene);
 
 public:
 	// Director

@@ -75,8 +75,7 @@ void App::Run()
 		}
 		if (quit) break;
 
-		scene->Advance(SDL_GetTicks());
-		scene->Render();
+		RenderFrame(*scene);
 
 		// If a new scene was requested, switch to it.
 		if (nextScene) {
@@ -86,6 +85,15 @@ void App::Run()
 	}
 
 	SDL_Log("Shutting down.");
+}
+
+void App::RenderFrame(Scene &scene)
+{
+	scene.Advance(SDL_GetTicks());
+
+	// We let the scene decide how to clear the frame.
+	scene.Render();
+	SDL_RenderPresent(display.renderer);
 }
 
 void App::RequestNextScene()
