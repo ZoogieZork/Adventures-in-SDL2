@@ -31,12 +31,15 @@ public:
 	Res();
 	~Res();
 
+private:
+	static bool CheckResDir(const std::string &path);
+
 public:
 	void Preload();
 
 public:
+	std::string resDir;
 	std::shared_ptr<Ttf> pixelFont;
-
 };
 
 }  // namespace AISDL

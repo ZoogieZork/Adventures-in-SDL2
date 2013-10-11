@@ -18,12 +18,35 @@
 
 #include "StdAfx.h"
 
+#include <sys/stat.h>
+
+#include "Exception.h"
+
 #include "Res.h"
 
 namespace AISDL {
 
 Res::Res()
 {
+	// Search for our resource directory.
+	// With CMake, the preference is to put the build files in a subdirectory
+	// of the project, but there's nothing wrong with putting them at the
+	// toplevel either, so we check the possible locations.
+	//TODO: Handle install dir from CMake.
+	const char *dirs[] = { "share", "../share", "../../share" };
+	for (int i = 0; i < (sizeof(dirs) / sizeof(dirs[0])); i++) {
+		if (CheckResDir(dirs[i])) {
+			resDir = dirs[i];
+			break;
+		}
+	}
+
+	if (resDir.empty()) {
+		throw Exception("Unable to determine location of resources.");
+	}
+	else {
+		SDL_Log("Found resource directory: %s", resDir.c_str());
+	}
 }
 
 Res::~Res()
@@ -31,11 +54,23 @@ Res::~Res()
 }
 
 /**
+ * Determine if the given directory probably contains our resources.
+ * @param path The path to check.
+ * @return @c true if successful, @c false otherwise.
+ */
+bool Res::CheckResDir(const std::string &path)
+{
+	struct stat st;
+	std::string check = path + "/version.txt";
+	return ::stat(check.c_str(), &st) == 0;
+}
+
+/**
  * Preload all global resources.
  */
 void Res::Preload()
 {
-	pixelFont = Ttf::Load("share/fonts/FifteenNarrow.ttf", 16);
+	pixelFont = Ttf::Load(resDir + "/fonts/FifteenNarrow.ttf", 16);
 }
 
 }  // namespace AISDL
