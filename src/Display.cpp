@@ -46,4 +46,21 @@ Display::~Display()
 	if (window) SDL_DestroyWindow(window);
 }
 
+/**
+ * Simply render a texture to the screen.
+ *
+ * This handles the simple case where the whole texture is to be
+ * rendered to a specific position.
+ *
+ * @param texture The texture to render (may not be @c nullptr);
+ * @param x The destination
+ */
+void Display::RenderTexture(SDL_Texture *texture, int x, int y)
+{
+	int w, h;
+	SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
+	SDL_Rect destRect = { x, y, w, h };
+	SDL_RenderCopy(renderer, texture, nullptr, &destRect);
+}
+
 }  // namespace AISDL

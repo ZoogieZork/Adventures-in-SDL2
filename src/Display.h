@@ -32,6 +32,9 @@ public:
 	~Display();
 
 public:
+	void RenderTexture(SDL_Texture *texture, int x, int y);
+
+public:
 	Res res;
 	SDL_Window *window;
 	SDL_Renderer *renderer;
