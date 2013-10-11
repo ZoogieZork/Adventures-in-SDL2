@@ -39,9 +39,6 @@ void PreloadScene::Advance(Uint32 tick)
 		//TODO: Preload incrementally.
 		display.res.Preload();
 		director.RequestNextScene();
-
-		//FIXME
-		SDL_Delay(5000);
 	}
 	else {
 		loading = true;
