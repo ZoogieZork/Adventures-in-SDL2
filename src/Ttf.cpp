@@ -18,6 +18,7 @@
 
 #include "StdAfx.h"
 
+#include "Display.h"
 #include "Exception.h"
 
 #include "Ttf.h"
@@ -55,6 +56,34 @@ std::shared_ptr<Ttf> Ttf::Load(const std::string &filename, int size)
 	}
 
 	return std::make_shared<Ttf>(font);
+}
+
+/**
+ * Render a text string to a texture.
+ *
+ * The text is always rendered as white with a transparent background.
+ * The color can be changed by using SDL_SetTextureColorMod and
+ * SDL_SetTextureAlphaMod on the returned texture.
+ *
+ * @param display The current display.
+ * @param s The UTF-8 string to render.
+ * @return The rendered text.
+ */
+SDL_Texture *Ttf::Texture(const Display &display, const std::string &s)
+{
+	// First render the text as solid white.
+	SDL_Color white = { 0xff, 0xff, 0xff, 0xff };
+	SDL_Surface *surface = TTF_RenderUTF8_Blended(font, s.c_str(), white);
+	if (!surface) {
+		throw Exception(TTF_GetError());
+	}
+
+	// Convert the surface to a hardware-accelerated texture.
+	SDL_Texture *retv = SDL_CreateTextureFromSurface(
+		display.renderer, surface);
+	SDL_FreeSurface(surface);
+
+	return retv;
 }
 
 }  // namespace AISDL

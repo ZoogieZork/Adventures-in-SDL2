@@ -22,6 +22,8 @@
 
 namespace AISDL {
 
+class Display;
+
 /**
  * Wrapper for SDL_ttf fonts.
  * @author Michael Imamura
@@ -33,6 +35,9 @@ public:
 
 public:
 	static std::shared_ptr<Ttf> Load(const std::string &filename, int size);
+
+public:
+	SDL_Texture *Texture(const Display &display, const std::string &s);
 
 private:
 	TTF_Font *font;
