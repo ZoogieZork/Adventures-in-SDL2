@@ -36,6 +36,9 @@ public:
 	// Scene
 	virtual void Advance(Uint32 tick);
 	virtual void RenderContent();
+
+private:
+	SDL_Texture *creditsTxt;
 };
 
 }  // namespace AISDL
