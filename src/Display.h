@@ -33,7 +33,6 @@ public:
 
 public:
 	Res res;
-private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 };
