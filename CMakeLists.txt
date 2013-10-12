@@ -21,7 +21,7 @@ elseif(WIN32)
 	link_directories(${CMAKE_SOURCE_DIR}/lib)
 endif()
 
-add_executable(adventures-in-sdl2 WIN32
+set(AISDL_SRCS
 	src/StdAfx.cpp
 	src/StdAfx.h
 	src/App.cpp
@@ -41,6 +41,9 @@ add_executable(adventures-in-sdl2 WIN32
 	src/Ttf.cpp
 	src/Ttf.h
 	src/main.cpp)
+
+add_executable(adventures-in-sdl2 WIN32 ${AISDL_SRCS})
+source_group("src" FILES ${AISDL_SRCS})
 set_target_properties(adventures-in-sdl2 PROPERTIES
 	COTIRE_ADD_UNITY_BUILD FALSE)
 set_target_properties(adventures-in-sdl2 PROPERTIES
