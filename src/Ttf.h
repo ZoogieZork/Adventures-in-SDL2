@@ -29,19 +29,53 @@ class Display;
  * @author Michael Imamura
  */
 class Ttf {
+	friend std::ostream &operator<<(std::ostream &os, const Ttf &ttf);
 public:
-	Ttf(TTF_Font *font=nullptr);
+	Ttf(Display &display, TTF_Font *font=nullptr);
 	~Ttf();
 
 public:
-	static std::shared_ptr<Ttf> Load(const std::string &filename, int size);
+	static std::shared_ptr<Ttf> Load(Display &display,
+		const std::string &filename, int size);
 
 public:
 	SDL_Texture *Texture(const Display &display, const std::string &s);
 
 private:
+	struct Glyph {
+		Glyph() : avail(false) { }
+
+		bool avail;
+		int x, y;
+		int textureW, textureH;
+		int layoutW, layoutH;
+	};
+	bool AddGlyph(SDL_Surface *surface, Uint16 ch, int &x, int y,
+		Ttf::Glyph &glyph);
+	void AddGlyphRange(SDL_Surface *surface, int &x, int &y, int lineHeight,
+		Uint16 startCh, Uint16 endCh);
+	void InitTypeCase();
+
+private:
 	TTF_Font *font;
+	Display &display;
+public:
+	SDL_Texture *typeCase;
+	std::vector<Glyph> glyphs;
 };
+
+inline std::ostream &operator<<(std::ostream &os, const Ttf &ttf)
+{
+	const char *fontName = TTF_FontFaceFamilyName(ttf.font);
+	os << (fontName ? fontName : "Unnamed Font");
+
+	const char *styleName = TTF_FontFaceStyleName(ttf.font);
+	if (styleName) {
+		os << ' ' << styleName;
+	}
+
+	return os;
+}
 
 }  // namespace AISDL
 

@@ -22,6 +22,8 @@
 
 namespace AISDL {
 
+class Display;
+
 /**
  * Global resource library.
  * @author Michael Imamura
@@ -35,7 +37,7 @@ private:
 	static bool CheckResDir(const std::string &path);
 
 public:
-	void Preload();
+	void Preload(Display &display);
 
 public:
 	std::string resDir;

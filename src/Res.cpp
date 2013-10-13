@@ -67,10 +67,11 @@ bool Res::CheckResDir(const std::string &path)
 
 /**
  * Preload all global resources.
+ * @param display The target display.
  */
-void Res::Preload()
+void Res::Preload(Display &display)
 {
-	pixelFont = Ttf::Load(resDir + "/fonts/FifteenNarrow.ttf", 16);
+	pixelFont = Ttf::Load(display, resDir + "/fonts/FifteenNarrow.ttf", 16);
 }
 
 }  // namespace AISDL

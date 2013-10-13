@@ -37,7 +37,7 @@ void PreloadScene::Advance(Uint32 tick)
 	// Wait for the first frame to be rendered before preloading.
 	if (loading) {
 		//TODO: Preload incrementally.
-		display.res.Preload();
+		display.res.Preload(display);
 		director.RequestNextScene();
 	}
 	else {
