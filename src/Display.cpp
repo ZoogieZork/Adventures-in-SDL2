@@ -47,6 +47,37 @@ Display::~Display()
 }
 
 /**
+ * Create a new 32-bit OpenGL-compatible surface with an alpha channel.
+ * @param w The width of the surface.
+ * @param h The height of the surface.
+ * @return The created surface.
+ * @throws Exception The surface could not be created.
+ */
+SDL_Surface *Display::NewAlphaSurface(int w, int h)
+{
+	// Adapted from http://wiki.libsdl.org/SDL_CreateRGBSurface
+	Uint32 rmask, gmask, bmask, amask;
+#	if SDL_BYTEORDER == SDL_BIG_ENDIAN
+		rmask = 0xff000000;
+		gmask = 0x00ff0000;
+		bmask = 0x0000ff00;
+		amask = 0x000000ff;
+#	else
+		rmask = 0x000000ff;
+		gmask = 0x0000ff00;
+		bmask = 0x00ff0000;
+		amask = 0xff000000;
+#	endif
+
+	SDL_Surface *surface = SDL_CreateRGBSurface(0, w, h, 32,
+		rmask, gmask, bmask, amask);
+	if (!surface) {
+		throw Exception(SDL_GetError());
+	}
+	return surface;
+}
+
+/**
  * Simply render a texture to the screen.
  *
  * This handles the simple case where the whole texture is to be

@@ -32,6 +32,7 @@ public:
 	~Display();
 
 public:
+	SDL_Surface *NewAlphaSurface(int w, int h);
 	void RenderTexture(SDL_Texture *texture, int x, int y);
 
 public:
