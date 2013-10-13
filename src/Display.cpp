@@ -27,7 +27,8 @@ namespace AISDL {
 Display::Display() :
 	window(nullptr), renderer(nullptr)
 {
-	window = SDL_CreateWindow("Adventures in SDL2", 0, 0, 640, 480,
+	window = SDL_CreateWindow("Adventures in SDL2",
+		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480,
 		SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 	if (!window) {
 		throw Exception(SDL_GetError());
