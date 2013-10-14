@@ -40,14 +40,15 @@ public:
 
 public:
 	SDL_Texture *Texture(const Display &display, const std::string &s);
+	void RenderText(const Display &display, int x, int y, int width,
+		const std::string &s);
 
 private:
 	struct Glyph {
 		Glyph() : avail(false) { }
 
 		bool avail;
-		int x, y;
-		int textureW, textureH;
+		SDL_Rect texRect;
 		int layoutW, layoutH;
 	};
 	bool AddGlyph(SDL_Surface *surface, Uint16 ch, int &x, int y,

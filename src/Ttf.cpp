@@ -18,6 +18,8 @@
 
 #include "StdAfx.h"
 
+#include "utf8/utf8.h"
+
 #include "Display.h"
 #include "Exception.h"
 
@@ -93,6 +95,55 @@ SDL_Texture *Ttf::Texture(const Display &display, const std::string &s)
 	return retv;
 }
 
+/**
+ * Render a text string to the current render target.
+ * @param display The target display.
+ * @param x The X coordinate.
+ * @param y The Y coordinate.
+ * @param width The maximum width of the rendered text (current unused).
+ * @param s The string to render.
+ */
+void Ttf::RenderText(const Display &display, int x, int y, int width,
+	const std::string &s)
+{
+	//TODO: Word-wrapping.
+	//TODO: Colorizing.
+
+	SDL_Rect destRect = { x, y, 0, 0 };
+	int lineHeight = TTF_FontLineSkip(font);
+
+	for (auto iter = s.cbegin(), iend = s.cend(); iter != iend; ) {
+		uint32_t ch32 = utf8::next(iter, iend);
+
+		// Only handle characters which we have included in the type case.
+		if (ch32 > glyphs.size()) {
+			SDL_Log("Unrenderable code point: %d", ch32);
+			continue;
+		}
+		Uint16 ch = static_cast<Uint16>(ch32);
+
+		// Handle newlines.
+		if (ch == '\n') {
+			destRect.x = x;
+			destRect.y += lineHeight;
+			continue;
+		}
+
+		const Glyph &glyph = glyphs[ch];
+		if (!glyph.avail) continue;
+
+		destRect.w = glyph.texRect.w;
+		destRect.h = glyph.texRect.h;
+		if (SDL_RenderCopy(display.renderer, typeCase,
+			&glyph.texRect, &destRect) < 0)
+		{
+			throw Exception(SDL_GetError());
+		}
+
+		destRect.x += glyph.layoutW;
+	}
+}
+
 bool Ttf::AddGlyph(SDL_Surface *surface, Uint16 ch, int &x, int y,
 	Ttf::Glyph &glyph)
 {
@@ -148,15 +199,15 @@ bool Ttf::AddGlyph(SDL_Surface *surface, Uint16 ch, int &x, int y,
 
 	// Update the glyph info.
 	glyph.avail = true;
-	glyph.x = x;
-	glyph.y = y;
-	glyph.textureW = glyphSurface->w + 1;
-	glyph.textureH = glyphSurface->h + 1;
+	glyph.texRect.x = x;
+	glyph.texRect.y = y;
+	glyph.texRect.w = glyphSurface->w + 1;
+	glyph.texRect.h = glyphSurface->h + 1;
 	glyph.layoutW = glyphSurface->w;
 	glyph.layoutH = glyphSurface->h;
 
 	// Advance the X coordinate.
-	x += glyph.textureW;
+	x += glyph.texRect.w;
 
 	SDL_FreeSurface(glyphSurface);
 
