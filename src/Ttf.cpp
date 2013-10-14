@@ -230,7 +230,7 @@ bool Ttf::AddGlyph(SDL_Surface *surface, Uint16 ch, int &x, int y,
 	// First draw the shadow.
 	SDL_SetSurfaceBlendMode(glyphSurface, SDL_BLENDMODE_NONE);
 	SDL_SetSurfaceColorMod(glyphSurface, 0, 0, 0);
-	SDL_SetSurfaceAlphaMod(glyphSurface, 0xff);
+	SDL_SetSurfaceAlphaMod(glyphSurface, 0x7f);
 	if (SDL_BlitSurface(glyphSurface, nullptr, surface, &destRect) < 0) {
 		SDL_FreeSurface(glyphSurface);
 		std::ostringstream oss;
