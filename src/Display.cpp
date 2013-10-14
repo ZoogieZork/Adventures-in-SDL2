@@ -27,24 +27,24 @@ namespace AISDL {
 Display::Display() :
 	window(nullptr), renderer(nullptr)
 {
-	window = SDL_CreateWindow("Adventures in SDL2",
-		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480,
-		SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
-	if (!window) {
+	windowPtr = std::shared_ptr<SDL_Window>(
+		SDL_CreateWindow("Adventures in SDL2",
+			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480,
+			SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL),
+		SDL_DestroyWindow);
+	if (!windowPtr) {
 		throw Exception(SDL_GetError());
 	}
+	window = windowPtr.get();
 
-	renderer = SDL_CreateRenderer(window, -1,
-		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (!renderer) {
+	rendererPtr = std::shared_ptr<SDL_Renderer>(
+		SDL_CreateRenderer(window, -1,
+			SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC),
+		SDL_DestroyRenderer);
+	if (!rendererPtr) {
 		throw Exception(SDL_GetError());
 	}
-}
-
-Display::~Display()
-{
-	if (renderer) SDL_DestroyRenderer(renderer);
-	if (window) SDL_DestroyWindow(window);
+	renderer = rendererPtr.get();
 }
 
 /**

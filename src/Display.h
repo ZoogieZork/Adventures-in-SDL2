@@ -29,14 +29,19 @@ namespace AISDL {
 class Display {
 public:
 	Display();
-	~Display();
 
 public:
 	SDL_Surface *NewAlphaSurface(int w, int h);
 	void RenderTexture(SDL_Texture *texture, int x, int y);
 
 public:
+	// These are wrapped with deleters to ensure proper destruction order.
+	// A more complete engine would wrap them in full classes.
+	std::shared_ptr<SDL_Window> windowPtr;
+	std::shared_ptr<SDL_Renderer> rendererPtr;
+public:
 	Res res;
+	// Convenience pointers.
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 };
