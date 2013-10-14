@@ -22,6 +22,8 @@
 
 namespace AISDL {
 
+class App;
+
 /**
  * The initial loading scene.
  * @author Michael Imamura
@@ -29,7 +31,7 @@ namespace AISDL {
 class PreloadScene : public Scene {
 	typedef Scene SUPER;
 public:
-	PreloadScene(Director &director, Display &display);
+	PreloadScene(App &director, Display &display);
 	virtual ~PreloadScene();
 
 public:
@@ -38,6 +40,7 @@ public:
 	virtual void RenderContent();
 
 private:
+	App &app;
 	bool loading;
 };
 

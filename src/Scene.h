@@ -33,6 +33,8 @@ public:
 	virtual ~Scene();
 
 public:
+	/** Preload assets used specifically by this scene. */
+	virtual void Preload() { }
 	virtual void Advance(Uint32 tick) = 0;
 	virtual void Render();
 
