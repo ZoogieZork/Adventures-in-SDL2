@@ -29,6 +29,41 @@ namespace AISDL {
 
 namespace {
 	const SDL_Color COL_WHITE = { 0xff, 0xff, 0xff, 0xff };
+
+	const SDL_Color FMT_COLORS[] = {
+		{ 0x00, 0x00, 0x00, 0xff },  // 0
+		{ 0xff, 0x00, 0x00, 0xff },  // 1
+		{ 0x00, 0xff, 0x00, 0xff },  // 2
+		{ 0xff, 0xff, 0x00, 0xff },  // 3
+		{ 0x00, 0x00, 0xff, 0xff },  // 4
+		{ 0x00, 0xff, 0xff, 0xff },  // 5
+		{ 0xff, 0x00, 0xff, 0xff },  // 6
+		{ 0xff, 0xff, 0xff, 0xff },  // 7
+		{ 0xff, 0x7f, 0x00, 0xff },  // 8
+		{ 0x7f, 0x7f, 0x7f, 0xff },  // 9
+		{ 0xbf, 0xbf, 0xbf, 0xff },  // 10
+		{ 0xbf, 0xbf, 0xbf, 0xff },  // 11
+		{ 0x00, 0x7f, 0x00, 0xff },  // 12
+		{ 0x7f, 0x7f, 0x00, 0xff },  // 13
+		{ 0x00, 0x00, 0x7f, 0xff },  // 14
+		{ 0x7f, 0x00, 0x00, 0xff },  // 15
+		{ 0x7f, 0x3f, 0x00, 0xff },  // 16
+		{ 0xff, 0x99, 0x19, 0xff },  // 17
+		{ 0x00, 0x7f, 0x7f, 0xff },  // 18
+		{ 0x7f, 0x00, 0x7f, 0xff },  // 19
+		{ 0x00, 0x7f, 0xff, 0xff },  // 20
+		{ 0x7f, 0x00, 0xff, 0xff },  // 21
+		{ 0x33, 0x99, 0xcc, 0xff },  // 22
+		{ 0xcc, 0xff, 0xcc, 0xff },  // 23
+		{ 0x00, 0x66, 0x33, 0xff },  // 24
+		{ 0xff, 0x00, 0x33, 0xff },  // 25
+		{ 0xb2, 0x19, 0x19, 0xff },  // 26
+		{ 0x99, 0x33, 0x00, 0xff },  // 27
+		{ 0xcc, 0x99, 0x33, 0xff },  // 28
+		{ 0x99, 0x99, 0x33, 0xff },  // 29
+		{ 0xff, 0xff, 0xbf, 0xff },  // 30
+		{ 0xff, 0xff, 0x7f, 0xff },  // 31
+	};
 }
 
 /**
@@ -97,6 +132,11 @@ SDL_Texture *Ttf::Texture(const Display &display, const std::string &s)
 
 /**
  * Render a text string to the current render target.
+ *
+ * This supports basic formatting using newlines and Quake-style color
+ * codes (e.g. "This is ^1red ^7and ^3yellow"), based on the following
+ * chart: http://wolfwiki.anime.net/index.php/Color_Codes
+ *
  * @param display The target display.
  * @param x The X coordinate.
  * @param y The Y coordinate.
@@ -107,10 +147,12 @@ void Ttf::RenderText(const Display &display, int x, int y, int width,
 	const std::string &s)
 {
 	//TODO: Word-wrapping.
-	//TODO: Colorizing.
 
 	SDL_Rect destRect = { x, y, 0, 0 };
 	int lineHeight = TTF_FontLineSkip(font);
+
+	// Reset default color to white.
+	SDL_SetTextureColorMod(typeCase, 0xff, 0xff, 0xff);
 
 	for (auto iter = s.cbegin(), iend = s.cend(); iter != iend; ) {
 		uint32_t ch32 = utf8::next(iter, iend);
@@ -122,11 +164,25 @@ void Ttf::RenderText(const Display &display, int x, int y, int width,
 		}
 		Uint16 ch = static_cast<Uint16>(ch32);
 
-		// Handle newlines.
-		if (ch == '\n') {
-			destRect.x = x;
-			destRect.y += lineHeight;
-			continue;
+		switch (ch) {
+			case '\n':  // Newlines.
+				destRect.x = x;
+				destRect.y += lineHeight;
+				continue;
+
+			case '^':  // Color codes.
+				if (iter == iend) {
+					return;
+				}
+				else {
+					uint32_t idx = (utf8::next(iter, iend) + 16) & 31;
+					const SDL_Color &color = FMT_COLORS[idx];
+					SDL_SetTextureColorMod(typeCase, color.r, color.g, color.b);
+				}
+				continue;
+
+			case '\r':  // Ignore CRs.
+				continue;
 		}
 
 		const Glyph &glyph = glyphs[ch];
