@@ -28,6 +28,14 @@ namespace AISDL {
 
 std::list<std::weak_ptr<ResStr>> ResStr::instances;
 
+/**
+ * Constructor.
+ *
+ * @note You probably want to use Load() instead, so the instance will be
+ *       reloaded with ReloadAll().
+ *
+ * @param filename The file to load the string from.
+ */
 ResStr::ResStr(const std::string &filename) :
 	filename(filename)
 {
@@ -35,7 +43,11 @@ ResStr::ResStr(const std::string &filename) :
 }
 
 /**
- * Create a new resource string.
+ * Create a new "tracked" resource string.
+ *
+ * Instances created using this function are tracked and can be reloaded by
+ * calling ReloadAll().
+ *
  * @param filename The file to load the string from.
  * @return The resource string.
  */
@@ -49,11 +61,16 @@ std::shared_ptr<ResStr> ResStr::Load(const std::string &filename)
 	return ptr;
 }
 
+/**
+ * Reload all tracked strings loaded using Load().
+ */
 void ResStr::ReloadAll()
 {
 	SDL_Log("Reloading all managed resource strings.");
 
 	for (auto iter = instances.begin(); iter != instances.end(); ) {
+		// If the instance is still alive, reload it.
+		// Otherwise, remove it from the list.
 		if (auto ptr = iter->lock()) {
 			ptr->Reload();
 			++iter;
