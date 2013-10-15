@@ -282,6 +282,7 @@ void Ttf::AddGlyphRange(SDL_Surface *surface, int &x, int &y, int lineHeight,
 				oss << "Not enough space for glyphs for font " << *this;
 				throw Exception(oss.str());
 			}
+			ch--;
 		}
 	}
 }
