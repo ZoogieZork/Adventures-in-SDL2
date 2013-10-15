@@ -175,8 +175,12 @@ void Ttf::RenderText(const Display &display, int x, int y, int width,
 					return;
 				}
 				else {
-					uint32_t idx = (utf8::next(iter, iend) + 16) & 31;
-					const SDL_Color &color = FMT_COLORS[idx];
+					uint32_t idx = utf8::next(iter, iend);
+
+					// Allow "^^" as an escape sequence for "^".
+					if (idx == '^') break;
+
+					const SDL_Color &color = FMT_COLORS[(idx + 16) & 31];
 					SDL_SetTextureColorMod(typeCase, color.r, color.g, color.b);
 				}
 				continue;
