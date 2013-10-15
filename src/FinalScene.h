@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include "ResStr.h"
+
 #include "Scene.h"
 
 namespace AISDL {
@@ -34,11 +36,12 @@ public:
 
 public:
 	// Scene
+	virtual void Preload();
 	virtual void Advance(Uint32 tick);
 	virtual void RenderContent();
 
 private:
-	SDL_Texture *creditsTxt;
+	std::shared_ptr<ResStr> finalTxt;
 };
 
 }  // namespace AISDL

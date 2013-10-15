@@ -23,32 +23,30 @@
 namespace AISDL {
 
 FinalScene::FinalScene(Director &director, Display &display) :
-	SUPER(director, display),
-	creditsTxt(nullptr)
+	SUPER(director, display)
 {
 }
 
 FinalScene::~FinalScene()
 {
-	if (creditsTxt) SDL_DestroyTexture(creditsTxt);
+}
+
+void FinalScene::Preload()
+{
+	const std::string dir = display.res.resDir + "/text/final/";
+	finalTxt = ResStr::Load(dir + "final.txt");
 }
 
 void FinalScene::Advance(Uint32 tick)
 {
-	if (!creditsTxt) {
-		creditsTxt = display.res.pixelFont->Texture(display,
-			"This is test text.");
-	}
 }
 
 void FinalScene::RenderContent()
 {
-	SDL_SetRenderDrawColor(display.renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(display.renderer, 0x3f, 0x3f, 0x3f, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(display.renderer);
 
-	if (creditsTxt) {
-		display.RenderTexture(creditsTxt, 0, 0);
-	}
+	display.res.pixelFont->RenderText(display, 40, 40, 640, **finalTxt);
 }
 
 }  // namespace AISDL
