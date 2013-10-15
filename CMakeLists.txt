@@ -36,6 +36,8 @@ set(AISDL_SRCS
 	src/PreloadScene.h
 	src/Res.cpp
 	src/Res.h
+	src/ResStr.cpp
+	src/ResStr.h
 	src/Scene.cpp
 	src/Scene.h
 	src/Ttf.cpp
