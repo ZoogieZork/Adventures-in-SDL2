@@ -45,6 +45,9 @@ public:
 		std::for_each(scenes.begin(), scenes.end(), fn);
 	}
 
+private:
+	void OnKeyDown(SDL_KeyboardEvent &evt);
+
 public:
 	void Run();
 private:

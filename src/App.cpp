@@ -21,6 +21,7 @@
 #include "Exception.h"
 #include "FinalScene.h"
 #include "PreloadScene.h"
+#include "ResStr.h"
 #include "Scene.h"
 
 #include "App.h"
@@ -53,6 +54,19 @@ void App::AddScene(std::shared_ptr<Scene> scene)
 }
 
 /**
+ * Handle when a key is pressed.
+ * @param evt The key pressed event.
+ */
+void App::OnKeyDown(SDL_KeyboardEvent &evt)
+{
+	switch (evt.keysym.sym) {
+	case SDLK_F5:
+		ResStr::ReloadAll();
+		break;
+	}
+}
+
+/**
  * Main loop.
  */
 void App::Run()
@@ -68,6 +82,10 @@ void App::Run()
 	while (!quit) {
 		while (SDL_PollEvent(&evt) && !quit) {
 			switch (evt.type) {
+			case SDL_KEYDOWN:
+				OnKeyDown(evt.key);
+				break;
+
 			case SDL_QUIT:
 				quit = true;
 				break;
