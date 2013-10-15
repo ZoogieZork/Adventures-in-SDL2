@@ -26,6 +26,8 @@
 
 namespace AISDL {
 
+std::list<std::weak_ptr<ResStr>> ResStr::instances;
+
 ResStr::ResStr(const std::string &filename) :
 	filename(filename)
 {
@@ -39,8 +41,27 @@ ResStr::ResStr(const std::string &filename) :
  */
 std::shared_ptr<ResStr> ResStr::Load(const std::string &filename)
 {
-	//TODO: Keep weak_ptrs to returned assets for ReloadAll().
-	return std::make_shared<ResStr>(filename);
+	auto ptr = std::make_shared<ResStr>(filename);
+
+	// Keep a list of loaded resources for ReloadAll().
+	instances.emplace_back(ptr);
+
+	return ptr;
+}
+
+void ResStr::ReloadAll()
+{
+	SDL_Log("Reloading all managed resource strings.");
+
+	for (auto iter = instances.begin(); iter != instances.end(); ) {
+		if (auto ptr = iter->lock()) {
+			ptr->Reload();
+			++iter;
+		}
+		else {
+			iter = instances.erase(iter);
+		}
+	}
 }
 
 /**

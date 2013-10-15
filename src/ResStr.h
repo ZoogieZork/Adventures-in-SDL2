@@ -31,11 +31,13 @@ public:
 
 public:
 	static std::shared_ptr<ResStr> Load(const std::string &filename);
+	static void ReloadAll();
 
 public:
 	void Reload();
 
 private:
+	static std::list<std::weak_ptr<ResStr>> instances;
 	std::string filename;
 	std::string s;
 };
