@@ -54,7 +54,7 @@ void ResStr::Reload()
 	std::ifstream in(filename, std::ios::in | std::ios::binary);
 	if (in) {
 		in.seekg(0, std::ios::end);
-		s.resize(in.tellg());
+		s.resize(static_cast<std::string::size_type>(in.tellg()));
 		in.seekg(0, std::ios::beg);
 		in.read(&s[0], s.size());
 		in.close();
