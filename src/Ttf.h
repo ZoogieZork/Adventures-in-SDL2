@@ -25,7 +25,18 @@ namespace AISDL {
 class Display;
 
 /**
- * Wrapper for SDL_ttf fonts.
+ * Wrapper and renderer for SDL_ttf fonts.
+ *
+ * This provides two ways to render text.
+ *
+ * Texture() renders UTF-8 text in the best possible quality, as a single
+ * texture that the caller can render however they wish.  No colorization
+ * is performed, but in exchange you get proper kerning.
+ *
+ * RenderText() renders UTF-8 text, but only code points covered by Latin-1.
+ * The text is rendered directly to the current render target.  This
+ * supports Quake-style color codes, but kerning isn't taken into account.
+ *
  * @author Michael Imamura
  */
 class Ttf {
