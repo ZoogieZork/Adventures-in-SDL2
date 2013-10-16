@@ -70,9 +70,11 @@ namespace {
  * Constructor.
  * @param display The display that will be rendered to.
  * @param font The SDL_ttf font to wrap (may be nullptr).
+ * @param size The size of the font, in points (only tracked for descriptive
+ *             purposes).
  */
-Ttf::Ttf(Display &display, TTF_Font *font) :
-	font(font), display(display),
+Ttf::Ttf(Display &display, TTF_Font *font, int size) :
+	font(font), size(size), display(display),
 	typeCase(nullptr), glyphs(256)
 {
 	InitTypeCase();
@@ -100,7 +102,7 @@ std::shared_ptr<Ttf> Ttf::Load(Display &display, const std::string &filename,
 		throw Exception(TTF_GetError());
 	}
 
-	return std::make_shared<Ttf>(display, font);
+	return std::make_shared<Ttf>(display, font, size);
 }
 
 /**

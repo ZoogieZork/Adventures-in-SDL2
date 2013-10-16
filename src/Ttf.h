@@ -42,7 +42,7 @@ class Display;
 class Ttf {
 	friend std::ostream &operator<<(std::ostream &os, const Ttf &ttf);
 public:
-	Ttf(Display &display, TTF_Font *font=nullptr);
+	Ttf(Display &display, TTF_Font *font, int size);
 	~Ttf();
 
 public:
@@ -70,6 +70,7 @@ private:
 
 private:
 	TTF_Font *font;
+	int size;
 	Display &display;
 public:
 	SDL_Texture *typeCase;
@@ -85,6 +86,8 @@ inline std::ostream &operator<<(std::ostream &os, const Ttf &ttf)
 	if (styleName) {
 		os << ' ' << styleName;
 	}
+
+	os << ' ' << ttf.size;
 
 	return os;
 }
