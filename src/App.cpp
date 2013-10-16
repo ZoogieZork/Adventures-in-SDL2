@@ -80,6 +80,8 @@ void App::Run()
 		std::make_shared<PreloadScene>(*this, display);
 
 	while (!quit) {
+		// Process all events that have been triggered since the last
+		// frame was rendered.
 		while (SDL_PollEvent(&evt) && !quit) {
 			switch (evt.type) {
 			case SDL_KEYDOWN:
@@ -90,6 +92,8 @@ void App::Run()
 				quit = true;
 				break;
 			}
+			// Let the current scene have a chance at handling the event.
+			scene->HandleEvent(evt);
 		}
 		if (quit) break;
 

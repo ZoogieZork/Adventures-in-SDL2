@@ -35,6 +35,13 @@ public:
 public:
 	/** Preload assets used specifically by this scene. */
 	virtual void Preload() { }
+
+	/**
+	 * Define custom handling of when an SDL event arrives.
+	 * @param evt The SDL event.
+	 */
+	virtual void HandleEvent(SDL_Event &evt) { }
+
 	virtual void Advance(Uint32 tick) = 0;
 	virtual void Render();
 
