@@ -45,6 +45,11 @@ Display::Display() :
 		throw Exception(SDL_GetError());
 	}
 	renderer = rendererPtr.get();
+
+	// Act as if we're using a 640x480 framebuffer, even if the window is
+	// larger or smaller.
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
+	SDL_RenderSetLogicalSize(renderer, 640, 480);
 }
 
 /**
