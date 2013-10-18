@@ -46,6 +46,8 @@ public:
 	}
 
 private:
+	bool AttachController(int idx);
+	void OnControllerButtonDown(SDL_ControllerButtonEvent &evt);
 	void OnKeyDown(SDL_KeyboardEvent &evt);
 
 public:
@@ -60,10 +62,13 @@ public:
 
 private:
 	Display display;
+
 	int startingScene;
 	int sceneIdx;
 	std::vector<std::shared_ptr<Scene>> scenes;
 	std::shared_ptr<Scene> nextScene;
+
+	std::vector<SDL_GameController*> gameControllers;
 };
 
 }  // namespace AISDL

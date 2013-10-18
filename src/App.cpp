@@ -54,6 +54,57 @@ void App::AddScene(std::shared_ptr<Scene> scene)
 }
 
 /**
+ * Attempt to attach a game controller.
+ * @param idx The joystick index.
+ * @return @c true if attached successfully, @c false otherwise.
+ */
+bool App::AttachController(int idx)
+{
+	if (!SDL_IsGameController(idx)) return false;
+
+	SDL_GameController *controller = SDL_GameControllerOpen(idx);
+	if (!controller) {
+		SDL_Log("Could not open controller %d: %s", idx, SDL_GetError());
+		return false;
+	}
+
+	gameControllers.push_back(controller);
+
+	SDL_Log("Attached controller %d (%s).", idx,
+		SDL_GameControllerName(controller));
+
+	return true;
+}
+
+/**
+ * Handle when a controller button is pressed.
+ * @param evt The button press event.
+ */
+void App::OnControllerButtonDown(SDL_ControllerButtonEvent &evt)
+{
+	const SDL_GameControllerButton btn =
+		static_cast<SDL_GameControllerButton>(evt.button);
+
+	SDL_Log("Controller button pressed [%d]: %s", btn,
+		SDL_GameControllerGetStringForButton(btn));
+
+	switch (btn) {
+	case SDL_CONTROLLER_BUTTON_BACK:
+		//TODO: Flash current time.
+		break;
+	case SDL_CONTROLLER_BUTTON_START:
+		//TODO: Switch to TOC.
+		break;
+	case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+		//TODO: Jump to previous scene.
+		break;
+	case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
+		//TODO: Jump to next scene.
+		break;
+	}
+}
+
+/**
  * Handle when a key is pressed.
  * @param evt The key pressed event.
  */
@@ -79,6 +130,11 @@ void App::Run()
 	std::shared_ptr<Scene> scene =
 		std::make_shared<PreloadScene>(*this, display);
 
+	// Attach all already-plugged-in controllers.
+	for (int i = 0; i < SDL_NumJoysticks(); i++) {
+		AttachController(i);
+	}
+
 	while (!quit) {
 		// Process all events that have been triggered since the last
 		// frame was rendered.
@@ -86,6 +142,24 @@ void App::Run()
 			switch (evt.type) {
 			case SDL_KEYDOWN:
 				OnKeyDown(evt.key);
+				break;
+
+			// SDL_ControllerButtonEvent
+			case SDL_CONTROLLERBUTTONDOWN:
+				OnControllerButtonDown(evt.cbutton);
+				break;
+
+			// SDL_ControllerDeviceEvent
+			case SDL_CONTROLLERDEVICEADDED:
+				AttachController(evt.cdevice.which);
+				break;
+			case SDL_CONTROLLERDEVICEREMOVED:
+				//TODO: Detach the controller.
+				SDL_Log("Detach controller: %d", evt.cdevice.which);
+				break;
+			case SDL_CONTROLLERDEVICEREMAPPED:
+				//TODO
+				SDL_Log("Remapped controller: %d", evt.cdevice.which);
 				break;
 
 			case SDL_QUIT:
