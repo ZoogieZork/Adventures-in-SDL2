@@ -44,6 +44,7 @@ public:
 	void ForEachScene(Fn fn) {
 		std::for_each(scenes.begin(), scenes.end(), fn);
 	}
+	int GetNumScenes() const { return scenes.size(); }
 
 private:
 	bool AttachController(int idx);

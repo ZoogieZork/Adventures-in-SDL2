@@ -40,8 +40,12 @@ public:
 	virtual void RenderContent();
 
 private:
+	void RenderProgress(double count, double total);
+
+private:
 	App &app;
 	bool loading;
+	double progress;
 };
 
 }  // namespace AISDL

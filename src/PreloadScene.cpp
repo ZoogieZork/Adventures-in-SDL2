@@ -24,9 +24,14 @@
 
 namespace AISDL {
 
+namespace {
+	const int BAR_WIDTH = 200;
+	const int BAR_HEIGHT = 20;
+}
+
 PreloadScene::PreloadScene(App &director, Display &display) :
 	SUPER(director, display),
-	app(director), loading(false)
+	app(director), loading(false), progress(0)
 {
 }
 
@@ -38,14 +43,17 @@ void PreloadScene::Advance(Uint32 tick)
 {
 	// Wait for the first frame to be rendered before preloading.
 	if (loading) {
-		//TODO: Preload incrementally.
+		double count = 0;
+		double total = app.GetNumScenes() + 1;
 
 		// Preload global assets.
 		display.res.Preload(display);
+		RenderProgress(++count, total);
 
 		// Preload each of the scenes.
 		app.ForEachScene([&](std::shared_ptr<Scene> &scene) {
 			scene->Preload();
+			RenderProgress(++count, total);
 		});
 
 		director.RequestNextScene();
@@ -58,8 +66,42 @@ void PreloadScene::Advance(Uint32 tick)
 
 void PreloadScene::RenderContent()
 {
-	SDL_SetRenderDrawColor(display.renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(display.renderer);
+	auto rend = display.renderer;
+
+	// Clear the screen.
+	SDL_SetRenderDrawColor(rend, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(rend);
+
+	SDL_Rect barRect = {
+		320 - (BAR_WIDTH / 2), 240 - (BAR_HEIGHT / 2),
+		static_cast<int>(BAR_WIDTH * progress), BAR_HEIGHT };
+
+	// Draw the progress bar fill.
+	SDL_SetRenderDrawColor(rend, 0xbf, 0xbf, 0xbf, 0xff);
+	SDL_RenderFillRect(rend, &barRect);
+
+	// Draw the progress bar frame.
+	barRect.w = BAR_WIDTH;
+	SDL_SetRenderDrawColor(rend, 0xff, 0xff, 0xff, 0xff);
+	SDL_RenderDrawRect(rend, &barRect);
+}
+
+/**
+ * Render a progress update frame.
+ *
+ * This is called to display the preload progress from Advance().
+ * This makes it easier to preload the list of our assets without going
+ * through the main loop (since we don't care about events during this
+ * time anyway).
+ *
+ * @param count The current progress within the total.
+ * @param total The total.
+ */
+void PreloadScene::RenderProgress(double count, double total)
+{
+	progress = count / total;
+	Render();
+	SDL_RenderPresent(display.renderer);
 }
 
 }  // namespace AISDL
