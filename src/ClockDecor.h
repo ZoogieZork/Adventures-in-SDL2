@@ -45,6 +45,7 @@ private:
 	Uint32 lastUpdatedTs;
 	std::string timeStr;
 	bool visible;
+	int alpha;
 	Uint32 flashTs;
 };
 

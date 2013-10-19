@@ -22,6 +22,10 @@
 
 namespace AISDL {
 
+namespace {
+	const Uint32 DURATION = 2000;
+}
+
 ClockDecor::ClockDecor(Display &display) :
 	display(display),
 	lastUpdatedTs(0), timeStr("--:--:--"), visible(false),
@@ -68,11 +72,15 @@ void ClockDecor::Flash()
 void ClockDecor::Advance(Uint32 tick)
 {
 	if (visible) {
-		if ((tick - flashTs) > 2000) {
+		Uint32 past = tick - flashTs;
+		if (past > DURATION) {
 			visible = false;
 		}
 		else {
 			UpdateTimeStr(tick);
+
+			double pos = static_cast<double>(past) / DURATION;
+			alpha = 255 - static_cast<int>(255.0 * pow(pos, 4));
 		}
 	}
 }
@@ -80,7 +88,7 @@ void ClockDecor::Advance(Uint32 tick)
 void ClockDecor::Render()
 {
 	if (visible && display.res.clockFont) {
-		display.res.clockFont->RenderText(display, 500, 0, 140, timeStr);
+		display.res.clockFont->RenderText(display, 500, 0, 140, timeStr, alpha);
 	}
 }
 
