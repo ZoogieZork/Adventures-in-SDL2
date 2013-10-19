@@ -52,7 +52,7 @@ public:
 public:
 	SDL_Texture *Texture(const Display &display, const std::string &s);
 	void RenderText(const Display &display, int x, int y, int width,
-		const std::string &s);
+		const std::string &s, int alpha=0xff);
 
 private:
 	struct Glyph {

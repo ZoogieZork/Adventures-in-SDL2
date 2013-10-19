@@ -144,14 +144,20 @@ SDL_Texture *Ttf::Texture(const Display &display, const std::string &s)
  * @param y The Y coordinate.
  * @param width The maximum width of the rendered text (current unused).
  * @param s The string to render.
+ * @param alpha The opacity (0 is fully transparent, 255 is fully opaque).
  */
 void Ttf::RenderText(const Display &display, int x, int y, int width,
-	const std::string &s)
+	const std::string &s, int alpha)
 {
+	// If completely transparent, do nothing.
+	if (alpha == 0) return;
+
 	//TODO: Word-wrapping.
 
 	SDL_Rect destRect = { x, y, 0, 0 };
 	int lineHeight = TTF_FontLineSkip(font);
+
+	SDL_SetTextureAlphaMod(typeCase, alpha);
 
 	// Reset default color to white.
 	SDL_SetTextureColorMod(typeCase, 0xff, 0xff, 0xff);
