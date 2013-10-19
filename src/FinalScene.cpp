@@ -31,6 +31,16 @@ FinalScene::~FinalScene()
 {
 }
 
+void FinalScene::OnAction()
+{
+	director.RequestShutdown();
+}
+
+void FinalScene::OnCancel()
+{
+	director.RequestShutdown();
+}
+
 void FinalScene::Preload()
 {
 	const std::string dir = display.res.resDir + "/text/final/";

@@ -36,6 +36,9 @@ public:
 
 public:
 	// Scene
+	virtual void OnAction();
+	virtual void OnCancel();
+
 	virtual void Preload();
 	virtual void Advance(Uint32 tick);
 	virtual void RenderContent();

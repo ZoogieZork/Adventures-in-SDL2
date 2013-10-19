@@ -67,6 +67,7 @@ private:
 	int startingScene;
 	int sceneIdx;
 	std::vector<std::shared_ptr<Scene>> scenes;
+	std::shared_ptr<Scene> scene;  ///< Current scene.
 	std::shared_ptr<Scene> nextScene;
 
 	std::vector<SDL_GameController*> gameControllers;

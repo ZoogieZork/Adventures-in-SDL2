@@ -33,6 +33,11 @@ public:
 	virtual ~Scene();
 
 public:
+	virtual void OnInteract() { }
+	virtual void OnAction() { }
+	virtual void OnCancel() { }
+
+public:
 	/** Preload assets used specifically by this scene. */
 	virtual void Preload() { }
 

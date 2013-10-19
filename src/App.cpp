@@ -89,11 +89,23 @@ void App::OnControllerButtonDown(SDL_ControllerButtonEvent &evt)
 		SDL_GameControllerGetStringForButton(btn));
 
 	switch (btn) {
+	case SDL_CONTROLLER_BUTTON_A:
+		scene->OnAction();
+		break;
+	case SDL_CONTROLLER_BUTTON_B:
+		scene->OnCancel();
+		break;
+	case SDL_CONTROLLER_BUTTON_X:
+		scene->OnInteract();
+		break;
+	case SDL_CONTROLLER_BUTTON_LEFTSTICK:
+		ResStr::ReloadAll();
+		break;
 	case SDL_CONTROLLER_BUTTON_BACK:
 		//TODO: Flash current time.
 		break;
 	case SDL_CONTROLLER_BUTTON_START:
-		//TODO: Switch to TOC.
+		//TODO: Switch to TOC (last scene in list).
 		break;
 	case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
 		//TODO: Jump to previous scene.
@@ -111,8 +123,29 @@ void App::OnControllerButtonDown(SDL_ControllerButtonEvent &evt)
 void App::OnKeyDown(SDL_KeyboardEvent &evt)
 {
 	switch (evt.keysym.sym) {
+	case SDLK_RETURN:
+		scene->OnAction();
+		break;
+	case SDLK_ESCAPE:
+		scene->OnCancel();
+		break;
+	case SDLK_e:
+		scene->OnInteract();
+		break;
 	case SDLK_F5:
 		ResStr::ReloadAll();
+		break;
+	case SDLK_TAB:
+		//TODO: Flash current time.
+		break;
+	case SDLK_HOME:
+		//TODO: Switch to TOC (last scene in list).
+		break;
+	case SDLK_PAGEUP:
+		//TODO: Jump to previous scene.
+		break;
+	case SDLK_PAGEDOWN:
+		//TODO: Jump to next scene.
 		break;
 	}
 }
@@ -127,8 +160,7 @@ void App::Run()
 
 	// Always start with the preload scene.
 	// When the preloader finishes, it'll request to switch to the next scene.
-	std::shared_ptr<Scene> scene =
-		std::make_shared<PreloadScene>(*this, display);
+	scene = std::make_shared<PreloadScene>(*this, display);
 
 	// Attach all already-plugged-in controllers.
 	for (int i = 0; i < SDL_NumJoysticks(); i++) {
