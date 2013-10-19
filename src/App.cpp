@@ -35,7 +35,8 @@ namespace AISDL {
 App::App(int startingScene) :
 	SUPER(),
 	display(),
-	startingScene(startingScene), sceneIdx(-1)
+	startingScene(startingScene), sceneIdx(-1),
+	clockDecor(display)
 {
 	AddScene(std::make_shared<FinalScene>(*this, display));
 }
@@ -102,7 +103,7 @@ void App::OnControllerButtonDown(SDL_ControllerButtonEvent &evt)
 		ResStr::ReloadAll();
 		break;
 	case SDL_CONTROLLER_BUTTON_BACK:
-		//TODO: Flash current time.
+		clockDecor.Flash();
 		break;
 	case SDL_CONTROLLER_BUTTON_START:
 		//TODO: Switch to TOC (last scene in list).
@@ -136,7 +137,7 @@ void App::OnKeyDown(SDL_KeyboardEvent &evt)
 		ResStr::ReloadAll();
 		break;
 	case SDLK_TAB:
-		//TODO: Flash current time.
+		clockDecor.Flash();
 		break;
 	case SDLK_HOME:
 		//TODO: Switch to TOC (last scene in list).
@@ -217,10 +218,14 @@ void App::Run()
 
 void App::RenderFrame(Scene &scene)
 {
-	scene.Advance(SDL_GetTicks());
+	auto tick = SDL_GetTicks();
+	scene.Advance(tick);
+	clockDecor.Advance(tick);
 
 	// We let the scene decide how to clear the frame.
 	scene.Render();
+	clockDecor.Render();
+
 	SDL_RenderPresent(display.renderer);
 }
 

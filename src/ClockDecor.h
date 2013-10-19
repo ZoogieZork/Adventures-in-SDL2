@@ -1,5 +1,5 @@
 
-/* Res.h
+/* ClockDecor.h
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -18,32 +18,34 @@
 
 #pragma once
 
-#include "Ttf.h"
+#include "Display.h"
 
 namespace AISDL {
 
-class Display;
-
 /**
- * Global resource library.
+ * Displays the time since the app started in the corner of the screen.
  * @author Michael Imamura
  */
-class Res {
+class ClockDecor {
 public:
-	Res();
-	~Res();
+	ClockDecor(Display &display);
 
 private:
-	static bool CheckResDir(const std::string &path);
+	void UpdateTimeStr(Uint32 tick);
 
 public:
-	void Preload(Display &display);
+	void Flash();
 
 public:
-	std::string resDir;
-	std::shared_ptr<Ttf> clockFont;
-	std::shared_ptr<Ttf> pixelFont;
+	void Advance(Uint32 tick);
+	void Render();
+
+private:
+	Display &display;
+	Uint32 lastUpdatedTs;
+	std::string timeStr;
+	bool visible;
+	Uint32 flashTs;
 };
 
 }  // namespace AISDL
-

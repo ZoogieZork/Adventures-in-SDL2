@@ -26,6 +26,8 @@ set(AISDL_SRCS
 	src/StdAfx.h
 	src/App.cpp
 	src/App.h
+	src/ClockDecor.cpp
+	src/ClockDecor.h
 	src/Director.h
 	src/Display.cpp
 	src/Display.h

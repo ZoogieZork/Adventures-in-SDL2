@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include "ClockDecor.h"
 #include "Display.h"
 
 #include "Director.h"
@@ -69,6 +70,8 @@ private:
 	std::vector<std::shared_ptr<Scene>> scenes;
 	std::shared_ptr<Scene> scene;  ///< Current scene.
 	std::shared_ptr<Scene> nextScene;
+
+	ClockDecor clockDecor;
 
 	std::vector<SDL_GameController*> gameControllers;
 };

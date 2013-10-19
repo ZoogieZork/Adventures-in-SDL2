@@ -71,6 +71,7 @@ bool Res::CheckResDir(const std::string &path)
  */
 void Res::Preload(Display &display)
 {
+	clockFont = Ttf::Load(display, resDir + "/fonts/FifteenNarrow.ttf", 16);
 	pixelFont = Ttf::Load(display, resDir + "/fonts/FifteenNarrow.ttf", 16);
 }
 
