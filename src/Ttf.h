@@ -40,6 +40,7 @@ class Display;
  * @author Michael Imamura
  */
 class Ttf {
+	friend TTF_Font *operator*(const Ttf &ttf);
 	friend std::ostream &operator<<(std::ostream &os, const Ttf &ttf);
 public:
 	Ttf(Display &display, TTF_Font *font, int size);
@@ -54,7 +55,7 @@ public:
 	void RenderText(const Display &display, int x, int y, int width,
 		const std::string &s, int alpha=0xff);
 
-private:
+public:
 	struct Glyph {
 		Glyph() : avail(false) { }
 
@@ -62,6 +63,7 @@ private:
 		SDL_Rect texRect;
 		int layoutW, layoutH;
 	};
+private:
 	bool AddGlyph(SDL_Surface *surface, Uint16 ch, int &x, int y,
 		Ttf::Glyph &glyph);
 	void AddGlyphRange(SDL_Surface *surface, int &x, int &y, int lineHeight,
@@ -76,6 +78,11 @@ public:
 	SDL_Texture *typeCase;
 	std::vector<Glyph> glyphs;
 };
+
+inline TTF_Font *operator*(const Ttf &ttf)
+{
+	return ttf.font;
+}
 
 inline std::ostream &operator<<(std::ostream &os, const Ttf &ttf)
 {

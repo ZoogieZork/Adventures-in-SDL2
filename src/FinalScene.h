@@ -18,11 +18,11 @@
 
 #pragma once
 
-#include "ResStr.h"
-
 #include "Scene.h"
 
 namespace AISDL {
+
+class FmtTextDecor;
 
 /**
  * Wrap-up scene (credits and further reading links).
@@ -44,7 +44,7 @@ public:
 	virtual void RenderContent();
 
 private:
-	std::shared_ptr<ResStr> finalTxt;
+	std::unique_ptr<FmtTextDecor> finalTxt;
 };
 
 }  // namespace AISDL

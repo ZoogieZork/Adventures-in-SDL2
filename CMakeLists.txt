@@ -34,6 +34,8 @@ set(AISDL_SRCS
 	src/Exception.h
 	src/FinalScene.cpp
 	src/FinalScene.h
+	src/FmtTextDecor.cpp
+	src/FmtTextDecor.h
 	src/PreloadScene.cpp
 	src/PreloadScene.h
 	src/Res.cpp

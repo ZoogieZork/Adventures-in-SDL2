@@ -18,6 +18,9 @@
 
 #include "StdAfx.h"
 
+#include "FmtTextDecor.h"
+#include "ResStr.h"
+
 #include "FinalScene.h"
 
 namespace AISDL {
@@ -44,7 +47,8 @@ void FinalScene::OnCancel()
 void FinalScene::Preload()
 {
 	const std::string dir = display.res.resDir + "/text/final/";
-	finalTxt = ResStr::Load(dir + "final.txt");
+	finalTxt.reset(new FmtTextDecor(display, display.res.pixelFont,
+		ResStr::Load(dir + "final.txt"), 640));
 }
 
 void FinalScene::Advance(Uint32 tick)
@@ -56,7 +60,7 @@ void FinalScene::RenderContent()
 	SDL_SetRenderDrawColor(display.renderer, 0x3f, 0x3f, 0x3f, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(display.renderer);
 
-	display.res.pixelFont->RenderText(display, 40, 40, 640, **finalTxt);
+	finalTxt->Render(40, 40);
 }
 
 }  // namespace AISDL
