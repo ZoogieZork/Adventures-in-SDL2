@@ -114,6 +114,9 @@ void App::OnControllerButtonDown(SDL_ControllerButtonEvent &evt)
 	case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
 		//TODO: Jump to next scene.
 		break;
+	default:
+		// Ignore.
+		break;
 	}
 }
 
@@ -147,6 +150,9 @@ void App::OnKeyDown(SDL_KeyboardEvent &evt)
 		break;
 	case SDLK_PAGEDOWN:
 		//TODO: Jump to next scene.
+		break;
+	default:
+		// Ignore.
 		break;
 	}
 }

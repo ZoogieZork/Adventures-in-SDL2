@@ -15,6 +15,11 @@ if(CXX11_COMPILER)
 	enable_cxx11()
 endif()
 
+# Crank up the warning level.
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+endif()
+
 if(UNIX)
 	include(FindPkgConfig)
 	pkg_check_modules(DEPS REQUIRED sdl2 SDL2_image SDL2_ttf)
