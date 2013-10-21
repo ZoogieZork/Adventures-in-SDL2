@@ -37,6 +37,7 @@
 #include <time.h>
 
 #include <algorithm>
+#include <functional>
 #include <iomanip>
 #include <list>
 #include <map>
