@@ -107,7 +107,7 @@ SDL_Texture *Ttf::Texture(const Display &display, const std::string &s)
  * chart: http://wolfwiki.anime.net/index.php/Color_Codes
  *
  * This uses FmtTextDecor to do the formatting and rendering.  Consider
- * using that instead.
+ * using that instead if the text does not change often.
  *
  * @param display The target display.
  * @param x The X coordinate.
