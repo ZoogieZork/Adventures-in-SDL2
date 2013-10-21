@@ -65,7 +65,22 @@ namespace {
 }
 
 /**
- * Constructor.
+ * Constructor when using static string.
+ * @param display The target display.
+ * @param font The font to use to render the text.
+ * @param text The text itself.
+ * @param width The maximum width of the text area (currently unused).
+ */
+FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
+	const std::string &s, int width) :
+	display(display), font(std::move(font)), s(s),
+	width(width)
+{
+	Reformat();
+}
+
+/**
+ * Constructor when using resource string.
  * @param display The target display.
  * @param font The font to use to render the text.
  * @param text The text itself.
@@ -90,7 +105,7 @@ FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
 void FmtTextDecor::Reformat()
 {
 	int lineHeight = TTF_FontLineSkip(**font);
-	const std::string &s = **text;
+	if (text) s = **text;
 	int x = 0, y = 0;
 	int fmtColor = 7;
 

@@ -37,6 +37,8 @@ class ResStr;
 class FmtTextDecor {
 public:
 	FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
+		const std::string &s, int width);
+	FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
 		std::shared_ptr<ResStr> text, int width);
 
 private:
@@ -57,6 +59,7 @@ private:
 	Display &display;
 	std::shared_ptr<Ttf> font;
 	std::shared_ptr<ResStr> text;
+	std::string s;
 	int width;
 
 	std::vector<Rend> rends;
