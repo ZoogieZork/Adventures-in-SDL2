@@ -61,7 +61,7 @@ public:
 
 		bool avail;
 		SDL_Rect texRect;
-		int layoutW, layoutH;
+		int layoutW;
 	};
 private:
 	bool AddGlyph(SDL_Surface *surface, Uint16 ch, int &x, int y,

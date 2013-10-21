@@ -186,7 +186,6 @@ bool Ttf::AddGlyph(SDL_Surface *surface, Uint16 ch, int &x, int y,
 	glyph.texRect.w = glyphSurface->w + 1;
 	glyph.texRect.h = glyphSurface->h + 1;
 	glyph.layoutW = glyphSurface->w;
-	glyph.layoutH = glyphSurface->h;
 
 	// Advance the X coordinate.
 	x += glyph.texRect.w;
