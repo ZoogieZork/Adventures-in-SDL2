@@ -34,12 +34,17 @@ public:
 	static void ReloadAll();
 
 public:
+	/// Set a listener to be notified when the resource is reloaded.
+	template<typename Fn>
+	void SetOnReload(Fn fn) { onReload = fn; }
+
 	void Reload();
 
 private:
 	static std::list<std::weak_ptr<ResStr>> instances;
 	std::string filename;
 	std::string s;
+	std::function<void()> onReload;
 };
 
 inline const std::string &operator*(const ResStr &str)

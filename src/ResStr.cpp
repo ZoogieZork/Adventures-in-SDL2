@@ -96,6 +96,9 @@ void ResStr::Reload()
 		in.seekg(0, std::ios::beg);
 		in.read(&s[0], s.size());
 		in.close();
+
+		// Notify listener.
+		if (onReload) onReload();
 	}
 	else {
 		throw Exception("Failed to read: " + filename);
