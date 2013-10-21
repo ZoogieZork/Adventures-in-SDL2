@@ -39,7 +39,7 @@ class Display;
  *
  * @author Michael Imamura
  */
-class Ttf {
+class Ttf : public std::enable_shared_from_this<Ttf> {
 	friend TTF_Font *operator*(const Ttf &ttf);
 	friend std::ostream &operator<<(std::ostream &os, const Ttf &ttf);
 public:
@@ -52,7 +52,7 @@ public:
 
 public:
 	SDL_Texture *Texture(const Display &display, const std::string &s);
-	void RenderText(const Display &display, int x, int y, int width,
+	void RenderText(Display &display, int x, int y, int width,
 		const std::string &s, int alpha=0xff);
 
 public:

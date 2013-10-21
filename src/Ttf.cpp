@@ -22,6 +22,7 @@
 
 #include "Display.h"
 #include "Exception.h"
+#include "FmtTextDecor.h"
 
 #include "Ttf.h"
 
@@ -29,41 +30,6 @@ namespace AISDL {
 
 namespace {
 	const SDL_Color COL_WHITE = { 0xff, 0xff, 0xff, 0xff };
-
-	const SDL_Color FMT_COLORS[] = {
-		{ 0x00, 0x00, 0x00, 0xff },  // 0   ^0
-		{ 0xff, 0x00, 0x00, 0xff },  // 1   ^1
-		{ 0x00, 0xff, 0x00, 0xff },  // 2   ^2
-		{ 0xff, 0xff, 0x00, 0xff },  // 3   ^3
-		{ 0x00, 0x00, 0xff, 0xff },  // 4   ^4
-		{ 0x00, 0xff, 0xff, 0xff },  // 5   ^5
-		{ 0xff, 0x00, 0xff, 0xff },  // 6   ^6
-		{ 0xff, 0xff, 0xff, 0xff },  // 7   ^7  default white
-		{ 0xff, 0x7f, 0x00, 0xff },  // 8   ^8
-		{ 0x7f, 0x7f, 0x7f, 0xff },  // 9   ^9
-		{ 0xbf, 0xbf, 0xbf, 0xff },  // 10  ^:
-		{ 0xbf, 0xbf, 0xbf, 0xff },  // 11  ^;
-		{ 0x00, 0x7f, 0x00, 0xff },  // 12  ^<
-		{ 0x7f, 0x7f, 0x00, 0xff },  // 13  ^=
-		{ 0x00, 0x00, 0x7f, 0xff },  // 14  ^>
-		{ 0x7f, 0x00, 0x00, 0xff },  // 15  ^?
-		{ 0x7f, 0x3f, 0x00, 0xff },  // 16  ^@
-		{ 0xff, 0x99, 0x19, 0xff },  // 17  ^a
-		{ 0x00, 0x7f, 0x7f, 0xff },  // 18  ^b
-		{ 0x7f, 0x00, 0x7f, 0xff },  // 19  ^c
-		{ 0x00, 0x7f, 0xff, 0xff },  // 20  ^d
-		{ 0x7f, 0x00, 0xff, 0xff },  // 21  ^e
-		{ 0x33, 0x99, 0xcc, 0xff },  // 22  ^f  external link
-		{ 0xcc, 0xff, 0xcc, 0xff },  // 23  ^g
-		{ 0x00, 0x66, 0x33, 0xff },  // 24  ^h
-		{ 0xff, 0x00, 0x33, 0xff },  // 25  ^i
-		{ 0xb2, 0x19, 0x19, 0xff },  // 26  ^j
-		{ 0x99, 0x33, 0x00, 0xff },  // 27  ^k
-		{ 0xcc, 0x99, 0x33, 0xff },  // 28  ^l
-		{ 0x99, 0x99, 0x33, 0xff },  // 29  ^m
-		{ 0xff, 0xff, 0xbf, 0xff },  // 30  ^n
-		{ 0xff, 0xff, 0x7f, 0xff },  // 31  ^o
-	};
 }
 
 /**
@@ -74,6 +40,7 @@ namespace {
  *             purposes).
  */
 Ttf::Ttf(Display &display, TTF_Font *font, int size) :
+	std::enable_shared_from_this<Ttf>(),
 	font(font), size(size), display(display),
 	typeCase(nullptr), glyphs(256)
 {
@@ -139,6 +106,9 @@ SDL_Texture *Ttf::Texture(const Display &display, const std::string &s)
  * codes (e.g. "This is ^1red ^7and ^3yellow"), based on the following
  * chart: http://wolfwiki.anime.net/index.php/Color_Codes
  *
+ * This uses FmtTextDecor to do the formatting and rendering.  Consider
+ * using that instead.
+ *
  * @param display The target display.
  * @param x The X coordinate.
  * @param y The Y coordinate.
@@ -146,70 +116,14 @@ SDL_Texture *Ttf::Texture(const Display &display, const std::string &s)
  * @param s The string to render.
  * @param alpha The opacity (0 is fully transparent, 255 is fully opaque).
  */
-void Ttf::RenderText(const Display &display, int x, int y, int width,
+void Ttf::RenderText(Display &display, int x, int y, int width,
 	const std::string &s, int alpha)
 {
 	// If completely transparent, do nothing.
 	if (alpha == 0) return;
-
-	//TODO: Word-wrapping.
-
-	SDL_Rect destRect = { x, y, 0, 0 };
-	int lineHeight = TTF_FontLineSkip(font);
-
-	SDL_SetTextureAlphaMod(typeCase, alpha);
-
-	// Reset default color to white.
-	SDL_SetTextureColorMod(typeCase, 0xff, 0xff, 0xff);
-
-	for (auto iter = s.cbegin(), iend = s.cend(); iter != iend; ) {
-		uint32_t ch32 = utf8::next(iter, iend);
-
-		// Only handle characters which we have included in the type case.
-		if (ch32 > glyphs.size()) {
-			SDL_Log("Unrenderable code point: %d", ch32);
-			continue;
-		}
-		Uint16 ch = static_cast<Uint16>(ch32);
-
-		switch (ch) {
-			case '\n':  // Newlines.
-				destRect.x = x;
-				destRect.y += lineHeight;
-				continue;
-
-			case '^':  // Color codes.
-				if (iter == iend) {
-					return;
-				}
-				else {
-					uint32_t idx = utf8::next(iter, iend);
-
-					// Allow "^^" as an escape sequence for "^".
-					if (idx == '^') break;
-
-					const SDL_Color &color = FMT_COLORS[(idx + 16) & 31];
-					SDL_SetTextureColorMod(typeCase, color.r, color.g, color.b);
-				}
-				continue;
-
-			case '\r':  // Ignore CRs.
-				continue;
-		}
-
-		const Glyph &glyph = glyphs[ch];
-		if (!glyph.avail) continue;
-
-		destRect.w = glyph.texRect.w;
-		destRect.h = glyph.texRect.h;
-		if (SDL_RenderCopy(display.renderer, typeCase,
-			&glyph.texRect, &destRect) < 0)
-		{
-			throw Exception(SDL_GetError());
-		}
-
-		destRect.x += glyph.layoutW;
-	}
+	
+	FmtTextDecor(display, shared_from_this(), s, width).
+		Render(x, y, alpha);
 }
 
 bool Ttf::AddGlyph(SDL_Surface *surface, Uint16 ch, int &x, int y,
