@@ -5,10 +5,14 @@ project(adventures-in-sdl2)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
 
+include(CXX11)
 include(cotire)
 
-if(UNIX)
-	add_definitions("-std=c++0x")
+# Enable C++11 support if available.
+# Even if we don't detect it, try to build anyway and hope for the best :)
+check_for_cxx11_compiler(CXX11_COMPILER)
+if(CXX11_COMPILER)
+	enable_cxx11()
 endif()
 
 if(UNIX)
