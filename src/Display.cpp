@@ -100,4 +100,13 @@ void Display::RenderTexture(SDL_Texture *texture, int x, int y)
 	SDL_RenderCopy(renderer, texture, nullptr, &destRect);
 }
 
+/**
+ * Toggle fullscreen mode.
+ */
+void Display::ToggleFullscreen()
+{
+	auto fs = SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN;
+	SDL_SetWindowFullscreen(window, fs ? 0 : SDL_WINDOW_FULLSCREEN);
+}
+
 }  // namespace AISDL

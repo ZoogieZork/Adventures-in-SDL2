@@ -128,7 +128,12 @@ void App::OnKeyDown(SDL_KeyboardEvent &evt)
 {
 	switch (evt.keysym.sym) {
 	case SDLK_RETURN:
-		scene->OnAction();
+		if (evt.keysym.mod & KMOD_ALT) {
+			// Alt+Enter - Toggle fullscreen.
+			display.ToggleFullscreen();
+		} else {
+			scene->OnAction();
+		}
 		break;
 	case SDLK_ESCAPE:
 		scene->OnCancel();
