@@ -69,12 +69,36 @@ bool App::AttachController(int idx)
 		return false;
 	}
 
-	gameControllers.push_back(controller);
+	// Keep track of the instance ID of each controller so we can detach it
+	// later -- the detach event returns the instance ID, not the index!
+	int instanceId = SDL_JoystickInstanceID(
+		SDL_GameControllerGetJoystick(controller));
+	gameControllers[instanceId] = controller;
 
-	SDL_Log("Attached controller %d (%s).", idx,
-		SDL_GameControllerName(controller));
+	SDL_Log("Attached controller index=%d instance=%d (%s).",
+		idx, instanceId, SDL_GameControllerName(controller));
 
 	return true;
+}
+
+/**
+ * Attempt to detach a game controller.
+ * @param instanceId The joystick instance ID (not the index!).
+ * @return @c true if detached successfully, @c false otherwise.
+ */
+bool App::DetachController(int instanceId)
+{
+	auto iter = gameControllers.find(instanceId);
+	if (iter == gameControllers.end()) {
+		SDL_Log("Unable to find controller for instance ID: %d", instanceId);
+		return false;
+	}
+	else {
+		SDL_GameControllerClose(iter->second);
+		gameControllers.erase(iter);
+		SDL_Log("Detached controller instance=%d.", instanceId);
+		return true;
+	}
 }
 
 /**
@@ -198,8 +222,7 @@ void App::Run()
 				AttachController(evt.cdevice.which);
 				break;
 			case SDL_CONTROLLERDEVICEREMOVED:
-				//TODO: Detach the controller.
-				SDL_Log("Detach controller: %d", evt.cdevice.which);
+				DetachController(evt.cdevice.which);
 				break;
 			case SDL_CONTROLLERDEVICEREMAPPED:
 				//TODO
@@ -222,6 +245,11 @@ void App::Run()
 			scene = nextScene;
 			nextScene.reset();
 		}
+	}
+
+	// Detach all controllers.
+	while (!gameControllers.empty()) {
+		DetachController(gameControllers.begin()->first);
 	}
 
 	SDL_Log("Shutting down.");

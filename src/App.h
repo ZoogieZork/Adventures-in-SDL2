@@ -49,6 +49,7 @@ public:
 
 private:
 	bool AttachController(int idx);
+	bool DetachController(int instanceId);
 	void OnControllerButtonDown(SDL_ControllerButtonEvent &evt);
 	void OnKeyDown(SDL_KeyboardEvent &evt);
 
@@ -73,7 +74,8 @@ private:
 
 	ClockDecor clockDecor;
 
-	std::vector<SDL_GameController*> gameControllers;
+	/// Instance ID -> controller
+	std::map<int, SDL_GameController*> gameControllers;
 };
 
 }  // namespace AISDL
