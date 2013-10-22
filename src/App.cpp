@@ -140,7 +140,7 @@ void App::OnControllerButtonDown(SDL_ControllerButtonEvent &evt)
 		//TODO: Jump to previous scene.
 		break;
 	case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
-		//TODO: Jump to next scene.
+		RequestNextScene();
 		break;
 	default:
 		// Ignore.
@@ -182,7 +182,7 @@ void App::OnKeyDown(SDL_KeyboardEvent &evt)
 		//TODO: Jump to previous scene.
 		break;
 	case SDLK_PAGEDOWN:
-		//TODO: Jump to next scene.
+		RequestNextScene();
 		break;
 	default:
 		// Ignore.
@@ -285,6 +285,10 @@ void App::RequestNextScene()
 				" (inclusive)";
 			throw Exception(oss.str());
 		}
+	}
+	else if (sceneIdx == scenes.size() - 1) {
+		// At the final scene.
+		return;
 	}
 	else {
 		sceneIdx++;
