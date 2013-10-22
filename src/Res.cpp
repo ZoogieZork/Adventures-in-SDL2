@@ -34,7 +34,7 @@ Res::Res()
 	// toplevel either, so we check the possible locations.
 	//TODO: Handle install dir from CMake.
 	const char *dirs[] = { "share", "../share", "../../share" };
-	for (int i = 0; i < (sizeof(dirs) / sizeof(dirs[0])); i++) {
+	for (unsigned i = 0; i < (sizeof(dirs) / sizeof(dirs[0])); i++) {
 		if (CheckResDir(dirs[i])) {
 			resDir = dirs[i];
 			break;
