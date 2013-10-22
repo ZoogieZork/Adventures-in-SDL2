@@ -35,6 +35,9 @@ public:
 	void RenderTexture(SDL_Texture *texture, int x, int y);
 
 public:
+	void ToggleFullscreen();
+
+public:
 	// These are wrapped with deleters to ensure proper destruction order.
 	// A more complete engine would wrap them in full classes.
 	std::shared_ptr<SDL_Window> windowPtr;
