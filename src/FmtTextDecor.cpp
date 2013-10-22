@@ -105,6 +105,7 @@ FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
 void FmtTextDecor::Reformat()
 {
 	int lineHeight = TTF_FontLineSkip(**font);
+	int spaceWidth = font->spaceLayoutWidth;
 	if (text) s = **text;
 	int x = 0, y = 0;
 	int fmtColor = 7;
@@ -125,7 +126,7 @@ void FmtTextDecor::Reformat()
 			case '\n':  // Newlines.
 				x = 0;
 				y += lineHeight;
-				continue;
+				break;
 
 			case '^':  // Color codes.
 				if (iter == iend) {
@@ -139,21 +140,26 @@ void FmtTextDecor::Reformat()
 
 					fmtColor = (idx + 16) & 31;
 				}
-				continue;
+				break;
 
 			case '\r':  // Ignore CRs.
-				continue;
+				break;
+
+			case ' ':
+				x += spaceWidth;
+				break;
+
+			default: {
+				const Ttf::Glyph &glyph = font->glyphs[ch];
+				if (!glyph.avail) continue;
+
+				rends.push_back(Rend(&glyph, x, y, fmtColor));
+
+				x += glyph.layoutW;
+			}
 		}
 
-		const Ttf::Glyph &glyph = font->glyphs[ch];
-		if (!glyph.avail) continue;
-
-		rends.push_back(Rend(&glyph, x, y, fmtColor));
-
-		x += glyph.layoutW;
 	}
-
-	SDL_Log("%d elements to render.", rends.size());
 }
 
 /**

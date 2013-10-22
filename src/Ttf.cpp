@@ -214,6 +214,18 @@ void Ttf::AddGlyphRange(SDL_Surface *surface, int &x, int &y, int lineHeight,
 
 void Ttf::InitTypeCase()
 {
+	// Determine the width of a space, since there's no reason to include it
+	// in the type case.
+	if (TTF_GlyphMetrics(font, ' ', nullptr, nullptr,
+		nullptr, nullptr, &spaceLayoutWidth) == -1)
+	{
+		spaceLayoutWidth = 0;
+
+		std::ostringstream oss;
+		oss << "Unable to determine width for font " << *this;
+		SDL_Log("%s: %s", oss.str().c_str(), TTF_GetError());
+	};
+
 	// Create the surface.  This will be our drawing area.
 	SDL_Surface *surface = nullptr;
 	try {
@@ -223,7 +235,7 @@ void Ttf::InitTypeCase()
 		int lineHeight = TTF_FontHeight(font) + 2;
 
 		int x = 0, y = 0;
-		AddGlyphRange(surface, x, y, lineHeight, 0x20, 0x7e);
+		AddGlyphRange(surface, x, y, lineHeight, 0x21, 0x7e);
 		AddGlyphRange(surface, x, y, lineHeight, 0xa1, 0xff);
 
 		typeCase = SDL_CreateTextureFromSurface(display.renderer, surface);

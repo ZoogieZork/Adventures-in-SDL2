@@ -77,6 +77,7 @@ private:
 public:
 	SDL_Texture *typeCase;
 	std::vector<Glyph> glyphs;
+	int spaceLayoutWidth;
 };
 
 inline TTF_Font *operator*(const Ttf &ttf)
