@@ -113,14 +113,13 @@ void FmtTextDecor::Reformat()
 	rends.reserve(s.length());
 
 	for (auto iter = s.cbegin(), iend = s.cend(); iter != iend; ) {
-		uint32_t ch32 = utf8::next(iter, iend);
+		uint32_t ch = utf8::next(iter, iend);
 
 		// Only handle characters which we have included in the type case.
-		if (ch32 > font->glyphs.size()) {
-			SDL_Log("Unrenderable code point: %d", ch32);
+		if (ch > font->glyphs.size()) {
+			SDL_Log("Unrenderable code point: %d", ch);
 			continue;
 		}
-		Uint16 ch = static_cast<Uint16>(ch32);
 
 		switch (ch) {
 			case '\n':  // Newlines.
@@ -153,6 +152,8 @@ void FmtTextDecor::Reformat()
 
 		x += glyph.layoutW;
 	}
+
+	SDL_Log("%d elements to render.", rends.size());
 }
 
 /**
