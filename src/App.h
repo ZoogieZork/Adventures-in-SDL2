@@ -60,6 +60,7 @@ private:
 
 public:
 	// Director
+	virtual void RequestPrevScene();
 	virtual void RequestNextScene();
 	virtual void RequestShutdown();
 

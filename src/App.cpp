@@ -137,7 +137,7 @@ void App::OnControllerButtonDown(SDL_ControllerButtonEvent &evt)
 		//TODO: Switch to TOC (last scene in list).
 		break;
 	case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
-		//TODO: Jump to previous scene.
+		RequestPrevScene();
 		break;
 	case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
 		RequestNextScene();
@@ -179,7 +179,7 @@ void App::OnKeyDown(SDL_KeyboardEvent &evt)
 		//TODO: Switch to TOC (last scene in list).
 		break;
 	case SDLK_PAGEUP:
-		//TODO: Jump to previous scene.
+		RequestPrevScene();
 		break;
 	case SDLK_PAGEDOWN:
 		RequestNextScene();
@@ -270,6 +270,17 @@ void App::RenderFrame(Scene &scene)
 	clockDecor.Render();
 
 	SDL_RenderPresent(display.renderer);
+}
+
+void App::RequestPrevScene()
+{
+	if (sceneIdx > 0) {
+		sceneIdx--;
+
+		SDL_Log("Switching to scene: %d", sceneIdx);
+
+		nextScene = scenes[sceneIdx];
+	}
 }
 
 void App::RequestNextScene()

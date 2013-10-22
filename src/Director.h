@@ -31,6 +31,11 @@ public:
 
 public:
 	/**
+	 * Stop the current scene and switch to the prev scene.
+	 */
+	virtual void RequestPrevScene() = 0;
+
+	/**
 	 * Stop the current scene and switch to the next scene.
 	 */
 	virtual void RequestNextScene() = 0;
