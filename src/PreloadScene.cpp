@@ -30,7 +30,7 @@ namespace {
 }
 
 PreloadScene::PreloadScene(App &director, Display &display) :
-	SUPER(director, display),
+	SUPER(director, display, "Preloader"),
 	app(director), loading(false), progress(0)
 {
 }

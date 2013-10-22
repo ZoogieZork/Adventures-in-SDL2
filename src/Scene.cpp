@@ -22,8 +22,8 @@
 
 namespace AISDL {
 
-Scene::Scene(Director &director, Display &display) :
-	director(director), display(display)
+Scene::Scene(Director &director, Display &display, const std::string &title) :
+	director(director), display(display), title(title)
 {
 }
 

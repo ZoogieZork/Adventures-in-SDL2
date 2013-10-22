@@ -29,7 +29,7 @@ namespace AISDL {
  */
 class Scene {
 public:
-	Scene(Director &director, Display &display);
+	Scene(Director &director, Display &display, const std::string &title);
 	virtual ~Scene();
 
 public:
@@ -56,6 +56,8 @@ protected:
 protected:
 	Director &director;
 	Display &display;
+public:
+	const std::string title;
 };
 
 }  // namespace AISDL

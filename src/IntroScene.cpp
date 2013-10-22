@@ -26,7 +26,7 @@
 namespace AISDL {
 
 IntroScene::IntroScene(Director &director, Display &display) :
-	SUPER(director, display)
+	SUPER(director, display, "Introduction")
 {
 }
 

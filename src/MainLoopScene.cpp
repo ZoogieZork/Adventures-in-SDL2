@@ -26,7 +26,7 @@
 namespace AISDL {
 
 MainLoopScene::MainLoopScene(Director &director, Display &display) :
-	SUPER(director, display)
+	SUPER(director, display, "The Main Loop")
 {
 }
 

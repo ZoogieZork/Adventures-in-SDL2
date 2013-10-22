@@ -26,7 +26,7 @@
 namespace AISDL {
 
 FinalScene::FinalScene(Director &director, Display &display) :
-	SUPER(director, display)
+	SUPER(director, display, "Wrap-up and Credits")
 {
 }
 

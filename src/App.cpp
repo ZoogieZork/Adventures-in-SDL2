@@ -274,9 +274,8 @@ void App::RequestPrevScene()
 	if (sceneIdx > 0) {
 		sceneIdx--;
 
-		SDL_Log("Switching to scene: %d", sceneIdx);
-
 		nextScene = scenes[sceneIdx];
+		SDL_Log("Switching to %d: %s", sceneIdx, nextScene->title.c_str());
 	}
 }
 
@@ -302,9 +301,8 @@ void App::RequestNextScene()
 		sceneIdx++;
 	}
 
-	SDL_Log("Switching to scene: %d", sceneIdx);
-
 	nextScene = scenes[sceneIdx];
+	SDL_Log("Switching to %d: %s", sceneIdx, nextScene->title.c_str());
 }
 
 void App::RequestShutdown()
