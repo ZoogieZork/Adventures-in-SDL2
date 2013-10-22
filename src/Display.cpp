@@ -18,6 +18,8 @@
 
 #include "StdAfx.h"
 
+#include <SDL2/SDL_image.h>
+
 #include "Exception.h"
 
 #include "Display.h"
@@ -25,7 +27,7 @@
 namespace AISDL {
 
 Display::Display() :
-	window(nullptr), renderer(nullptr)
+	res(), window(nullptr), renderer(nullptr)
 {
 	windowPtr = std::shared_ptr<SDL_Window>(
 		SDL_CreateWindow("Adventures in SDL2",
@@ -45,6 +47,21 @@ Display::Display() :
 		throw Exception(SDL_GetError());
 	}
 	renderer = rendererPtr.get();
+
+	// Set the window icon.
+	std::string iconFile = res.resDir + "/icon.png";
+	SDL_Surface *icon = IMG_Load(iconFile.c_str());
+	if (icon) {
+		SDL_SetWindowIcon(window, icon);
+		// SDL_SetWindowIcon() copies the icon data into the internal format,
+		// so we don't need the surface anymore.
+		SDL_FreeSurface(icon);
+	}
+	else {
+		// Just log the problem, don't throw an exception.
+		SDL_Log("Unable to load window icon: %s: %s", iconFile.c_str(),
+			IMG_GetError());
+	}
 
 	// Act as if we're using a 640x480 framebuffer, even if the window is
 	// larger or smaller.
