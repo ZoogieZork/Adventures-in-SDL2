@@ -20,6 +20,8 @@
 
 #include "Exception.h"
 #include "FinalScene.h"
+#include "IntroScene.h"
+#include "MainLoopScene.h"
 #include "PreloadScene.h"
 #include "ResStr.h"
 #include "Scene.h"
@@ -38,6 +40,8 @@ App::App(int startingScene) :
 	startingScene(startingScene), sceneIdx(-1),
 	clockDecor(display)
 {
+	AddScene(std::make_shared<IntroScene>(*this, display));
+	AddScene(std::make_shared<MainLoopScene>(*this, display));
 	AddScene(std::make_shared<FinalScene>(*this, display));
 }
 

@@ -45,6 +45,10 @@ set(AISDL_SRCS
 	src/FinalScene.h
 	src/FmtTextDecor.cpp
 	src/FmtTextDecor.h
+	src/IntroScene.cpp
+	src/IntroScene.h
+	src/MainLoopScene.cpp
+	src/MainLoopScene.h
 	src/PreloadScene.cpp
 	src/PreloadScene.h
 	src/Res.cpp
