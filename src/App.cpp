@@ -114,9 +114,6 @@ void App::OnControllerButtonDown(SDL_ControllerButtonEvent &evt)
 	const SDL_GameControllerButton btn =
 		static_cast<SDL_GameControllerButton>(evt.button);
 
-	SDL_Log("Controller button pressed [%d]: %s", btn,
-		SDL_GameControllerGetStringForButton(btn));
-
 	switch (btn) {
 	case SDL_CONTROLLER_BUTTON_A:
 		scene->OnAction();
