@@ -281,7 +281,7 @@ void App::RequestPrevScene()
 
 void App::RequestNextScene()
 {
-	if (sceneIdx == -1) {
+	if (sceneIdx <= -1) {
 		// The scene at -1 is the preload scene; it's followed by the
 		// requested starting scene.
 		sceneIdx = startingScene;
@@ -293,7 +293,7 @@ void App::RequestNextScene()
 			throw Exception(oss.str());
 		}
 	}
-	else if (sceneIdx == scenes.size() - 1) {
+	else if ((unsigned)sceneIdx == scenes.size() - 1) {
 		// At the final scene.
 		return;
 	}
