@@ -167,8 +167,9 @@ void FmtTextDecor::Reformat()
  * @param x The X coordinate.
  * @param y The Y coordinate.
  * @param alpha The opacity (0 is fully transparent, 255 is fully opaque).
+ * @param limit The maximum number of characters to render.
  */
-void FmtTextDecor::Render(int x, int y, int alpha) const
+void FmtTextDecor::Render(int x, int y, int alpha, unsigned int limit) const
 {
 	// If completely transparent, do nothing.
 	if (alpha == 0) return;
@@ -180,6 +181,7 @@ void FmtTextDecor::Render(int x, int y, int alpha) const
 	// Reset default color to white.
 	SDL_SetTextureColorMod(font->typeCase, 0xff, 0xff, 0xff);
 
+	unsigned int count = 0;
 	for (auto iter = rends.cbegin(); iter != rends.cend(); ++iter) {
 		if (fmtColor != iter->fmtColor) {
 			fmtColor = iter->fmtColor;
@@ -197,6 +199,11 @@ void FmtTextDecor::Render(int x, int y, int alpha) const
 			&iter->glyph->texRect, &destRect) < 0)
 		{
 			throw Exception(SDL_GetError());
+		}
+
+		count++;
+		if (count >= limit) {
+			break;
 		}
 	}
 }
