@@ -86,6 +86,8 @@ void ResStr::ReloadAll()
  */
 void ResStr::Reload()
 {
+	segments.clear();
+
 	// Fast byte-for-byte string read.
 	// Adapted from:
 	// http://insanecoding.blogspot.com/2011/11/how-to-read-in-file-in-c.html
@@ -96,13 +98,24 @@ void ResStr::Reload()
 		in.seekg(0, std::ios::beg);
 		in.read(&s[0], s.size());
 		in.close();
-
-		// Notify listener.
-		if (onReload) onReload();
 	}
 	else {
 		throw Exception("Failed to read: " + filename);
 	}
+
+	// Split the string into segments.
+	for (size_t pos = 0; ; ) {
+		size_t endpos = s.find("----\n", pos);
+		if (endpos == std::string::npos) {
+			segments.emplace_back(s.substr(pos, s.size() - pos));
+			break;
+		}
+		segments.emplace_back(s.substr(pos, endpos - pos));
+		pos = endpos + 5;
+	}
+
+	// Notify listener.
+	if (onReload) onReload();
 }
 
 }  // namespace AISDL

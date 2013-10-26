@@ -40,11 +40,18 @@ public:
 
 	void Reload();
 
+public:
+	size_t GetNumSegments() const { return segments.size(); }
+	const std::string &operator[](size_t i) const { return segments[i]; }
+
 private:
 	static std::list<std::weak_ptr<ResStr>> instances;
 	std::string filename;
 	std::string s;
 	std::function<void()> onReload;
+public:
+	typedef std::vector<std::string> segments_t;
+	segments_t segments;
 };
 
 inline const std::string &operator*(const ResStr &str)
