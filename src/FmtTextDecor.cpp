@@ -68,7 +68,7 @@ namespace {
  * Constructor when using static string.
  * @param display The target display.
  * @param font The font to use to render the text.
- * @param text The text itself.
+ * @param s The text itself.
  * @param width The maximum width of the text area (currently unused).
  */
 FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,

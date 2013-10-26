@@ -107,7 +107,8 @@ SDL_Surface *Display::NewAlphaSurface(int w, int h)
  * rendered to a specific position.
  *
  * @param texture The texture to render (may not be @c nullptr);
- * @param x The destination
+ * @param x The X coord of the upper-left corner of the texture.
+ * @param y The Y coord of the upper-left corner of the texture.
  */
 void Display::RenderTexture(SDL_Texture *texture, int x, int y)
 {
