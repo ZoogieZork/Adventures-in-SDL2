@@ -86,7 +86,7 @@ void ResStr::ReloadAll()
  */
 void ResStr::Reload()
 {
-	segments.clear();
+	pages.clear();
 
 	// Fast byte-for-byte string read.
 	// Adapted from:
@@ -103,14 +103,14 @@ void ResStr::Reload()
 		throw Exception("Failed to read: " + filename);
 	}
 
-	// Split the string into segments.
+	// Split the string into separate pages.
 	for (size_t pos = 0; ; ) {
 		size_t endpos = s.find("----\n", pos);
 		if (endpos == std::string::npos) {
-			segments.emplace_back(s.substr(pos, s.size() - pos));
+			pages.emplace_back(s.substr(pos, s.size() - pos));
 			break;
 		}
-		segments.emplace_back(s.substr(pos, endpos - pos));
+		pages.emplace_back(s.substr(pos, endpos - pos));
 		pos = endpos + 5;
 	}
 

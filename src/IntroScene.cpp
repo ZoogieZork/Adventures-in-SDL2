@@ -38,7 +38,7 @@ void IntroScene::Preload()
 {
 	const std::string dir = display.res.resDir + "/text/intro/";
 	introTxt.reset(new FmtTextDecor(display, display.res.pixelFont,
-		ResStr::Load(dir + "intro.txt")->segments[1], 640));
+		ResStr::Load(dir + "intro.txt")->pages[1], 640));
 }
 
 void IntroScene::Advance(Uint32 tick)

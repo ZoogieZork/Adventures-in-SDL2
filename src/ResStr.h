@@ -41,8 +41,8 @@ public:
 	void Reload();
 
 public:
-	size_t GetNumSegments() const { return segments.size(); }
-	const std::string &operator[](size_t i) const { return segments[i]; }
+	size_t GetNumPages() const { return pages.size(); }
+	const std::string &operator[](size_t i) const { return pages[i]; }
 
 private:
 	static std::list<std::weak_ptr<ResStr>> instances;
@@ -50,8 +50,8 @@ private:
 	std::string s;
 	std::function<void()> onReload;
 public:
-	typedef std::vector<std::string> segments_t;
-	segments_t segments;
+	typedef std::vector<std::string> pages_t;
+	pages_t pages;
 };
 
 inline const std::string &operator*(const ResStr &str)
