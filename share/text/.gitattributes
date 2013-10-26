@@ -1,0 +1,2 @@
+# These text files *must* use Unix-style EOLs for parsing reasons.
+*.txt eol=lf

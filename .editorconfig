@@ -13,3 +13,6 @@ insert_final_newline = true
 
 [*.{c,cpp,h}]
 indent_brace_style = Stroustrup
+
+[share/text/**/*.txt]
+end_of_line = lf
