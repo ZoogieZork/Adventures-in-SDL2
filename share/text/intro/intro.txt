@@ -1,0 +1,23 @@
+^7Dark Cave
+
+^:You are in a dark room.
+
+It is pitch-black in here!  You are likely to be eaten by a grue.
+
+There is a sword here.
+----
+^7Dark Cave
+
+^:You take the sword.
+
+Swords don't give off light!  You can vaguely hear grue-like sounds.
+
+There is a torch here.
+----
+^7Dark Cave (still)
+
+^:Hmm.  The torch is lit and everything, but you still can't see anything.
+
+The grue-like sounds are getting very close!
+
+There is an SDL library here.

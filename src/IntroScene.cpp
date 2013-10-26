@@ -36,6 +36,9 @@ IntroScene::~IntroScene()
 
 void IntroScene::Preload()
 {
+	const std::string dir = display.res.resDir + "/text/intro/";
+	introTxt.reset(new FmtTextDecor(display, display.res.pixelFont,
+		ResStr::Load(dir + "intro.txt")->segments[1], 640));
 }
 
 void IntroScene::Advance(Uint32 tick)
@@ -46,6 +49,8 @@ void IntroScene::RenderContent()
 {
 	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x3f, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(display.renderer);
+
+	introTxt->Render(40, 40);
 }
 
 }  // namespace AISDL

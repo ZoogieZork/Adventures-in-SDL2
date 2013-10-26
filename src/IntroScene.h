@@ -39,6 +39,9 @@ public:
 	virtual void Preload();
 	virtual void Advance(Uint32 tick);
 	virtual void RenderContent();
+
+private:
+	std::unique_ptr<FmtTextDecor> introTxt;
 };
 
 }  // namespace AISDL
