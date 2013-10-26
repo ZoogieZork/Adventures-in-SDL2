@@ -49,6 +49,8 @@ set(AISDL_SRCS
 	src/IntroScene.h
 	src/MainLoopScene.cpp
 	src/MainLoopScene.h
+	src/PagedTextDecor.cpp
+	src/PagedTextDecor.h
 	src/PreloadScene.cpp
 	src/PreloadScene.h
 	src/Res.cpp

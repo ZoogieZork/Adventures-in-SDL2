@@ -18,7 +18,7 @@
 
 #include "StdAfx.h"
 
-#include "FmtTextDecor.h"
+#include "PagedTextDecor.h"
 #include "ResStr.h"
 
 #include "IntroScene.h"
@@ -34,11 +34,18 @@ IntroScene::~IntroScene()
 {
 }
 
+void IntroScene::OnAction()
+{
+	if (!introTxt->NextPage()) {
+		director.RequestNextScene();
+	}
+}
+
 void IntroScene::Preload()
 {
 	const std::string dir = display.res.resDir + "/text/intro/";
-	introTxt.reset(new FmtTextDecor(display, display.res.pixelFont,
-		ResStr::Load(dir + "intro.txt")->pages[1], 640));
+	introTxt.reset(new PagedTextDecor(display, display.res.pixelFont,
+		ResStr::Load(dir + "intro.txt"), 640));
 }
 
 void IntroScene::Advance(Uint32 tick)

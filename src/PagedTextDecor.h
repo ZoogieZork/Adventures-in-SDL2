@@ -1,5 +1,5 @@
 
-/* IntroScene.h
+/* PagedTextDecor.h
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -18,33 +18,41 @@
 
 #pragma once
 
-#include "Scene.h"
+#include "Display.h"
+#include "Ttf.h"
 
 namespace AISDL {
 
-class PagedTextDecor;
+class FmtTextDecor;
+class ResStr;
 
 /**
- * All about the main event loop.
+ * A formatted text renderable that spans multiple pages.
  * @author Michael Imamura
+ * @see FmtTextDecor
  */
-class IntroScene : public Scene {
-	typedef Scene SUPER;
+class PagedTextDecor {
 public:
-	IntroScene(Director &director, Display &display);
-	virtual ~IntroScene();
-
-public:
-	// Scene
-	virtual void OnAction();
-
-	virtual void Preload();
-	virtual void Advance(Uint32 tick);
-	virtual void RenderContent();
+	PagedTextDecor(Display &display, std::shared_ptr<Ttf> font,
+		std::shared_ptr<ResStr> text, int width);
 
 private:
-	std::unique_ptr<PagedTextDecor> introTxt;
+	void Rebuild();
+
+public:
+	void FirstPage();
+	bool NextPage();
+	bool PrevPage();
+	void Render(int x, int y, int alpha=0xff) const;
+
+private:
+	Display &display;
+	std::shared_ptr<Ttf> font;
+	std::shared_ptr<ResStr> text;
+	std::vector<std::shared_ptr<const FmtTextDecor>> pages;
+	int width;
+	size_t numPages;
+	unsigned int pageNum;
 };
 
-}  // namespace AISDL
-
+}
