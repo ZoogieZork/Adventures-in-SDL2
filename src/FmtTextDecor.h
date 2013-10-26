@@ -53,7 +53,7 @@ private:
 	void Reformat();
 
 public:
-	void Render(int x, int y, int alpha=0xff);
+	void Render(int x, int y, int alpha=0xff) const;
 
 private:
 	Display &display;

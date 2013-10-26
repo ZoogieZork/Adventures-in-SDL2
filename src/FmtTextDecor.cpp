@@ -168,7 +168,7 @@ void FmtTextDecor::Reformat()
  * @param y The Y coordinate.
  * @param alpha The opacity (0 is fully transparent, 255 is fully opaque).
  */
-void FmtTextDecor::Render(int x, int y, int alpha)
+void FmtTextDecor::Render(int x, int y, int alpha) const
 {
 	// If completely transparent, do nothing.
 	if (alpha == 0) return;
