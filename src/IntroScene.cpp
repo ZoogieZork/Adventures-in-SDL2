@@ -48,6 +48,11 @@ void IntroScene::Preload()
 		ResStr::Load(dir + "intro.txt"), 640));
 }
 
+void IntroScene::Reset()
+{
+	introTxt->FirstPage();
+}
+
 void IntroScene::Advance(Uint32 tick)
 {
 }

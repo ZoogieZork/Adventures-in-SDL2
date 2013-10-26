@@ -41,6 +41,9 @@ public:
 	/** Preload assets used specifically by this scene. */
 	virtual void Preload() { }
 
+	/** Reset the scene to the initial state. */
+	virtual void Reset() { }
+
 	/**
 	 * Define custom handling of when an SDL event arrives.
 	 * @param evt The SDL event.

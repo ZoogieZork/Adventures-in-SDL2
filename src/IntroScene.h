@@ -39,6 +39,7 @@ public:
 	virtual void OnAction();
 
 	virtual void Preload();
+	virtual void Reset();
 	virtual void Advance(Uint32 tick);
 	virtual void RenderContent();
 

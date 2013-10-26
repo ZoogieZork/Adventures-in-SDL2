@@ -245,6 +245,7 @@ void App::Run()
 		if (nextScene) {
 			scene = nextScene;
 			nextScene.reset();
+			scene->Reset();
 		}
 	}
 
