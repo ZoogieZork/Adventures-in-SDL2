@@ -31,6 +31,7 @@
 #	include <windows.h>
 #endif
 
+#include <limits.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
