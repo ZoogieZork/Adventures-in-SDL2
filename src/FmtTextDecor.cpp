@@ -70,11 +70,12 @@ namespace {
  * @param font The font to use to render the text.
  * @param s The text itself.
  * @param width The maximum width of the text area (currently unused).
+ * @param cursor Display a cursor after the rendered text.
  */
 FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
-	const std::string &s, int width) :
+	const std::string &s, int width, bool cursor) :
 	display(display), font(std::move(font)), s(s),
-	width(width)
+	width(width), cursor(cursor)
 {
 	Reformat();
 }
@@ -87,9 +88,9 @@ FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
  * @param width The maximum width of the text area (currently unused).
  */
 FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
-	std::shared_ptr<ResStr> text, int width) :
+	std::shared_ptr<ResStr> text, int width, bool cursor) :
 	display(display), font(std::move(font)), text(std::move(text)),
-	width(width)
+	width(width), cursor(cursor)
 {
 	Reformat();
 
@@ -163,6 +164,15 @@ void FmtTextDecor::Reformat()
 }
 
 /**
+ * Set the visibility of the cursor.
+ * @param cursor @c true for a visible cursor, @c false to hide the cursor.
+ */
+void FmtTextDecor::SetCursorVisible(bool cursor)
+{
+	this->cursor = cursor;
+}
+
+/**
  * Render the text at the specified coordinates.
  * @param x The X coordinate.
  * @param y The Y coordinate.
@@ -182,6 +192,7 @@ void FmtTextDecor::Render(int x, int y, int alpha, unsigned int limit) const
 	SDL_SetTextureColorMod(font->typeCase, 0xff, 0xff, 0xff);
 
 	unsigned int count = 0;
+	int cursorX = 0, cursorY = 0;
 	for (auto iter = rends.cbegin(); iter != rends.cend(); ++iter) {
 		if (fmtColor != iter->fmtColor) {
 			fmtColor = iter->fmtColor;
@@ -200,10 +211,27 @@ void FmtTextDecor::Render(int x, int y, int alpha, unsigned int limit) const
 		{
 			throw Exception(SDL_GetError());
 		}
+		cursorX = destRect.x + iter->glyph->layoutW;
+		cursorY = destRect.y;
 
 		count++;
 		if (count >= limit) {
 			break;
+		}
+	}
+
+	if (cursor) {
+		const Ttf::Glyph &glyph = font->glyphs['_'];
+		if (glyph.avail) {
+			SDL_Rect destRect = {
+				cursorX, cursorY,
+				glyph.texRect.w, glyph.texRect.h
+			};
+			if (SDL_RenderCopy(display.renderer, font->typeCase,
+				&glyph.texRect, &destRect) < 0)
+			{
+				throw Exception(SDL_GetError());
+			}
 		}
 	}
 }

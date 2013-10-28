@@ -37,9 +37,9 @@ class ResStr;
 class FmtTextDecor {
 public:
 	FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
-		const std::string &s, int width);
+		const std::string &s, int width, bool cursor=false);
 	FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
-		std::shared_ptr<ResStr> text, int width);
+		std::shared_ptr<ResStr> text, int width, bool cursor=false);
 
 private:
 	struct Rend {
@@ -53,6 +53,9 @@ private:
 	void Reformat();
 
 public:
+	void SetCursorVisible(bool cursor);
+
+public:
 	void Render(int x, int y, int alpha=0xff, unsigned int limit=UINT_MAX) const;
 
 private:
@@ -61,6 +64,7 @@ private:
 	std::shared_ptr<ResStr> text;
 	std::string s;
 	int width;
+	bool cursor;
 
 	std::vector<Rend> rends;
 };
