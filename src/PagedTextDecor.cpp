@@ -35,7 +35,8 @@ namespace AISDL {
  */
 PagedTextDecor::PagedTextDecor(Display &display, std::shared_ptr<Ttf> font,
 	std::shared_ptr<ResStr> text, int width, bool cursor) :
-	display(display), font(font), text(text), width(width), cursor(cursor),
+	display(display), font(font), text(text), width(width),
+	cursor(cursor), cursorVisible(false),
 	pageNum(0),
 	animating(false), animStart(0), animProgress(0)
 {
@@ -58,7 +59,7 @@ void PagedTextDecor::Rebuild()
 
 	for (auto iter = tpages.cbegin(); iter != tpages.cend(); ++iter) {
 		pages.emplace_back(std::make_shared<FmtTextDecor>(display, font,
-			*iter, width, cursor));
+			*iter, width));
 	}
 
 	numPages = tpages.size();
@@ -120,7 +121,7 @@ bool PagedTextDecor::PrevPage(bool animate)
 void PagedTextDecor::Advance(Uint32 tick)
 {
 	if (animating) {
-		pages[pageNum]->SetCursorVisible(cursor);
+		cursorVisible = cursor;
 		animProgress = (tick - animStart) / 10;
 		if (animProgress >= pages[pageNum]->GetNumRenderables()) {
 			animating = false;
@@ -128,7 +129,7 @@ void PagedTextDecor::Advance(Uint32 tick)
 	}
 	else {
 		// Blink the cursor.
-		pages[pageNum]->SetCursorVisible(cursor && ((tick % 1000) < 500));
+		cursorVisible = cursor && ((tick % 1000) < 500);
 	}
 }
 
@@ -140,7 +141,8 @@ void PagedTextDecor::Advance(Uint32 tick)
  */
 void PagedTextDecor::Render(int x, int y, int alpha) const
 {
-	pages[pageNum]->Render(x, y, alpha, animating ? animProgress : UINT_MAX);
+	pages[pageNum]->Render(x, y, alpha, cursorVisible,
+		animating ? animProgress : UINT_MAX);
 }
 
 }

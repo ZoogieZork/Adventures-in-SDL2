@@ -50,9 +50,10 @@ private:
 	Display &display;
 	std::shared_ptr<Ttf> font;
 	std::shared_ptr<ResStr> text;
-	std::vector<std::shared_ptr<FmtTextDecor>> pages;
+	std::vector<std::shared_ptr<const FmtTextDecor>> pages;
 	int width;
 	bool cursor;
+	bool cursorVisible;
 
 	size_t numPages;
 	unsigned int pageNum;

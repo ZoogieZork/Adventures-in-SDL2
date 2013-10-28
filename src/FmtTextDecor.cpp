@@ -70,12 +70,11 @@ namespace {
  * @param font The font to use to render the text.
  * @param s The text itself.
  * @param width The maximum width of the text area (currently unused).
- * @param cursor Display a cursor after the rendered text.
  */
 FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
-	const std::string &s, int width, bool cursor) :
+	const std::string &s, int width) :
 	display(display), font(std::move(font)), s(s),
-	width(width), cursor(cursor)
+	width(width)
 {
 	Reformat();
 }
@@ -88,9 +87,9 @@ FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
  * @param width The maximum width of the text area (currently unused).
  */
 FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
-	std::shared_ptr<ResStr> text, int width, bool cursor) :
+	std::shared_ptr<ResStr> text, int width) :
 	display(display), font(std::move(font)), text(std::move(text)),
-	width(width), cursor(cursor)
+	width(width)
 {
 	Reformat();
 
@@ -164,22 +163,15 @@ void FmtTextDecor::Reformat()
 }
 
 /**
- * Set the visibility of the cursor.
- * @param cursor @c true for a visible cursor, @c false to hide the cursor.
- */
-void FmtTextDecor::SetCursorVisible(bool cursor)
-{
-	this->cursor = cursor;
-}
-
-/**
  * Render the text at the specified coordinates.
  * @param x The X coordinate.
  * @param y The Y coordinate.
  * @param alpha The opacity (0 is fully transparent, 255 is fully opaque).
+ * @param cursor @c true to draw a cursor at the end of the text.
  * @param limit The maximum number of characters to render.
  */
-void FmtTextDecor::Render(int x, int y, int alpha, unsigned int limit) const
+void FmtTextDecor::Render(int x, int y, int alpha, bool cursor,
+	unsigned int limit) const
 {
 	// If completely transparent, do nothing.
 	if (alpha == 0) return;

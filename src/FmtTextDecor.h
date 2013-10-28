@@ -37,9 +37,9 @@ class ResStr;
 class FmtTextDecor {
 public:
 	FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
-		const std::string &s, int width, bool cursor=false);
+		const std::string &s, int width);
 	FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
-		std::shared_ptr<ResStr> text, int width, bool cursor=false);
+		std::shared_ptr<ResStr> text, int width);
 
 private:
 	struct Rend {
@@ -54,10 +54,10 @@ private:
 
 public:
 	size_t GetNumRenderables() const { return rends.size(); }
-	void SetCursorVisible(bool cursor);
 
 public:
-	void Render(int x, int y, int alpha=0xff, unsigned int limit=UINT_MAX) const;
+	void Render(int x, int y, int alpha=0xff, bool cursor=false,
+		unsigned int limit=UINT_MAX) const;
 
 private:
 	Display &display;
@@ -65,7 +65,6 @@ private:
 	std::shared_ptr<ResStr> text;
 	std::string s;
 	int width;
-	bool cursor;
 
 	std::vector<Rend> rends;
 };
