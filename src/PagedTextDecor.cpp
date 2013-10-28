@@ -122,7 +122,7 @@ void PagedTextDecor::Advance(Uint32 tick)
 	if (animating) {
 		pages[pageNum]->SetCursorVisible(cursor);
 		animProgress = (tick - animStart) / 10;
-		if (animProgress >= (*text)[pageNum].size()) {
+		if (animProgress >= pages[pageNum]->GetNumRenderables()) {
 			animating = false;
 		}
 	}

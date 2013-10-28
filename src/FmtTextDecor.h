@@ -53,6 +53,7 @@ private:
 	void Reformat();
 
 public:
+	size_t GetNumRenderables() const { return rends.size(); }
 	void SetCursorVisible(bool cursor);
 
 public:
