@@ -54,6 +54,7 @@ static void InitApp() {
 static void ShutdownApp() {
 	TTF_Quit();
 	IMG_Quit();
+	SDL_Quit();
 }
 
 #ifdef _WIN32
