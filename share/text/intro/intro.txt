@@ -5,6 +5,8 @@
 It is pitch-black in here!  You are likely to be eaten by a grue.
 
 There is a sword here.
+
+^7> ^5Take the sword
 ----
 ^7Dark Cave
 
@@ -12,7 +14,9 @@ There is a sword here.
 
 Swords don't give off light!  You can vaguely hear grue-like sounds.
 
-There is a torch here.
+There is a torch on the wall here.
+
+^7> ^5Light the torch
 ----
 ^7Dark Cave (still)
 
@@ -21,3 +25,5 @@ There is a torch here.
 The grue-like sounds are getting very close!
 
 There is an SDL library here.
+
+^7> ^5Use SDL
