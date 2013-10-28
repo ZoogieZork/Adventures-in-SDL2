@@ -36,17 +36,17 @@ static void InitApp() {
 	SDL_Log("Starting up all SDL subsystems and libraries.");
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		throw Exception(std::string("SDL init: ") + SDL_GetError());
+		throw Exception("SDL init", SDL_GetError());
 	}
 
 	int reqFmts = IMG_INIT_JPG | IMG_INIT_PNG;
 	int actualFmts = IMG_Init(reqFmts);
 	if ((actualFmts & reqFmts) != reqFmts) {
-		throw Exception(std::string("SDL_image init: ") + IMG_GetError());
+		throw Exception("SDL_image init", IMG_GetError());
 	}
 
 	if (TTF_Init() == -1) {
-		throw Exception(std::string("SDL_ttf init: ") + TTF_GetError());
+		throw Exception("SDL_ttf init", TTF_GetError());
 	}
 }
 
