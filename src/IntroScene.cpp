@@ -36,7 +36,7 @@ IntroScene::~IntroScene()
 
 void IntroScene::OnAction()
 {
-	if (!introTxt->NextPage()) {
+	if (!introTxt->NextPage(true)) {
 		director.RequestNextScene();
 	}
 }
@@ -45,21 +45,22 @@ void IntroScene::Preload()
 {
 	const std::string dir = display.res.resDir + "/text/intro/";
 	introTxt.reset(new PagedTextDecor(display, display.res.pixelFont,
-		ResStr::Load(dir + "intro.txt"), 640));
+		ResStr::Load(dir + "intro.txt"), 560, true));
 }
 
 void IntroScene::Reset()
 {
-	introTxt->FirstPage();
+	introTxt->FirstPage(true);
 }
 
 void IntroScene::Advance(Uint32 tick)
 {
+	introTxt->Advance(tick);
 }
 
 void IntroScene::RenderContent()
 {
-	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x3f, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x1f, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(display.renderer);
 
 	introTxt->Render(40, 40);

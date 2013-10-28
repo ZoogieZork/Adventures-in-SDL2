@@ -34,25 +34,32 @@ class ResStr;
 class PagedTextDecor {
 public:
 	PagedTextDecor(Display &display, std::shared_ptr<Ttf> font,
-		std::shared_ptr<ResStr> text, int width);
+		std::shared_ptr<ResStr> text, int width, bool cursor=false);
 
 private:
 	void Rebuild();
 
 public:
-	void FirstPage();
-	bool NextPage();
-	bool PrevPage();
+	void FirstPage(bool animate=false);
+	bool NextPage(bool animate=false);
+	bool PrevPage(bool animate=false);
+	void Advance(Uint32 tick);
 	void Render(int x, int y, int alpha=0xff) const;
 
 private:
 	Display &display;
 	std::shared_ptr<Ttf> font;
 	std::shared_ptr<ResStr> text;
-	std::vector<std::shared_ptr<const FmtTextDecor>> pages;
+	std::vector<std::shared_ptr<FmtTextDecor>> pages;
 	int width;
+	bool cursor;
+
 	size_t numPages;
 	unsigned int pageNum;
+
+	bool animating;
+	Uint32 animStart;
+	unsigned int animProgress;
 };
 
 }

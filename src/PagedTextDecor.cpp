@@ -31,11 +31,13 @@ namespace AISDL {
  * @param font The font to use to render the text.
  * @param text The text itself.
  * @param width The maximum width of the text area (currently unused).
+ * @param cursor Display a cursor after the rendered text.
  */
 PagedTextDecor::PagedTextDecor(Display &display, std::shared_ptr<Ttf> font,
-	std::shared_ptr<ResStr> text, int width) :
-	display(display), font(font), text(text), width(width),
-	pageNum(0)
+	std::shared_ptr<ResStr> text, int width, bool cursor) :
+	display(display), font(font), text(text), width(width), cursor(cursor),
+	pageNum(0),
+	animating(false), animStart(0), animProgress(0)
 {
 	Rebuild();
 
@@ -56,7 +58,7 @@ void PagedTextDecor::Rebuild()
 
 	for (auto iter = tpages.cbegin(); iter != tpages.cend(); ++iter) {
 		pages.emplace_back(std::make_shared<FmtTextDecor>(display, font,
-			*iter, width));
+			*iter, width, cursor));
 	}
 
 	numPages = tpages.size();
@@ -67,18 +69,26 @@ void PagedTextDecor::Rebuild()
 
 /**
  * Jump to the first page.
+ * @param animate @c true to animate the display of the page.
  */
-void PagedTextDecor::FirstPage()
+void PagedTextDecor::FirstPage(bool animate)
 {
+	animating = animate;
+	animStart = SDL_GetTicks();
+
 	pageNum = 0;
 }
 
 /**
  * Advance to the next page.
+ * @param animate @c true to animate the display of the page.
  * @return @c true if the page changed, @c false if already at the end.
  */
-bool PagedTextDecor::NextPage()
+bool PagedTextDecor::NextPage(bool animate)
 {
+	animating = animate;
+	animStart = SDL_GetTicks();
+
 	if (pageNum < numPages - 1) {
 		pageNum++;
 		return true;
@@ -90,16 +100,35 @@ bool PagedTextDecor::NextPage()
 
 /**
  * Return to the previous page.
+ * @param animate @c true to animate the display of the page.
  * @return @c true if the page changed, @c false if already at the first page.
  */
-bool PagedTextDecor::PrevPage()
+bool PagedTextDecor::PrevPage(bool animate)
 {
+	animating = animate;
+	animStart = SDL_GetTicks();
+
 	if (pageNum > 0) {
 		pageNum--;
 		return true;
 	}
 	else {
 		return false;
+	}
+}
+
+void PagedTextDecor::Advance(Uint32 tick)
+{
+	if (animating) {
+		pages[pageNum]->SetCursorVisible(cursor);
+		animProgress = (tick - animStart) / 10;
+		if (animProgress >= (*text)[pageNum].size()) {
+			animating = false;
+		}
+	}
+	else {
+		// Blink the cursor.
+		pages[pageNum]->SetCursorVisible(cursor && ((tick % 1000) < 500));
 	}
 }
 
@@ -111,7 +140,7 @@ bool PagedTextDecor::PrevPage()
  */
 void PagedTextDecor::Render(int x, int y, int alpha) const
 {
-	pages[pageNum]->Render(x, y, alpha);
+	pages[pageNum]->Render(x, y, alpha, animating ? animProgress : UINT_MAX);
 }
 
 }
