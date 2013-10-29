@@ -45,6 +45,7 @@ public:
 
 	std::shared_ptr<Ttf> clockFont;
 	std::shared_ptr<Ttf> pixelFont;
+	std::shared_ptr<Ttf> bodyFont;
 
 	std::shared_ptr<SpriteMap> playerSprite;
 };

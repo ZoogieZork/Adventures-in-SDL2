@@ -73,6 +73,7 @@ void Res::Preload(Display &display)
 {
 	pixelFont = Ttf::Load(display, resDir + "/fonts/FifteenNarrow.ttf", 16);
 	clockFont = pixelFont;
+	bodyFont = Ttf::Load(display, resDir + "/fonts/Tuffy.ttf", 16);
 
 	playerSprite = SpriteMap::Load(display, resDir + "/sprites/wizard.png", 30, 45);
 }

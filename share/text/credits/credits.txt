@@ -1,2 +1,6 @@
 "Wizard" sprites by Stafford McIntyre for the PlatForge project.
 http://opengameart.org/content/wizard-2
+
+"Tuffy" font by Thatcher Ulrich (http://tulrich.com),
+Karoly Barta (bartakarcsi@gmail.com) and Michael Everson.
+Released to the public domain.
