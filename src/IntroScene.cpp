@@ -45,7 +45,7 @@ void IntroScene::Preload()
 {
 	const std::string dir = display.res.resDir + "/text/intro/";
 	introTxt.reset(new PagedTextDecor(display, display.res.pixelFont,
-		ResStr::Load(dir + "intro.txt"), 560, true));
+		ResStr::Load(dir + "intro.txt"), 472, true));
 }
 
 void IntroScene::Reset()
@@ -65,8 +65,8 @@ void IntroScene::RenderContent()
 
 	introTxt->Render(40, 40);
 
-	display.res.playerSprite->Render(40, 400, 0);
-	display.res.playerSprite->Render(80, 400, 12);
+	display.res.playerSprite->Render(40, 300, 0);
+	display.res.playerSprite->Render(80, 300, 12);
 }
 
 }  // namespace AISDL

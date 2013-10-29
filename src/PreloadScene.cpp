@@ -73,7 +73,7 @@ void PreloadScene::RenderContent()
 	SDL_RenderClear(rend);
 
 	SDL_Rect barRect = {
-		320 - (BAR_WIDTH / 2), 240 - (BAR_HEIGHT / 2),
+		256 - (BAR_WIDTH / 2), 192 - (BAR_HEIGHT / 2),
 		static_cast<int>(BAR_WIDTH * progress), BAR_HEIGHT };
 
 	// Draw the progress bar fill.

@@ -31,7 +31,7 @@ Display::Display() :
 {
 	windowPtr = std::shared_ptr<SDL_Window>(
 		SDL_CreateWindow("Adventures in SDL2",
-			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480,
+			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 768,
 			SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL),
 		SDL_DestroyWindow);
 	if (!windowPtr) {
@@ -63,10 +63,10 @@ Display::Display() :
 			IMG_GetError());
 	}
 
-	// Act as if we're using a 640x480 framebuffer, even if the window is
+	// Act as if we're using a 512x384 framebuffer, even if the window is
 	// larger or smaller.
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
-	SDL_RenderSetLogicalSize(renderer, 640, 480);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+	SDL_RenderSetLogicalSize(renderer, 512, 384);
 }
 
 /**
