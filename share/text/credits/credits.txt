@@ -4,6 +4,5 @@ http://opengameart.org/content/wizard-2
 "Fifteen Regular" font by James Kilfiger.
 Licensed under the Open Font License.
 
-"Tuffy" font by Thatcher Ulrich (http://tulrich.com),
-Karoly Barta (bartakarcsi@gmail.com) and Michael Everson.
+"Tuffy" font by Thatcher Ulrich, Karoly Barta, and Michael Everson.
 Released to the public domain.
