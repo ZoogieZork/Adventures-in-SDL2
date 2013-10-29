@@ -59,6 +59,8 @@ set(AISDL_SRCS
 	src/ResStr.h
 	src/Scene.cpp
 	src/Scene.h
+	src/SpriteMap.cpp
+	src/SpriteMap.h
 	src/Ttf.cpp
 	src/Ttf.h
 	src/main.cpp)
