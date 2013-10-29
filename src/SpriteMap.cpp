@@ -29,6 +29,10 @@ namespace AISDL {
 
 /**
  * Constructor.
+ *
+ * @note This instance will take ownership of the texture and will be
+ *       responsible for destroying it.
+ *
  * @param display The target display.
  * @param texture The sprite texture.
  * @param w The width of each sprite in the texture.
