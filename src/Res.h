@@ -18,12 +18,11 @@
 
 #pragma once
 
-#include "SpriteMap.h"
-#include "Ttf.h"
-
 namespace AISDL {
 
 class Display;
+class SpriteMap;
+class Ttf;
 
 /**
  * Global resource library.

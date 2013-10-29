@@ -18,6 +18,8 @@
 
 #include "StdAfx.h"
 
+#include "Ttf.h"
+
 #include "ClockDecor.h"
 
 namespace AISDL {

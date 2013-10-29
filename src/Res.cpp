@@ -21,6 +21,8 @@
 #include <sys/stat.h>
 
 #include "Exception.h"
+#include "SpriteMap.h"
+#include "Ttf.h"
 
 #include "Res.h"
 

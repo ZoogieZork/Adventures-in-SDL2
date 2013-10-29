@@ -20,6 +20,7 @@
 
 #include "PagedTextDecor.h"
 #include "ResStr.h"
+#include "SpriteMap.h"
 
 #include "IntroScene.h"
 
