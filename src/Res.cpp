@@ -73,6 +73,8 @@ void Res::Preload(Display &display)
 {
 	clockFont = Ttf::Load(display, resDir + "/fonts/FifteenNarrow.ttf", 16);
 	pixelFont = Ttf::Load(display, resDir + "/fonts/FifteenNarrow.ttf", 16);
+
+	playerSprite = SpriteMap::Load(display, resDir + "/sprites/wizard.png", 30, 45);
 }
 
 }  // namespace AISDL

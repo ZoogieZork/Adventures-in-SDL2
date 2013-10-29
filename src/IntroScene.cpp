@@ -64,6 +64,9 @@ void IntroScene::RenderContent()
 	SDL_RenderClear(display.renderer);
 
 	introTxt->Render(40, 40);
+
+	display.res.playerSprite->Render(40, 400, 0);
+	display.res.playerSprite->Render(80, 400, 12);
 }
 
 }  // namespace AISDL

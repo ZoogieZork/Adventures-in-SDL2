@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include "SpriteMap.h"
 #include "Ttf.h"
 
 namespace AISDL {
@@ -41,8 +42,11 @@ public:
 
 public:
 	std::string resDir;
+
 	std::shared_ptr<Ttf> clockFont;
 	std::shared_ptr<Ttf> pixelFont;
+
+	std::shared_ptr<SpriteMap> playerSprite;
 };
 
 }  // namespace AISDL
