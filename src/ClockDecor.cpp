@@ -88,7 +88,7 @@ void ClockDecor::Advance(Uint32 tick)
 void ClockDecor::Render()
 {
 	if (visible && display.res.clockFont) {
-		display.res.clockFont->RenderText(display, 500, 0, 140, timeStr, alpha);
+		display.res.clockFont->RenderText(display, 400, 0, 140, timeStr, alpha);
 	}
 }
 
