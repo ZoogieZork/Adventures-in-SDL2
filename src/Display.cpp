@@ -66,7 +66,6 @@ Display::Display() :
 	// Act as if we're using a 512x384 framebuffer, even if the window is
 	// larger or smaller.
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	SDL_RenderSetLogicalSize(renderer, 512, 384);
 }
 
 /**
@@ -116,6 +115,22 @@ void Display::RenderTexture(SDL_Texture *texture, int x, int y)
 	SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
 	SDL_Rect destRect = { x, y, w, h };
 	SDL_RenderCopy(renderer, texture, nullptr, &destRect);
+}
+
+/**
+ * Switch to the virtual low-res mode (512x384).
+ */
+void Display::SetLowRes()
+{
+	SDL_RenderSetLogicalSize(renderer, 512, 384);
+}
+
+/**
+ * Reset the virtual resolution to the native resolution (1024x768).
+ */
+void Display::SetHighRes()
+{
+	SDL_RenderSetLogicalSize(renderer, 0, 0);
 }
 
 /**

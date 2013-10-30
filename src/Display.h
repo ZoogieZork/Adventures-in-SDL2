@@ -35,6 +35,8 @@ public:
 	void RenderTexture(SDL_Texture *texture, int x, int y);
 
 public:
+	void SetLowRes();
+	void SetHighRes();
 	void ToggleFullscreen();
 
 public:
