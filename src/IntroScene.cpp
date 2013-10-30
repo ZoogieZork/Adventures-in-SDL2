@@ -63,6 +63,7 @@ void IntroScene::RenderContent()
 {
 	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x1f, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(display.renderer);
+	display.SetLowRes();
 
 	introTxt->Render(40, 40);
 

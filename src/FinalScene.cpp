@@ -47,7 +47,7 @@ void FinalScene::OnCancel()
 void FinalScene::Preload()
 {
 	const std::string dir = display.res.resDir + "/text/final/";
-	finalTxt.reset(new FmtTextDecor(display, display.res.pixelFont,
+	finalTxt.reset(new FmtTextDecor(display, display.res.bodyFont,
 		ResStr::Load(dir + "final.txt"), 640));
 }
 
@@ -59,6 +59,7 @@ void FinalScene::RenderContent()
 {
 	SDL_SetRenderDrawColor(display.renderer, 0x3f, 0x3f, 0x3f, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(display.renderer);
+	display.SetHighRes();
 
 	finalTxt->Render(40, 40);
 }

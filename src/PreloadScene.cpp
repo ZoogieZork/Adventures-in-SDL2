@@ -68,6 +68,8 @@ void PreloadScene::RenderContent()
 {
 	auto rend = display.renderer;
 
+	display.SetLowRes();
+
 	// Clear the screen.
 	SDL_SetRenderDrawColor(rend, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(rend);
