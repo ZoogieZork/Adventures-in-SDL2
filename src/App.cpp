@@ -166,6 +166,9 @@ void App::OnKeyDown(SDL_KeyboardEvent &evt)
 	case SDLK_e:
 		scene->OnInteract();
 		break;
+	case SDLK_q:
+		RequestShutdown();
+		break;
 	case SDLK_F5:
 		ResStr::ReloadAll();
 		break;
