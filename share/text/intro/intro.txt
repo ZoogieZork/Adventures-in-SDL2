@@ -4,26 +4,27 @@
 
 It is pitch-black in here!  You are likely to be eaten by a grue.
 
-There is a sword here.
+There is a magic wand here.
 
-^7> ^5Take the sword
+^7> ^5take the wand
 ----
 ^7Dark Cave
 
-^:You take the sword.
+^:You take the magic wand.  Are you a wizard?
 
-Swords don't give off light!  You can vaguely hear grue-like sounds.
+The wand doesn't have any magic left in it!  You can vaguely hear
+grue-like sounds.
 
 There is a torch on the wall here.
 
-^7> ^5Light the torch
+^7> ^5light the torch
 ----
 ^7Dark Cave (still)
 
-^:Hmm.  The torch is lit and everything, but you still can't see anything.
+^:You light the torch, but you still can't see anything.  Strange.
 
 The grue-like sounds are getting very close!
 
 There is an SDL library here.
 
-^7> ^5Use SDL
+^7> ^5use sdl
