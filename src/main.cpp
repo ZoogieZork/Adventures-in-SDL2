@@ -30,7 +30,8 @@
 using namespace AISDL;
 
 /// Initialize each of the SDL subsystems.
-static void InitApp() {
+static void InitApp()
+{
 	SDL_LogSetAllPriority(SDL_LOG_PRIORITY_DEBUG);
 
 	SDL_Log("Starting up all SDL subsystems and libraries.");
@@ -51,17 +52,19 @@ static void InitApp() {
 }
 
 /// Shutdown each of the SDL subsystems.
-static void ShutdownApp() {
+static void ShutdownApp()
+{
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
 
 #ifdef _WIN32
-int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #else
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
 #endif
+{
 	srand(static_cast<unsigned int>(time(nullptr)));
 
 	try {
