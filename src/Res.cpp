@@ -73,12 +73,14 @@ bool Res::CheckResDir(const std::string &path)
  */
 void Res::Preload(Display &display)
 {
-	pixelFont = Ttf::Load(display, resDir + "/fonts/FifteenNarrow.ttf", 16);
+	const std::string fontDir = resDir + "/fonts/";
+	pixelFont = Ttf::Load(display, fontDir + "FifteenNarrow.ttf", 16);
 	clockFont = pixelFont;
-	bodyFont = Ttf::Load(display, resDir + "/fonts/Tuffy.ttf", 25);
-	talkFont = Ttf::Load(display, resDir + "/fonts/Minecraftia.ttf", 8);
+	bodyFont = Ttf::Load(display, fontDir + "Tuffy.ttf", 25);
+	talkFont = Ttf::Load(display, fontDir + "Minecraftia.ttf", 8);
 
-	playerSprite = SpriteMap::Load(display, resDir + "/sprites/wizard.png", 30, 45);
+	const std::string spriteDir = resDir + "/sprites/";
+	playerSprite = SpriteMap::Load(display, spriteDir + "wizard.png", 30, 45);
 }
 
 }  // namespace AISDL
