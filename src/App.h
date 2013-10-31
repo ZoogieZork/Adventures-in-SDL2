@@ -63,6 +63,7 @@ public:
 	virtual void RequestPrevScene();
 	virtual void RequestNextScene();
 	virtual void RequestShutdown();
+	virtual std::shared_ptr<Player> GetMainPlayer() const;
 
 private:
 	Display display;
@@ -72,6 +73,9 @@ private:
 	std::vector<std::shared_ptr<Scene>> scenes;
 	std::shared_ptr<Scene> scene;  ///< Current scene.
 	std::shared_ptr<Scene> nextScene;
+
+	typedef std::vector<std::shared_ptr<Player>> players_t;
+	players_t players;
 
 	ClockDecor clockDecor;
 

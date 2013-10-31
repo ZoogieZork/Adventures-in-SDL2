@@ -22,6 +22,7 @@
 #include "FinalScene.h"
 #include "IntroScene.h"
 #include "MainLoopScene.h"
+#include "Player.h"
 #include "PreloadScene.h"
 #include "ResStr.h"
 #include "Scene.h"
@@ -43,6 +44,9 @@ App::App(int startingScene) :
 	AddScene(std::make_shared<IntroScene>(*this, display));
 	AddScene(std::make_shared<MainLoopScene>(*this, display));
 	AddScene(std::make_shared<FinalScene>(*this, display));
+
+	// Create the main player.
+	players.emplace_back(std::make_shared<Player>());
 }
 
 App::~App()
@@ -316,6 +320,12 @@ void App::RequestShutdown()
 	SDL_Event evt;
 	evt.type = SDL_QUIT;
 	SDL_PushEvent(&evt);
+}
+
+std::shared_ptr<Player> App::GetMainPlayer() const
+{
+	// The player at index zero is always the main player.
+	return players.front();
 }
 
 }  // namespace AISDL

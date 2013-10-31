@@ -19,6 +19,8 @@
 #include "StdAfx.h"
 
 #include "PagedTextDecor.h"
+#include "Player.h"
+#include "PlayerDecor.h"
 #include "ResStr.h"
 #include "SpriteMap.h"
 
@@ -52,6 +54,11 @@ void IntroScene::Preload()
 void IntroScene::Reset()
 {
 	introTxt->FirstPage(true);
+
+	auto player = director.GetMainPlayer();
+	player->SetPos(40, 300);
+	playerDecor.reset(new PlayerDecor(display, player,
+		display.res.playerSprite));
 }
 
 void IntroScene::Advance(Uint32 tick)
@@ -67,8 +74,11 @@ void IntroScene::RenderContent()
 
 	introTxt->Render(40, 40);
 
+	playerDecor->Render();
+	/*
 	display.res.playerSprite->Render(40, 300, 0);
 	display.res.playerSprite->Render(80, 300, 12);
+	*/
 }
 
 }  // namespace AISDL

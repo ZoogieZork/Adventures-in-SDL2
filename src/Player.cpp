@@ -1,5 +1,5 @@
 
-/* IntroScene.h
+/* Player.cpp
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -16,38 +16,27 @@
  * the License.
  */
 
-#pragma once
+#include "StdAfx.h"
 
-#include "Scene.h"
+#include "Player.h"
 
 namespace AISDL {
 
-class PagedTextDecor;
-class PlayerDecor;
+Player::Player() :
+	name("???")
+{
+}
 
-/**
- * All about the main event loop.
- * @author Michael Imamura
- */
-class IntroScene : public Scene {
-	typedef Scene SUPER;
-public:
-	IntroScene(Director &director, Display &display);
-	virtual ~IntroScene();
+void Player::SetName(const std::string &name)
+{
+	this->name = name;
+}
 
-public:
-	// Scene
-	virtual void OnAction();
-
-	virtual void Preload();
-	virtual void Reset();
-	virtual void Advance(Uint32 tick);
-	virtual void RenderContent();
-
-private:
-	std::unique_ptr<PagedTextDecor> introTxt;
-	std::unique_ptr<PlayerDecor> playerDecor;
-};
+void Player::SetPos(int x, int y)
+{
+	this->posX = x;
+	this->posY = y;
+}
 
 }  // namespace AISDL
 

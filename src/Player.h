@@ -1,5 +1,5 @@
 
-/* IntroScene.h
+/* Player.h
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -18,35 +18,27 @@
 
 #pragma once
 
-#include "Scene.h"
-
 namespace AISDL {
 
-class PagedTextDecor;
-class PlayerDecor;
-
 /**
- * All about the main event loop.
+ * A player character, controlled by the user.
  * @author Michael Imamura
  */
-class IntroScene : public Scene {
-	typedef Scene SUPER;
+class Player {
 public:
-	IntroScene(Director &director, Display &display);
-	virtual ~IntroScene();
+	Player();
 
 public:
-	// Scene
-	virtual void OnAction();
+	void SetName(const std::string &name);
+	const std::string &GetName() const { return name; }
 
-	virtual void Preload();
-	virtual void Reset();
-	virtual void Advance(Uint32 tick);
-	virtual void RenderContent();
+	void SetPos(int x, int y);
+	int GetPosX() const { return posX; }
+	int GetPosY() const { return posY; }
 
 private:
-	std::unique_ptr<PagedTextDecor> introTxt;
-	std::unique_ptr<PlayerDecor> playerDecor;
+	std::string name;
+	int posX, posY;
 };
 
 }  // namespace AISDL

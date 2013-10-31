@@ -20,6 +20,8 @@
 
 namespace AISDL {
 
+class Player;
+
 /**
  * Interface for scene manager.
  * @author Michael Imamura
@@ -44,6 +46,12 @@ public:
 	 * Exit the application.
 	 */
 	virtual void RequestShutdown() = 0;
+
+	/**
+	 * Retrieve the main player character.
+	 * @return The player (never @c nullptr).
+	 */
+	virtual std::shared_ptr<Player> GetMainPlayer() const = 0;
 };
 
 }  // namespace AISDL
