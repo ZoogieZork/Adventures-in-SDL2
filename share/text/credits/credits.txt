@@ -4,5 +4,8 @@ http://opengameart.org/content/wizard-2
 "Fifteen Regular" font by James Kilfiger.
 Licensed under the Open Font License.
 
+"Minecraftia" font by Andrew Tyler.
+Licensed under the Creative Commons BY-SA license.
+
 "Tuffy" font by Thatcher Ulrich, Karoly Barta, and Michael Everson.
 Released to the public domain.
