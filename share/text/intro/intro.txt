@@ -1,30 +1,30 @@
-^7Dark Cave
+^2Dark Cave
 
-^:You are in a dark room.
+^<You are in a dark room.
 
 It is pitch-black in here!  You are likely to be eaten by a grue.
 
 There is a magic wand here.
 
-^7> ^5take the wand
+^2> ^=take the wand
 ----
-^7Dark Cave
+^2Dark Cave
 
-^:You take the magic wand.  Are you a wizard?
+^<You take the magic wand.  Are you a wizard?
 
 The wand doesn't have any magic left in it!  You can vaguely hear
 grue-like sounds.
 
 There is a torch on the wall here.
 
-^7> ^5light the torch
+^2> ^=light the torch
 ----
-^7Dark Cave (still)
+^2Dark Cave (still)
 
-^:You light the torch, but you still can't see anything.  Strange.
+^<You light the torch, but you still can't see anything.  Strange.
 
 The grue-like sounds are getting very close!
 
 There is an SDL library here.
 
-^7> ^5use sdl
+^2> ^=use sdl

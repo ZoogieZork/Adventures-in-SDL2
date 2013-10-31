@@ -61,7 +61,7 @@ void IntroScene::Advance(Uint32 tick)
 
 void IntroScene::RenderContent()
 {
-	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x3f, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(display.renderer);
 	display.SetLowRes();
 
