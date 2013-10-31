@@ -37,6 +37,8 @@ set(AISDL_SRCS
 	src/App.h
 	src/ClockDecor.cpp
 	src/ClockDecor.h
+	src/Config.cpp
+	src/Config.h
 	src/Director.h
 	src/Display.cpp
 	src/Display.h
