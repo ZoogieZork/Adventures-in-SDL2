@@ -31,7 +31,7 @@ using namespace AISDL;
 
 /// Initialize each of the SDL subsystems.
 static void InitApp() {
-	SDL_LogSetAllPriority(SDL_LOG_PRIORITY_INFO);
+	SDL_LogSetAllPriority(SDL_LOG_PRIORITY_DEBUG);
 
 	SDL_Log("Starting up all SDL subsystems and libraries.");
 
