@@ -39,7 +39,8 @@ App::App(int startingScene) :
 	SUPER(),
 	display(),
 	startingScene(startingScene), sceneIdx(-1),
-	clockDecor(display)
+	clockDecor(display),
+	keyLeft(0), keyRight(0), keyUp(0), keyDown(0)
 {
 	AddScene(std::make_shared<IntroScene>(*this, display));
 	AddScene(std::make_shared<MainLoopScene>(*this, display));
@@ -156,6 +157,22 @@ void App::OnControllerButtonDown(SDL_ControllerButtonEvent &evt)
 void App::OnKeyDown(SDL_KeyboardEvent &evt)
 {
 	switch (evt.keysym.sym) {
+	case SDLK_w:
+	case SDLK_UP:
+		keyUp = -1.0f;
+		break;
+	case SDLK_d:
+	case SDLK_RIGHT:
+		keyRight = 1.0f;
+		break;
+	case SDLK_s:
+	case SDLK_DOWN:
+		keyDown = 1.0f;
+		break;
+	case SDLK_a:
+	case SDLK_LEFT:
+		keyLeft = -1.0f;
+		break;
 	case SDLK_RETURN:
 		if (evt.keysym.mod & KMOD_ALT) {
 			// Alt+Enter - Toggle fullscreen.
@@ -195,6 +212,32 @@ void App::OnKeyDown(SDL_KeyboardEvent &evt)
 }
 
 /**
+ * Handle when a key is released.
+ * @param evt The key released event.
+ */
+void App::OnKeyUp(SDL_KeyboardEvent &evt)
+{
+	switch (evt.keysym.sym) {
+	case SDLK_w:
+	case SDLK_UP:
+		keyUp = 0;
+		break;
+	case SDLK_d:
+	case SDLK_RIGHT:
+		keyRight = 0;
+		break;
+	case SDLK_s:
+	case SDLK_DOWN:
+		keyDown = 0;
+		break;
+	case SDLK_a:
+	case SDLK_LEFT:
+		keyLeft = 0;
+		break;
+	}
+}
+
+/**
  * Main loop.
  */
 void App::Run()
@@ -218,6 +261,9 @@ void App::Run()
 			switch (evt.type) {
 			case SDL_KEYDOWN:
 				OnKeyDown(evt.key);
+				break;
+			case SDL_KEYUP:
+				OnKeyUp(evt.key);
 				break;
 
 			// SDL_ControllerButtonEvent
@@ -328,5 +374,65 @@ std::shared_ptr<Player> App::GetMainPlayer() const
 	return players.front();
 }
 
-}  // namespace AISDL
+namespace {
+	const float DEAD_ZONE_MIN = -0.15f;
+	const float DEAD_ZONE_MAX = 0.15f;
+}
 
+float App::SampleControllerAxis(SDL_GameController *controller,
+	SDL_GameControllerAxis axis)
+{
+	// Axis is reported in range -38768 to 38767.
+	auto a = static_cast<float>(
+		SDL_GameControllerGetAxis(controller, axis));
+
+	// Scale the axis to -1.0 to 1.0.
+	a = ((2.0f * (a + 32768.0f)) / 65535.0f) - 1.0f;
+
+	// Ignore if the axis is in the dead (resting) zone.
+	if (a > DEAD_ZONE_MIN && a < DEAD_ZONE_MAX) {
+		a = 0;
+	}
+
+	return a;
+}
+
+Director::MovementState App::SampleMovement() const
+{
+	// For now, we just take the average of all controllers which are actually
+	// pushed in a direction.
+	float x = 0, y = 0;
+	float active = 0;
+
+	for (auto iter = gameControllers.cbegin();
+		iter != gameControllers.cend(); ++iter)
+	{
+		auto controller = iter->second;
+		auto ax = SampleControllerAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
+		auto ay = SampleControllerAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
+		if (ax != 0 || ay != 0) {
+			x += ax;
+			y += ay;
+			active++;
+		}
+	}
+	
+	if (keyUp != 0 || keyRight != 0 || keyDown != 0 || keyLeft != 0) {
+		x += keyLeft + keyRight;
+		y += keyUp + keyDown;
+		active++;
+	}
+
+	if (active == 0) {
+		x = 0;
+		y = 0;
+	}
+	else {
+		x /= active;
+		y /= active;
+	}
+
+	return MovementState(x, y);
+}
+
+}  // namespace AISDL

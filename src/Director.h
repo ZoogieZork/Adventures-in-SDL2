@@ -52,6 +52,19 @@ public:
 	 * @return The player (never @c nullptr).
 	 */
 	virtual std::shared_ptr<Player> GetMainPlayer() const = 0;
+
+	struct MovementState {
+		MovementState(float x, float y) : x(x), y(y) { }
+
+		float x;  ///< Horizontal axis (-1.0 to 1.0).
+		float y;  ///< Vertical axis (-1.0 to 1.0).
+	};
+
+	/**
+	 * Sample combined the movement state from all enabled controllers.
+	 * @return The current movement state.
+	 */
+	virtual MovementState SampleMovement() const = 0;
 };
 
 }  // namespace AISDL

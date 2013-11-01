@@ -52,6 +52,7 @@ private:
 	bool DetachController(int instanceId);
 	void OnControllerButtonDown(SDL_ControllerButtonEvent &evt);
 	void OnKeyDown(SDL_KeyboardEvent &evt);
+	void OnKeyUp(SDL_KeyboardEvent &evt);
 
 public:
 	void Run();
@@ -64,6 +65,11 @@ public:
 	virtual void RequestNextScene();
 	virtual void RequestShutdown();
 	virtual std::shared_ptr<Player> GetMainPlayer() const;
+private:
+	static float SampleControllerAxis(SDL_GameController *controller,
+		SDL_GameControllerAxis axis);
+public:
+	virtual MovementState SampleMovement() const;
 
 private:
 	Display display;
@@ -81,6 +87,7 @@ private:
 
 	/// Instance ID -> controller
 	std::map<int, SDL_GameController*> gameControllers;
+	float keyLeft, keyRight, keyUp, keyDown;
 };
 
 }  // namespace AISDL

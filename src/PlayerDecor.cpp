@@ -51,8 +51,19 @@ void PlayerDecor::Render()
 	auto p = player.lock();
 	if (!p) return;
 
+	int spriteIdx;
+	switch (p->GetDirection()) {
+	case Player::Direction::UP:    spriteIdx = 4;  break;
+	case Player::Direction::RIGHT: spriteIdx = 16; break;
+	case Player::Direction::DOWN:  spriteIdx = 0;  break;
+	case Player::Direction::LEFT:  spriteIdx = 24; break;
+	}
+
 	//TODO: Apply world->screen transform for pos.
-	sprite->Render(p->GetPosX(), p->GetPosY(), 12);
+	sprite->Render(
+		static_cast<int>(p->GetPosX()),
+		static_cast<int>(p->GetPosY()),
+		spriteIdx);
 }
 
 }  // namespace AISDL

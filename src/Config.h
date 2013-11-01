@@ -33,6 +33,7 @@ private:
 
 public:
 	int startingScene;  ///< The initial scene index.
+	int playerSpeed;  ///< Player movement speed (pixels / sec).
 };
 
 }  // namespace AISDL

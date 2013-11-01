@@ -25,7 +25,8 @@ namespace AISDL {
 Config Config::instance;
 
 Config::Config() :
-	startingScene(0)
+	startingScene(0),
+	playerSpeed(120)
 {
 }
 
