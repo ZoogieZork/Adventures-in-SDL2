@@ -48,7 +48,7 @@ void IntroScene::Preload()
 {
 	const std::string dir = display.res.resDir + "/text/intro/";
 	introTxt.reset(new PagedTextDecor(display, display.res.pixelFont,
-		ResStr::Load(dir + "intro.txt"), 472, true));
+		ResStr::Load(dir + "intro.txt"), 432, true));
 }
 
 void IntroScene::Reset()
@@ -71,6 +71,14 @@ void IntroScene::RenderContent()
 	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(display.renderer);
 	display.SetLowRes();
+
+	// Draw the background behind the text.
+	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x1f, 0x00, 0xff);
+	SDL_Rect textBg = {
+		35, 35,
+		432 + 10, introTxt->MeasureHeight() + 10
+	};
+	SDL_RenderFillRect(display.renderer, &textBg);
 
 	introTxt->Render(40, 40);
 
