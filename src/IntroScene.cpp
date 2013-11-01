@@ -83,10 +83,6 @@ void IntroScene::RenderContent()
 	introTxt->Render(40, 40);
 
 	playerDecor->Render();
-	/*
-	display.res.playerSprite->Render(40, 300, 0);
-	display.res.playerSprite->Render(80, 300, 12);
-	*/
 }
 
 }  // namespace AISDL
