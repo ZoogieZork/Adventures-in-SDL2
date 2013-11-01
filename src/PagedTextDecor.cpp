@@ -69,6 +69,24 @@ void PagedTextDecor::Rebuild()
 }
 
 /**
+ * Retrieve the actual pixel width of the current page.
+ * @return The size in pixels.
+ */
+int PagedTextDecor::MeasureWidth() const
+{
+	return pages[pageNum]->MeasureWidth();
+}
+
+/**
+ * Retrieve the actual pixel height of the current page.
+ * @return The size in pixels.
+ */
+int PagedTextDecor::MeasureHeight() const
+{
+	return pages[pageNum]->MeasureHeight();
+}
+
+/**
  * Jump to the first page.
  * @param animate @c true to animate the display of the page.
  */

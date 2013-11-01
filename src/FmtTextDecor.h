@@ -55,6 +55,9 @@ private:
 public:
 	size_t GetNumRenderables() const { return rends.size(); }
 
+	int MeasureHeight() const { return sizeHeight; }
+	int MeasureWidth() const { return sizeWidth; }
+
 public:
 	void Render(int x, int y, int alpha=0xff, bool cursor=false,
 		unsigned int limit=UINT_MAX) const;
@@ -65,6 +68,7 @@ private:
 	std::shared_ptr<ResStr> text;
 	std::string s;
 	int width;
+	int sizeWidth, sizeHeight;
 
 	std::vector<Rend> rends;
 };

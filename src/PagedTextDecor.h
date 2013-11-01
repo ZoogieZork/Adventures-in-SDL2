@@ -40,9 +40,13 @@ private:
 	void Rebuild();
 
 public:
+	int MeasureWidth() const;
+	int MeasureHeight() const;
+
 	void FirstPage(bool animate=false);
 	bool NextPage(bool animate=false);
 	bool PrevPage(bool animate=false);
+
 	void Advance(Uint32 tick);
 	void Render(int x, int y, int alpha=0xff) const;
 

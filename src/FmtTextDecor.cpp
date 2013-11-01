@@ -74,7 +74,8 @@ namespace {
 FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
 	const std::string &s, int width) :
 	display(display), font(std::move(font)), s(s),
-	width(width)
+	width(width),
+	sizeWidth(0), sizeHeight(0)
 {
 	Reformat();
 }
@@ -89,7 +90,8 @@ FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
 FmtTextDecor::FmtTextDecor(Display &display, std::shared_ptr<Ttf> font,
 	std::shared_ptr<ResStr> text, int width) :
 	display(display), font(std::move(font)), text(std::move(text)),
-	width(width)
+	width(width),
+	sizeWidth(0), sizeHeight(0)
 {
 	Reformat();
 
@@ -109,6 +111,9 @@ void FmtTextDecor::Reformat()
 	if (text) s = **text;
 	int x = 0, y = 0;
 	int fmtColor = 7;
+
+	sizeWidth = 0;
+	sizeHeight = 0;
 
 	rends.clear();
 	rends.reserve(s.length());
@@ -159,7 +164,12 @@ void FmtTextDecor::Reformat()
 			}
 		}
 
+		if (x >= sizeWidth) {
+			sizeWidth = x;
+		}
 	}
+
+	sizeHeight = y;
 }
 
 /**
