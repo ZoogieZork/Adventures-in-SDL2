@@ -1,5 +1,5 @@
 
-/* IntroScene.h
+/* SideScrollScene.cpp
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -16,37 +16,40 @@
  * the License.
  */
 
-#pragma once
+#include "StdAfx.h"
+
+#include "PlayerDecor.h"
 
 #include "SideScrollScene.h"
 
 namespace AISDL {
 
-class PagedTextDecor;
-class PlayerDecor;
+SideScrollScene::SideScrollScene(Director &director, Display &display,
+	const std::string &title) :
+	SUPER(director, display, title)
+{
+}
 
-/**
- * All about the main event loop.
- * @author Michael Imamura
- */
-class IntroScene : public SideScrollScene {
-	typedef SideScrollScene SUPER;
-public:
-	IntroScene(Director &director, Display &display);
-	virtual ~IntroScene();
+SideScrollScene::~SideScrollScene()
+{
+}
 
-public:
-	// Scene
-	virtual void OnAction();
+void SideScrollScene::Reset()
+{
+	auto player = director.GetMainPlayer();
+	playerDecor.reset(new PlayerDecor(display, player,
+		display.res.playerSprite));
+}
 
-	virtual void Preload();
-	virtual void Reset();
-	virtual void Advance(Uint32 tick);
-	virtual void RenderContent();
+void SideScrollScene::Advance(Uint32 tick)
+{
+}
 
-private:
-	std::unique_ptr<PagedTextDecor> introTxt;
-};
+void SideScrollScene::RenderContent()
+{
+	display.SetLowRes();
+
+	playerDecor->Render();
+}
 
 }  // namespace AISDL
-

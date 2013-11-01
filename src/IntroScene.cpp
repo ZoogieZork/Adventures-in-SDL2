@@ -20,7 +20,6 @@
 
 #include "PagedTextDecor.h"
 #include "Player.h"
-#include "PlayerDecor.h"
 #include "ResStr.h"
 #include "SpriteMap.h"
 
@@ -53,16 +52,18 @@ void IntroScene::Preload()
 
 void IntroScene::Reset()
 {
+	SUPER::Reset();
+
 	introTxt->FirstPage(true);
 
 	auto player = director.GetMainPlayer();
 	player->SetPos(40, 300);
-	playerDecor.reset(new PlayerDecor(display, player,
-		display.res.playerSprite));
 }
 
 void IntroScene::Advance(Uint32 tick)
 {
+	SUPER::Advance(tick);
+
 	introTxt->Advance(tick);
 }
 
@@ -70,6 +71,9 @@ void IntroScene::RenderContent()
 {
 	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(display.renderer);
+
+	SUPER::RenderContent();
+
 	display.SetLowRes();
 
 	// Draw the background behind the text.
@@ -81,8 +85,6 @@ void IntroScene::RenderContent()
 	SDL_RenderFillRect(display.renderer, &textBg);
 
 	introTxt->Render(40, 40);
-
-	playerDecor->Render();
 }
 
 }  // namespace AISDL

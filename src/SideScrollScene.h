@@ -1,5 +1,5 @@
 
-/* IntroScene.h
+/* SideScrollScene.h
  *
  * Copyright (C) 2013 Michael Imamura
  *
@@ -18,35 +18,30 @@
 
 #pragma once
 
-#include "SideScrollScene.h"
+#include "Scene.h"
 
 namespace AISDL {
 
-class PagedTextDecor;
 class PlayerDecor;
 
 /**
- * All about the main event loop.
+ * Base class for side-scroller scenes.
  * @author Michael Imamura
  */
-class IntroScene : public SideScrollScene {
-	typedef SideScrollScene SUPER;
+class SideScrollScene : public Scene {
+	typedef Scene SUPER;
 public:
-	IntroScene(Director &director, Display &display);
-	virtual ~IntroScene();
+	SideScrollScene(Director &director, Display &display,
+		const std::string &title);
+	virtual ~SideScrollScene();
 
 public:
-	// Scene
-	virtual void OnAction();
-
-	virtual void Preload();
 	virtual void Reset();
 	virtual void Advance(Uint32 tick);
 	virtual void RenderContent();
 
-private:
-	std::unique_ptr<PagedTextDecor> introTxt;
+protected:
+	std::unique_ptr<PlayerDecor> playerDecor;
 };
 
 }  // namespace AISDL
-

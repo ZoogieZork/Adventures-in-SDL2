@@ -65,6 +65,8 @@ set(AISDL_SRCS
 	src/ResStr.h
 	src/Scene.cpp
 	src/Scene.h
+	src/SideScrollScene.cpp
+	src/SideScrollScene.h
 	src/SpriteMap.cpp
 	src/SpriteMap.h
 	src/Ttf.cpp
