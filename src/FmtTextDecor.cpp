@@ -118,8 +118,9 @@ void FmtTextDecor::Reformat()
 	rends.clear();
 	rends.reserve(s.length());
 
+	uint32_t ch = 0;
 	for (auto iter = s.cbegin(), iend = s.cend(); iter != iend; ) {
-		uint32_t ch = utf8::next(iter, iend);
+		ch = utf8::next(iter, iend);
 
 		// Only handle characters which we have included in the type case.
 		if (ch > font->glyphs.size()) {
@@ -169,6 +170,11 @@ void FmtTextDecor::Reformat()
 		}
 	}
 
+	// If the last char wasn't a newline, adjust the height otherwise we'll
+	// cut off the bottom line of text.
+	if (ch != '\n') {
+		y += lineHeight;
+	}
 	sizeHeight = y;
 }
 
