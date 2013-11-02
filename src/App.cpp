@@ -192,6 +192,7 @@ void App::OnKeyDown(SDL_KeyboardEvent &evt)
 		break;
 	case SDLK_F5:
 		ResStr::ReloadAll();
+		scene->Reload();
 		break;
 	case SDLK_TAB:
 		clockDecor.Flash();

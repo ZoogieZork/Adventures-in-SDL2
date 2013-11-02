@@ -41,6 +41,9 @@ public:
 	/** Preload assets used specifically by this scene. */
 	virtual void Preload() { }
 
+	/** Reload scene-specific assets. */
+	virtual void Reload() { }
+
 	/** Reset the scene to the initial state. */
 	virtual void Reset() { }
 
