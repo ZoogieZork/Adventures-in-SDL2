@@ -24,7 +24,7 @@ namespace AISDL {
 
 Player::Player() :
 	name("???"),
-	posX(0), posY(0)
+	posX(0), posY(0), direction(Direction::RIGHT)
 {
 }
 
@@ -37,6 +37,42 @@ void Player::SetPos(float x, float y)
 {
 	this->posX = x;
 	this->posY = y;
+}
+
+/**
+ * Move the player by the specified units.
+ * The direction will be updated automatically.
+ * @param dx The units to move horizontally.
+ * @param dy The units to move vertically.
+ */
+void Player::Move(float dx, float dy)
+{
+	this->posX += dx;
+	this->posY += dy;
+
+	if (dx == 0) {
+		if (dy < 0) {
+			direction = Direction::UP;
+		}
+		else if (dy > 0) {
+			direction = Direction::DOWN;
+		}
+	}
+	else if (dx < 0) {
+		direction = Direction::LEFT;
+	}
+	else {
+		direction = Direction::RIGHT;
+	}
+}
+
+/**
+ * Retrieve the direction the player is facing.
+ * @param direction The direction.
+ */
+void Player::SetDirection(Direction::type direction)
+{
+	this->direction = direction;
 }
 
 }  // namespace AISDL

@@ -29,16 +29,26 @@ public:
 	Player();
 
 public:
+	struct Direction {
+		enum type { UP, RIGHT, DOWN, LEFT };
+	};
+
+public:
 	void SetName(const std::string &name);
 	const std::string &GetName() const { return name; }
 
 	void SetPos(float x, float y);
+	void Move(float dx, float dy);
 	float GetPosX() const { return posX; }
 	float GetPosY() const { return posY; }
+
+	void SetDirection(Direction::type direction);
+	Direction::type GetDirection() const { return direction; }
 
 private:
 	std::string name;
 	float posX, posY;
+	Direction::type direction;
 };
 
 }  // namespace AISDL
