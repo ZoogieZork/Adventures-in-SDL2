@@ -1,3 +1,6 @@
+"Medieval Interior" tileset by The Inquisitor (R. Janes) for RPG Palace.
+http://www.rpg-palace.com/visual-resources/tilesets-rmxp/medieval-interior
+
 "Wizard" sprites by Stafford McIntyre for the PlatForge project.
 http://opengameart.org/content/wizard-2
 
