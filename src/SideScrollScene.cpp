@@ -52,17 +52,7 @@ void SideScrollScene::Advance(Uint32 tick)
 
 	auto move = director.SampleMovement();
 	
-	/*
-	static Uint32 lastStateTick = tick;
-	if (tick - lastStateTick > 250) {
-		lastStateTick = tick;
-		SDL_Log("State: x=%.4f y=%.4f", move.x, move.y);
-	}
-	*/
-
 	auto player = director.GetMainPlayer();
-	float px = player->GetPosX();
-	float py = player->GetPosY();
 
 	float timeDiff = static_cast<float>(tick - lastTick);
 	float dx = 0;
