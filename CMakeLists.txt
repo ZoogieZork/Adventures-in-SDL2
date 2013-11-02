@@ -71,7 +71,9 @@ set(AISDL_SRCS
 	src/SpriteMap.h
 	src/Ttf.cpp
 	src/Ttf.h
-	src/main.cpp)
+	src/main.cpp
+	src/adventures-in-sdl2.rc
+	src/resource.h)
 
 add_executable(adventures-in-sdl2 WIN32 ${AISDL_SRCS})
 source_group("src" FILES ${AISDL_SRCS})

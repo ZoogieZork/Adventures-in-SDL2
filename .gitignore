@@ -2,6 +2,7 @@
 .dirstamp
 .libs
 *~
+*.aps
 *.bak
 *.la
 *.lo
