@@ -23,7 +23,8 @@
 namespace AISDL {
 
 Player::Player() :
-	name("???")
+	name("???"),
+	posX(0), posY(0)
 {
 }
 
@@ -32,7 +33,7 @@ void Player::SetName(const std::string &name)
 	this->name = name;
 }
 
-void Player::SetPos(int x, int y)
+void Player::SetPos(float x, float y)
 {
 	this->posX = x;
 	this->posY = y;

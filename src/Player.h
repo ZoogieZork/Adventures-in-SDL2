@@ -32,13 +32,13 @@ public:
 	void SetName(const std::string &name);
 	const std::string &GetName() const { return name; }
 
-	void SetPos(int x, int y);
-	int GetPosX() const { return posX; }
-	int GetPosY() const { return posY; }
+	void SetPos(float x, float y);
+	float GetPosX() const { return posX; }
+	float GetPosY() const { return posY; }
 
 private:
 	std::string name;
-	int posX, posY;
+	float posX, posY;
 };
 
 }  // namespace AISDL
