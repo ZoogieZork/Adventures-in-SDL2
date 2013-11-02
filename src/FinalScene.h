@@ -40,7 +40,7 @@ public:
 	virtual void OnCancel();
 
 	virtual void Preload();
-	virtual void Advance(Uint32 tick);
+	virtual void Advance(Uint32 lastTick, Uint32 tick);
 	virtual void RenderContent();
 
 private:

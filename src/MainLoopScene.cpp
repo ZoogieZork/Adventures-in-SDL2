@@ -38,7 +38,7 @@ void MainLoopScene::Preload()
 {
 }
 
-void MainLoopScene::Advance(Uint32 tick)
+void MainLoopScene::Advance(Uint32 lastTick, Uint32 tick)
 {
 }
 

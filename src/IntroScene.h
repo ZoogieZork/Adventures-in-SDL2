@@ -41,7 +41,7 @@ public:
 
 	virtual void Preload();
 	virtual void Reset();
-	virtual void Advance(Uint32 tick);
+	virtual void Advance(Uint32 lastTick, Uint32 tick);
 	virtual void RenderContent();
 
 private:

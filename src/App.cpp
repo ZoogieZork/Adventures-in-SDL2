@@ -245,6 +245,7 @@ void App::Run()
 {
 	bool quit = false;
 	SDL_Event evt;
+	Uint32 lastTick = 0;
 
 	// Always start with the preload scene.
 	// When the preloader finishes, it'll request to switch to the next scene.
@@ -293,13 +294,19 @@ void App::Run()
 		}
 		if (quit) break;
 
-		RenderFrame(*scene);
+		auto tick = SDL_GetTicks();
+		if (lastTick == 0) {
+			lastTick = tick;
+		}
+		RenderFrame(*scene, lastTick, tick);
+		lastTick = tick;
 
 		// If a new scene was requested, switch to it.
 		if (nextScene) {
 			scene = nextScene;
 			nextScene.reset();
 			scene->Reset();
+			lastTick = 0;
 		}
 	}
 
@@ -311,10 +318,9 @@ void App::Run()
 	SDL_Log("Shutting down.");
 }
 
-void App::RenderFrame(Scene &scene)
+void App::RenderFrame(Scene &scene, Uint32 lastTick, Uint32 tick)
 {
-	auto tick = SDL_GetTicks();
-	scene.Advance(tick);
+	scene.Advance(lastTick, tick);
 	clockDecor.Advance(tick);
 
 	// We let the scene decide how to clear the frame.

@@ -39,7 +39,7 @@ PreloadScene::~PreloadScene()
 {
 }
 
-void PreloadScene::Advance(Uint32 tick)
+void PreloadScene::Advance(Uint32 lastTick, Uint32 tick)
 {
 	// Wait for the first frame to be rendered before preloading.
 	if (loading) {

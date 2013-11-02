@@ -57,7 +57,7 @@ private:
 public:
 	void Run();
 private:
-	void RenderFrame(Scene &scene);
+	void RenderFrame(Scene &scene, Uint32 lastTick, Uint32 tick);
 
 public:
 	// Director

@@ -53,7 +53,14 @@ public:
 	 */
 	virtual void HandleEvent(SDL_Event &evt) { }
 
-	virtual void Advance(Uint32 tick) = 0;
+	/**
+	 * Prepare the next frame before rendering.
+	 * @param lastTick The clock tick of the previous frame (this is equal
+	 *                 to @p tick for the first frame).
+	 * @param tick The clock tick (milliseconds since app start).
+	 */
+	virtual void Advance(Uint32 lastTick, Uint32 tick) = 0;
+
 	virtual void Render();
 
 protected:

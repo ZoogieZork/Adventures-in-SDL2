@@ -43,12 +43,9 @@ void SideScrollScene::Reset()
 		display.res.playerSprite));
 }
 
-void SideScrollScene::Advance(Uint32 tick)
+void SideScrollScene::Advance(Uint32 lastTick, Uint32 tick)
 {
 	const Config &cfg = Config::instance;
-
-	//TODO: Track this from Director.
-	static Uint32 lastTick = tick;
 
 	auto move = director.SampleMovement();
 	

@@ -60,9 +60,9 @@ void IntroScene::Reset()
 	player->SetPos(40, 300);
 }
 
-void IntroScene::Advance(Uint32 tick)
+void IntroScene::Advance(Uint32 lastTick, Uint32 tick)
 {
-	SUPER::Advance(tick);
+	SUPER::Advance(lastTick, tick);
 
 	introTxt->Advance(tick);
 }

@@ -51,7 +51,7 @@ void FinalScene::Preload()
 		ResStr::Load(dir + "final.txt"), 640));
 }
 
-void FinalScene::Advance(Uint32 tick)
+void FinalScene::Advance(Uint32 lastTick, Uint32 tick)
 {
 }
 
