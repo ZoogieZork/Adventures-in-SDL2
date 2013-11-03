@@ -22,6 +22,8 @@
 
 namespace AISDL {
 
+class Level;
+class LevelDecor;
 class PagedTextDecor;
 class PlayerDecor;
 
@@ -40,11 +42,14 @@ public:
 	virtual void OnAction();
 
 	virtual void Preload();
+	virtual void Reload();
 	virtual void Reset();
 	virtual void Advance(Uint32 lastTick, Uint32 tick);
 	virtual void RenderContent();
 
 private:
+	std::shared_ptr<Level> level;
+	std::unique_ptr<LevelDecor> levelDecor;
 	std::unique_ptr<PagedTextDecor> introTxt;
 };
 

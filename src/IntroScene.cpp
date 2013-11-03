@@ -18,6 +18,8 @@
 
 #include "StdAfx.h"
 
+#include "Level.h"
+#include "LevelDecor.h"
 #include "PagedTextDecor.h"
 #include "Player.h"
 #include "ResStr.h"
@@ -45,9 +47,17 @@ void IntroScene::OnAction()
 
 void IntroScene::Preload()
 {
+	level = Level::Load(display.res.resDir + "/levels/intro");
+	levelDecor.reset(new LevelDecor(display, level, display.res.interiorTile));
+
 	const std::string dir = display.res.resDir + "/text/intro/";
 	introTxt.reset(new PagedTextDecor(display, display.res.pixelFont,
 		ResStr::Load(dir + "intro.txt"), 432, true));
+}
+
+void IntroScene::Reload()
+{
+	level->Reload();
 }
 
 void IntroScene::Reset()
@@ -72,17 +82,22 @@ void IntroScene::RenderContent()
 	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(display.renderer);
 
+	display.SetLowRes();
+	levelDecor->Render();
+
 	SUPER::RenderContent();
 
 	display.SetLowRes();
 
 	// Draw the background behind the text.
-	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x1f, 0x00, 0xff);
+	/*
+	SDL_SetRenderDrawColor(display.renderer, 0x00, 0xff, 0x00, 0x1f);
 	SDL_Rect textBg = {
 		35, 35,
 		432 + 10, introTxt->MeasureHeight() + 10
 	};
 	SDL_RenderFillRect(display.renderer, &textBg);
+	*/
 
 	introTxt->Render(40, 40);
 }
