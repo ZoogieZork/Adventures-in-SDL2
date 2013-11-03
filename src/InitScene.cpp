@@ -36,7 +36,7 @@ InitScene::~InitScene()
 
 void InitScene::OnAction()
 {
-	if (!initTxt->NextPage()) {
+	if (!initTxt->NextPage(PagedTextDecor::Anim::FLING_UP)) {
 		director.RequestNextScene();
 	}
 }
@@ -54,7 +54,7 @@ void InitScene::Reset()
 {
 	SUPER::Reset();
 
-	initTxt->FirstPage();
+	initTxt->FirstPage(PagedTextDecor::Anim::FLING_UP);
 }
 
 void InitScene::Advance(Uint32 lastTick, Uint32 tick)

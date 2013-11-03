@@ -43,8 +43,7 @@ void IntroScene::OnAction()
 {
 	switch (phase) {
 	case 0:
-		if (!introTxt->NextPage(true)) {
-			aboutTxt->FirstPage(false);
+		if (!introTxt->NextPage(PagedTextDecor::Anim::TYPEWRITER)) {
 			fadeTs = SDL_GetTicks();
 			phase++;
 		}
@@ -52,7 +51,7 @@ void IntroScene::OnAction()
 	case 1:
 		break;
 	case 2:
-		if (!aboutTxt->NextPage(false)) {
+		if (!aboutTxt->NextPage(PagedTextDecor::Anim::FLING_UP)) {
 			director.RequestNextScene();
 		}
 		break;
@@ -87,7 +86,7 @@ void IntroScene::Reset()
 	phase = 0;
 
 	fadeAlpha = 255;
-	introTxt->FirstPage(true);
+	introTxt->FirstPage(PagedTextDecor::Anim::TYPEWRITER);
 
 	auto player = director.GetMainPlayer();
 	player->SetPos(40, 320);
@@ -106,12 +105,17 @@ void IntroScene::Advance(Uint32 lastTick, Uint32 tick)
 		{
 			Uint32 timeDiff = tick - fadeTs;
 			if (timeDiff > 1000) {
+				aboutTxt->FirstPage(PagedTextDecor::Anim::FLING_UP);
 				phase++;
 			}
 			else {
 				fadeAlpha = 255 - (timeDiff * 255 / 1000);
 			}
 		}
+		break;
+
+	case 2:
+		aboutTxt->Advance(tick);
 		break;
 	}
 }

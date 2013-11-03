@@ -25,6 +25,10 @@
 
 namespace AISDL {
 
+namespace {
+	const float FLING_DURATION = 500.0f;
+}
+
 /**
  * Constructor.
  * @param display The target display.
@@ -38,7 +42,8 @@ PagedTextDecor::PagedTextDecor(Display &display, std::shared_ptr<Ttf> font,
 	display(display), font(font), text(text), width(width),
 	cursor(cursor), cursorVisible(false),
 	pageNum(0),
-	animating(false), animStart(0), animProgress(0)
+	animating(Anim::NONE), animStart(0),
+	animProgress(0), animOffsetY(0), animAlpha(0xff)
 {
 	Rebuild();
 
@@ -68,6 +73,30 @@ void PagedTextDecor::Rebuild()
 	}
 }
 
+void PagedTextDecor::StartAnim(Anim::type animate)
+{
+	animating = animate;
+	animStart = SDL_GetTicks();
+
+	switch (animate) {
+	case Anim::NONE:
+		animProgress = UINT_MAX;
+		animOffsetY = 0;
+		animAlpha = 255;
+		break;
+	case Anim::TYPEWRITER:
+		animProgress = 0;
+		animOffsetY = 0;
+		animAlpha = 255;
+		break;
+	case Anim::FLING_UP:
+		animProgress = UINT_MAX;
+		animOffsetY = 100;
+		animAlpha = 0;
+		break;
+	}
+}
+
 /**
  * Retrieve the actual pixel width of the current page.
  * @return The size in pixels.
@@ -88,28 +117,24 @@ int PagedTextDecor::MeasureHeight() const
 
 /**
  * Jump to the first page.
- * @param animate @c true to animate the display of the page.
+ * @param animate The page transition animation.
  */
-void PagedTextDecor::FirstPage(bool animate)
+void PagedTextDecor::FirstPage(Anim::type animate)
 {
-	animating = animate;
-	animStart = SDL_GetTicks();
-
+	StartAnim(animate);
 	pageNum = 0;
 }
 
 /**
  * Advance to the next page.
- * @param animate @c true to animate the display of the page.
+ * @param animate The page transition animation.
  * @return @c true if the page changed, @c false if already at the end.
  */
-bool PagedTextDecor::NextPage(bool animate)
+bool PagedTextDecor::NextPage(Anim::type animate)
 {
-	animating = animate;
-	animStart = SDL_GetTicks();
-
 	if (pageNum < numPages - 1) {
 		pageNum++;
+		StartAnim(animate);
 		return true;
 	}
 	else {
@@ -119,16 +144,14 @@ bool PagedTextDecor::NextPage(bool animate)
 
 /**
  * Return to the previous page.
- * @param animate @c true to animate the display of the page.
+ * @param animate The page transition animation.
  * @return @c true if the page changed, @c false if already at the first page.
  */
-bool PagedTextDecor::PrevPage(bool animate)
+bool PagedTextDecor::PrevPage(Anim::type animate)
 {
-	animating = animate;
-	animStart = SDL_GetTicks();
-
 	if (pageNum > 0) {
 		pageNum--;
+		StartAnim(animate);
 		return true;
 	}
 	else {
@@ -138,16 +161,35 @@ bool PagedTextDecor::PrevPage(bool animate)
 
 void PagedTextDecor::Advance(Uint32 tick)
 {
-	if (animating) {
-		cursorVisible = cursor;
-		animProgress = (tick - animStart) / 10;
-		if (animProgress >= pages[pageNum]->GetNumRenderables()) {
-			animating = false;
-		}
-	}
-	else {
+	Uint32 timeDiff = tick - animStart;
+
+	switch (animating) {
+	case Anim::NONE:
 		// Blink the cursor.
 		cursorVisible = cursor && ((tick % 1000) < 500);
+		break;
+
+	case Anim::TYPEWRITER:
+		cursorVisible = cursor;
+		animProgress = timeDiff / 10;
+		if (animProgress >= pages[pageNum]->GetNumRenderables()) {
+			StartAnim(Anim::NONE);
+		}
+		break;
+
+	case Anim::FLING_UP:
+		cursorVisible = cursor;
+		{
+			float pos = static_cast<float>(timeDiff) / FLING_DURATION;
+			pos = powf(1 - pos, 2);
+			animOffsetY = static_cast<int>(100 * pos);
+			animAlpha = 255 - static_cast<int>(255 * pos);
+		}
+
+		if (timeDiff > static_cast<unsigned>(FLING_DURATION)) {
+			StartAnim(Anim::NONE);
+		}
+		break;
 	}
 }
 
@@ -159,8 +201,10 @@ void PagedTextDecor::Advance(Uint32 tick)
  */
 void PagedTextDecor::Render(int x, int y, int alpha) const
 {
-	pages[pageNum]->Render(x, y, alpha, cursorVisible,
-		animating ? animProgress : UINT_MAX);
+	pages[pageNum]->Render(
+		x, y + animOffsetY,
+		animAlpha * alpha / 255,
+		cursorVisible, animProgress);
 }
 
 }

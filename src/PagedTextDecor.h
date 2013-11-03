@@ -40,12 +40,23 @@ private:
 	void Rebuild();
 
 public:
+	struct Anim {
+		enum type {
+			NONE,
+			TYPEWRITER,
+			FLING_UP,
+		};
+	};
+private:
+	void StartAnim(Anim::type animate);
+
+public:
 	int MeasureWidth() const;
 	int MeasureHeight() const;
 
-	void FirstPage(bool animate=false);
-	bool NextPage(bool animate=false);
-	bool PrevPage(bool animate=false);
+	void FirstPage(Anim::type animate=Anim::NONE);
+	bool NextPage(Anim::type animate=Anim::NONE);
+	bool PrevPage(Anim::type animate=Anim::NONE);
 
 	void Advance(Uint32 tick);
 	void Render(int x, int y, int alpha=0xff) const;
@@ -62,9 +73,11 @@ private:
 	size_t numPages;
 	unsigned int pageNum;
 
-	bool animating;
+	Anim::type animating;
 	Uint32 animStart;
 	unsigned int animProgress;
+	int animOffsetY;
+	Uint8 animAlpha;
 };
 
 }
