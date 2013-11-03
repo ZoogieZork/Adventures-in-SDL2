@@ -32,6 +32,10 @@ private:
 	size_t ParseRow(const std::string &line, size_t initWidth);
 
 public:
+	bool IsVisible() const { return visible; }
+	void Show() { visible = true; }
+	void Hide() { visible = false; }
+
 	typedef std::vector<int> row_t;
 	typedef std::vector<row_t> tiles_t;
 
@@ -45,6 +49,7 @@ public:
 	}
 
 private:
+	bool visible;
 	tiles_t tiles;
 };
 

@@ -46,6 +46,8 @@ void LevelDecor::Render()
 
 	for (size_t layerIdx = 0; layerIdx < level->GetNumLayers(); layerIdx++) {
 		const Layer &layer = level->GetLayer(layerIdx);
+		if (!layer.IsVisible()) continue;
+
 		for (size_t y = 0; y < height; y++) {
 			auto iter = layer.GetRow(y);
 			for (size_t x = 0; x < width; x++) {

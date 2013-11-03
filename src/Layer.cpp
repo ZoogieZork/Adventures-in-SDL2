@@ -24,7 +24,8 @@
 
 namespace AISDL {
 
-Layer::Layer(const std::string &filename)
+Layer::Layer(const std::string &filename) :
+	visible(true)
 {
 	std::ifstream ifs(filename);
 	if (!ifs) {

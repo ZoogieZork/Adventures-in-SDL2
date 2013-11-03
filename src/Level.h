@@ -36,6 +36,11 @@ public:
 	size_t GetNumLayers() const { return layers.size(); }
 	const Layer &GetLayer(size_t i) const { return layers[i]; }
 
+	void ShowAllLayers();
+	void HideAllLayers();
+	void ShowLayer(size_t i) { layers[i].Show(); }
+	void HideLayer(size_t i) { layers[i].Hide(); }
+
 private:
 	const std::string dirname;
 	std::vector<Layer> layers;

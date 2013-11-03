@@ -80,4 +80,14 @@ void Level::Reload()
 	height = maxHeight;
 }
 
+void Level::ShowAllLayers()
+{
+	std::for_each(layers.begin(), layers.end(), std::mem_fn(&Layer::Show));
+}
+
+void Level::HideAllLayers()
+{
+	std::for_each(layers.begin(), layers.end(), std::mem_fn(&Layer::Hide));
+}
+
 }
