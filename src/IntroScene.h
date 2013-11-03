@@ -54,6 +54,7 @@ private:
 	std::shared_ptr<Level> level;
 	std::unique_ptr<LevelDecor> levelDecor;
 	std::unique_ptr<PagedTextDecor> introTxt;
+	std::unique_ptr<PagedTextDecor> aboutTxt;
 };
 
 }  // namespace AISDL

@@ -1,0 +1,16 @@
+^3Welcome to SDL2!
+
+^7SDL is a cross-platform multimedia library.
+
+SDL makes it easy to work with graphics, audio, and input devices like
+keyboards, mice, joysticks, and gamepads.
+----
+^3But wait, there's more!
+
+^7SDL also provides portable functions for:
+  - Logging
+  - Threading
+  - Timers
+  - Filesystem access
+  - Library loading
+  - System info

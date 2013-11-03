@@ -44,14 +44,17 @@ void IntroScene::OnAction()
 	switch (phase) {
 	case 0:
 		if (!introTxt->NextPage(true)) {
-			introTxt->FirstPage(true);
+			aboutTxt->FirstPage(false);
 			fadeTs = SDL_GetTicks();
 			phase++;
 		}
 		break;
-
-	default:
-		director.RequestNextScene();
+	case 1:
+		break;
+	case 2:
+		if (!aboutTxt->NextPage(false)) {
+			director.RequestNextScene();
+		}
 		break;
 	}
 }
@@ -64,6 +67,8 @@ void IntroScene::Preload()
 	const std::string dir = display.res.resDir + "/text/intro/";
 	introTxt.reset(new PagedTextDecor(display, display.res.pixelFont,
 		ResStr::Load(dir + "intro.txt"), 432, true));
+	aboutTxt.reset(new PagedTextDecor(display, display.res.bodyFont,
+		ResStr::Load(dir + "about.txt"), 864, true));
 }
 
 void IntroScene::Reload()
@@ -138,8 +143,17 @@ void IntroScene::RenderContent()
 	SDL_RenderFillRect(display.renderer, &textBg);
 	*/
 
-	if (phase == 0) {
+	switch (phase) {
+	case 0:
+		display.SetLowRes();
 		introTxt->Render(40, 40);
+		break;
+	case 1:
+		break;
+	case 2:
+		display.SetHighRes();
+		aboutTxt->Render(80, 80);
+		break;
 	}
 }
 
