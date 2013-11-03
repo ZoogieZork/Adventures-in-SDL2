@@ -43,7 +43,8 @@ PagedTextDecor::PagedTextDecor(Display &display, std::shared_ptr<Ttf> font,
 	cursor(cursor), cursorVisible(false),
 	pageNum(0),
 	animating(Anim::NONE), animStart(0),
-	animProgress(0), animOffsetY(0), animAlpha(0xff)
+	animProgress(0), animOffsetY(0), animAlpha(0xff),
+	animOutgoingPage(UINT_MAX)
 {
 	Rebuild();
 
@@ -73,7 +74,7 @@ void PagedTextDecor::Rebuild()
 	}
 }
 
-void PagedTextDecor::StartAnim(Anim::type animate)
+void PagedTextDecor::StartAnim(Anim::type animate, unsigned int outgoingPage)
 {
 	animating = animate;
 	animStart = SDL_GetTicks();
@@ -83,16 +84,19 @@ void PagedTextDecor::StartAnim(Anim::type animate)
 		animProgress = UINT_MAX;
 		animOffsetY = 0;
 		animAlpha = 255;
+		animOutgoingPage = UINT_MAX;
 		break;
 	case Anim::TYPEWRITER:
 		animProgress = 0;
 		animOffsetY = 0;
 		animAlpha = 255;
+		animOutgoingPage = UINT_MAX;
 		break;
 	case Anim::FLING_UP:
 		animProgress = UINT_MAX;
 		animOffsetY = 100;
 		animAlpha = 0;
+		animOutgoingPage = outgoingPage;
 		break;
 	}
 }
@@ -133,8 +137,7 @@ void PagedTextDecor::FirstPage(Anim::type animate)
 bool PagedTextDecor::NextPage(Anim::type animate)
 {
 	if (pageNum < numPages - 1) {
-		pageNum++;
-		StartAnim(animate);
+		StartAnim(animate, pageNum++);
 		return true;
 	}
 	else {
@@ -150,8 +153,7 @@ bool PagedTextDecor::NextPage(Anim::type animate)
 bool PagedTextDecor::PrevPage(Anim::type animate)
 {
 	if (pageNum > 0) {
-		pageNum--;
-		StartAnim(animate);
+		StartAnim(animate, pageNum--);
 		return true;
 	}
 	else {
@@ -201,6 +203,15 @@ void PagedTextDecor::Advance(Uint32 tick)
  */
 void PagedTextDecor::Render(int x, int y, int alpha) const
 {
+	/* Disabled for now.
+	   The persistence of vision makes the animation look messy.
+	if (animOutgoingPage != UINT_MAX) {
+		pages[animOutgoingPage]->Render(
+			x, y + (100 - animOffsetY),
+			(alpha - (animAlpha * alpha / 255)) / 2);
+	}
+	*/
+
 	pages[pageNum]->Render(
 		x, y + animOffsetY,
 		animAlpha * alpha / 255,

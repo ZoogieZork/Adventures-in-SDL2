@@ -48,7 +48,7 @@ public:
 		};
 	};
 private:
-	void StartAnim(Anim::type animate);
+	void StartAnim(Anim::type animate, unsigned int outgoingPage=UINT_MAX);
 
 public:
 	int MeasureWidth() const;
@@ -78,6 +78,7 @@ private:
 	unsigned int animProgress;
 	int animOffsetY;
 	Uint8 animAlpha;
+	unsigned int animOutgoingPage;
 };
 
 }
