@@ -1,6 +1,6 @@
-^2Dark Cave
+^2Dark Tunnel
 
-^<You are in a dark room.
+^<You are in a dark tunnel.
 
 It is pitch-black in here!  You are likely to be eaten by a grue.
 
@@ -8,20 +8,20 @@ There is a magic wand here.
 
 ^2> ^=take the wand
 ----
-^2Dark Cave
+^2Dark Tunnel
 
 ^<You take the magic wand.  Are you a wizard?
 
 The wand doesn't have any magic left in it!  You can vaguely hear
 grue-like sounds.
 
-There is a torch on the wall here.
+There is a lantern on the wall here.
 
-^2> ^=light the torch
+^2> ^=light the lantern
 ----
-^2Dark Cave (still)
+^2Dark Tunnel (still)
 
-^<You light the torch, but you still can't see anything.  Strange.
+^<You light the lantern, but you still can't see anything.  Strange.
 
 The grue-like sounds are getting very close!
 
