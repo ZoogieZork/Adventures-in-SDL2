@@ -49,6 +49,12 @@ set(AISDL_SRCS
 	src/FmtTextDecor.h
 	src/IntroScene.cpp
 	src/IntroScene.h
+	src/Layer.cpp
+	src/Layer.h
+	src/Level.cpp
+	src/Level.h
+	src/LevelDecor.cpp
+	src/LevelDecor.h
 	src/MainLoopScene.cpp
 	src/MainLoopScene.h
 	src/PagedTextDecor.cpp
