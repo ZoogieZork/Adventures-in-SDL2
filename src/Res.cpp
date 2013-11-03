@@ -81,6 +81,9 @@ void Res::Preload(Display &display)
 
 	const std::string spriteDir = resDir + "/sprites/";
 	playerSprite = SpriteMap::Load(display, spriteDir + "wizard.png", 30, 45);
+
+	const std::string tileDir = resDir + "/tiles/";
+	interiorTile = SpriteMap::Load(display, tileDir + "inq-xp-mi.png", 32, 32);
 }
 
 }  // namespace AISDL

@@ -48,6 +48,8 @@ public:
 	std::shared_ptr<Ttf> talkFont;
 
 	std::shared_ptr<SpriteMap> playerSprite;
+
+	std::shared_ptr<SpriteMap> interiorTile;
 };
 
 }  // namespace AISDL
