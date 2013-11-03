@@ -70,7 +70,7 @@ void IntroScene::Preload()
 	introTxt.reset(new PagedTextDecor(display, display.res.pixelFont,
 		ResStr::Load(dir + "intro.txt"), 432, true));
 	aboutTxt.reset(new PagedTextDecor(display, display.res.bodyFont,
-		ResStr::Load(dir + "about.txt"), 864, true));
+		ResStr::Load(dir + "about.txt"), 864));
 }
 
 void IntroScene::Reload()
