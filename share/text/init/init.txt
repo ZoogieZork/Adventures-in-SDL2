@@ -1,0 +1,43 @@
+^3Typical startup and shutdown
+
+^oSDL_Init^7 - Choose which parts of SDL you want to use
+^oSDL_CreateWindow^7 - Create the main window
+^oSDL_CreateRenderer^7 - SDL will select the best graphics system
+  ...
+^oSDL_DestroyRenderer^7
+^oSDL_DestroyWindow^7
+^oSDL_Quit^7
+----
+^3SDL_Init
+
+^oSDL_Init(SDL_INIT_EVERYTHING)^7 to use all SDL subsystems, or use the flags
+to pick-and-choose which subsystems you want to use.
+
+^oSDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO)^7 for example.
+----
+^3SDL_CreateWindow
+
+^oSDL_Window *win = SDL_CreateWindow("My Game",
+    SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    1024, 768,
+    SDL_WINDOW_RESIZABLE)
+
+^7Creates a new 1024x768 resizable window that's centered on the screen.
+
+All properties can be changed later:
+  - ^oSDL_SetWindowIcon^7
+  - ^oSDL_SetWindowTitle^7
+  - ^oSDL_SetWindowFullscreen^7
+  - etc.
+----
+^3SDL_CreateRenderer
+
+^7The renderer handles 2D graphics.
+
+^oSDL_Renderer *rend = SDL_CreateRenderer(win, -1,
+    SDL_RENDERER_ACCELERATED)^7
+
+The -1 lets SDL pick the best renderer for you (Direct3D, OpenGL, etc.).
+
+If you want to pick the renderer yourself, iterate through them with
+^oSDL_GetRendererInfo^7 and ^oSDL_GetNumRenderDrivers^7.

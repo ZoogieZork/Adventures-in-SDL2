@@ -20,6 +20,7 @@
 
 #include "Exception.h"
 #include "FinalScene.h"
+#include "InitScene.h"
 #include "IntroScene.h"
 #include "MainLoopScene.h"
 #include "Player.h"
@@ -43,6 +44,7 @@ App::App(int startingScene) :
 	keyLeft(0), keyRight(0), keyUp(0), keyDown(0)
 {
 	AddScene(std::make_shared<IntroScene>(*this, display));
+	AddScene(std::make_shared<InitScene>(*this, display));
 	AddScene(std::make_shared<MainLoopScene>(*this, display));
 	AddScene(std::make_shared<FinalScene>(*this, display));
 
