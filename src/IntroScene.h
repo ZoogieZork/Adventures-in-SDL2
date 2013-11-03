@@ -38,6 +38,10 @@ public:
 	virtual ~IntroScene();
 
 public:
+	// SideScrollScene
+	virtual void OnWalkOffEdgeLeft(std::shared_ptr<Player> player);
+	virtual void OnWalkOffEdgeRight(std::shared_ptr<Player> player);
+
 	// Scene
 	virtual void OnAction();
 

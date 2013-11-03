@@ -39,6 +39,16 @@ IntroScene::~IntroScene()
 {
 }
 
+void IntroScene::OnWalkOffEdgeLeft(std::shared_ptr<Player> player)
+{
+	player->SetPos(511, player->GetPosY());
+}
+
+void IntroScene::OnWalkOffEdgeRight(std::shared_ptr<Player> player)
+{
+	player->SetPos(-31, player->GetPosY());
+}
+
 void IntroScene::OnAction()
 {
 	switch (phase) {
