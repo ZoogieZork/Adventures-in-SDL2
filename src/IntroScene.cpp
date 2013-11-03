@@ -67,7 +67,7 @@ void IntroScene::Reset()
 	introTxt->FirstPage(true);
 
 	auto player = director.GetMainPlayer();
-	player->SetPos(40, 300);
+	player->SetPos(40, 320);
 }
 
 void IntroScene::Advance(Uint32 lastTick, Uint32 tick)

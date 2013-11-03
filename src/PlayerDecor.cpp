@@ -60,9 +60,10 @@ void PlayerDecor::Render()
 	}
 
 	//TODO: Apply world->screen transform for pos.
+	//FIXME: We assume player sprite is 30x45.
 	sprite->Render(
-		static_cast<int>(p->GetPosX()),
-		static_cast<int>(p->GetPosY()),
+		static_cast<int>(p->GetPosX()) + 1,
+		static_cast<int>(p->GetPosY()) - 13,
 		spriteIdx);
 }
 
