@@ -7,7 +7,7 @@ Not much to see here yet.  Mostly just experimenting with framework ideas.
 Prerequisites
 -------------
 
-Linux: At least GCC 4.6 or Clang 3.0.
+Linux: At least GCC 4.6.  Clang 3.2 or later may work but is currently not well-tested.
 
 Windows: Visual Studio 2010 or later, including the free Visual Studio Express editions.
 
