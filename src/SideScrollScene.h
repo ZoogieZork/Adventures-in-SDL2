@@ -22,6 +22,7 @@
 
 namespace AISDL {
 
+class Player;
 class PlayerDecor;
 
 /**
@@ -36,6 +37,11 @@ public:
 	virtual ~SideScrollScene();
 
 public:
+	virtual void OnWalkOffEdgeLeft(std::shared_ptr<Player> player) { };
+	virtual void OnWalkOffEdgeRight(std::shared_ptr<Player> player) { };
+
+public:
+	// Scene
 	virtual void Reset();
 	virtual void Advance(Uint32 lastTick, Uint32 tick);
 	virtual void RenderContent();

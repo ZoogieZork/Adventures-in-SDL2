@@ -56,10 +56,18 @@ void SideScrollScene::Advance(Uint32 lastTick, Uint32 tick)
 	if (timeDiff != 0 && move.x != 0) {
 		dx = static_cast<float>(cfg.playerSpeed) *
 			move.x * (timeDiff / 1000.0f);
-		//TODO: Collision detection.
-	}
 
-	player->Move(dx, 0);
+		//TODO: Collision detection.
+		player->Move(dx, 0);
+
+		float px = player->GetPosX();
+		if (px <= -32) {
+			OnWalkOffEdgeLeft(player);
+		}
+		else if (px >= 512) {
+			OnWalkOffEdgeRight(player);
+		}
+	}
 
 	lastTick = tick;
 }
