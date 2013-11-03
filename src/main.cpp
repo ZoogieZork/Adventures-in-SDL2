@@ -22,6 +22,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 
 #include "App.h"
@@ -94,10 +95,18 @@ static void InitApp()
 		throw Exception("SDL init", SDL_GetError());
 	}
 
-	int reqFmts = IMG_INIT_JPG | IMG_INIT_PNG;
-	int actualFmts = IMG_Init(reqFmts);
+	int reqFmts, actualFmts;
+
+	reqFmts = IMG_INIT_JPG | IMG_INIT_PNG;
+	actualFmts = IMG_Init(reqFmts);
 	if ((actualFmts & reqFmts) != reqFmts) {
 		throw Exception("SDL_image init", IMG_GetError());
+	}
+
+	reqFmts = MIX_INIT_OGG;
+	actualFmts = Mix_Init(reqFmts);
+	if ((actualFmts & reqFmts) != reqFmts) {
+		throw Exception("SDL_mixer init", Mix_GetError());
 	}
 
 	if (TTF_Init() == -1) {
@@ -109,6 +118,7 @@ static void InitApp()
 static void ShutdownApp()
 {
 	TTF_Quit();
+	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
