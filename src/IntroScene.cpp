@@ -30,7 +30,8 @@
 namespace AISDL {
 
 IntroScene::IntroScene(Director &director, Display &display) :
-	SUPER(director, display, "Introduction")
+	SUPER(director, display, "Introduction"),
+	phase(0)
 {
 }
 
@@ -40,8 +41,18 @@ IntroScene::~IntroScene()
 
 void IntroScene::OnAction()
 {
-	if (!introTxt->NextPage(true)) {
+	switch (phase) {
+	case 0:
+		if (!introTxt->NextPage(true)) {
+			introTxt->FirstPage(true);
+			fadeTs = SDL_GetTicks();
+			phase++;
+		}
+		break;
+
+	default:
 		director.RequestNextScene();
+		break;
 	}
 }
 
@@ -64,6 +75,9 @@ void IntroScene::Reset()
 {
 	SUPER::Reset();
 
+	phase = 0;
+
+	fadeAlpha = 255;
 	introTxt->FirstPage(true);
 
 	auto player = director.GetMainPlayer();
@@ -74,7 +88,23 @@ void IntroScene::Advance(Uint32 lastTick, Uint32 tick)
 {
 	SUPER::Advance(lastTick, tick);
 
-	introTxt->Advance(tick);
+	switch (phase) {
+	case 0:
+		introTxt->Advance(tick);
+		break;
+
+	case 1:
+		{
+			Uint32 timeDiff = tick - fadeTs;
+			if (timeDiff > 1000) {
+				phase++;
+			}
+			else {
+				fadeAlpha = 255 - (timeDiff * 255 / 1000);
+			}
+		}
+		break;
+	}
 }
 
 void IntroScene::RenderContent()
@@ -82,12 +112,21 @@ void IntroScene::RenderContent()
 	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(display.renderer);
 
-	display.SetLowRes();
-	levelDecor->Render();
+	if (phase >= 1) {
+		display.SetLowRes();
+		levelDecor->Render();
+	}
 
 	SUPER::RenderContent();
 
 	display.SetLowRes();
+
+	if (phase <= 1) {
+		SDL_SetRenderDrawBlendMode(display.renderer, SDL_BLENDMODE_BLEND);
+		SDL_SetRenderDrawColor(display.renderer, 0, 0, 0, fadeAlpha);
+		SDL_Rect fillRect = { 0, 0, 512, 384 };
+		SDL_RenderFillRect(display.renderer, &fillRect);
+	}
 
 	// Draw the background behind the text.
 	/*
@@ -99,7 +138,9 @@ void IntroScene::RenderContent()
 	SDL_RenderFillRect(display.renderer, &textBg);
 	*/
 
-	introTxt->Render(40, 40);
+	if (phase == 0) {
+		introTxt->Render(40, 40);
+	}
 }
 
 }  // namespace AISDL

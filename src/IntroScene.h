@@ -48,6 +48,9 @@ public:
 	virtual void RenderContent();
 
 private:
+	int phase;
+	Uint32 fadeTs;
+	Uint8 fadeAlpha;
 	std::shared_ptr<Level> level;
 	std::unique_ptr<LevelDecor> levelDecor;
 	std::unique_ptr<PagedTextDecor> introTxt;
