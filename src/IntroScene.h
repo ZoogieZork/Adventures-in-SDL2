@@ -28,7 +28,7 @@ class PagedTextDecor;
 class PlayerDecor;
 
 /**
- * All about the main event loop.
+ * Introducing SDL2 and what you can do with it.
  * @author Michael Imamura
  */
 class IntroScene : public SideScrollScene {
