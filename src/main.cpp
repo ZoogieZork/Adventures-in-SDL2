@@ -50,8 +50,16 @@ static bool ProcessCommandLine(int argc, char **argv)
 				"Usage: adventures-in-sdl2 [options] [startingScene]\n"
 				"\n"
 				"  -h, --help, --?\n"
-				"    Print this help text.\n";
+				"    Print this help text.\n"
+				"\n"
+				"  -p, --presentation\n"
+				"    Enable presentation mode.\n";
 			return false;
+		}
+		else if (arg == "-p" || arg == "--presentation") {
+			SDL_Log("Presentation mode enabled.  "
+				"Speaker notes will appear in the logs.");
+			cfg.presentationMode = true;
 		}
 		else {
 			bool validScene = false;

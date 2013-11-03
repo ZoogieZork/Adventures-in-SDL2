@@ -26,6 +26,7 @@ Config Config::instance;
 
 Config::Config() :
 	startingScene(0),
+	presentationMode(false),
 	playerSpeed(120)
 {
 }

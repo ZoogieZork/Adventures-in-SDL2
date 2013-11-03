@@ -33,6 +33,7 @@ private:
 
 public:
 	int startingScene;  ///< The initial scene index.
+	bool presentationMode;  ///< Presentation mode enabled.
 	int playerSpeed;  ///< Player movement speed (pixels / sec).
 };
 
