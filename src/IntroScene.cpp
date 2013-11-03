@@ -61,6 +61,8 @@ void IntroScene::OnAction()
 
 void IntroScene::Preload()
 {
+	SUPER::Preload();
+
 	level = Level::Load(display.res.resDir + "/levels/intro");
 	levelDecor.reset(new LevelDecor(display, level, display.res.interiorTile));
 
@@ -73,6 +75,8 @@ void IntroScene::Preload()
 
 void IntroScene::Reload()
 {
+	SUPER::Reload();
+
 	level->Reload();
 }
 

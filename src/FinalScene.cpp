@@ -46,6 +46,8 @@ void FinalScene::OnCancel()
 
 void FinalScene::Preload()
 {
+	SUPER::Preload();
+
 	const std::string dir = display.res.resDir + "/text/final/";
 	finalTxt.reset(new FmtTextDecor(display, display.res.bodyFont,
 		ResStr::Load(dir + "final.txt"), 640));
