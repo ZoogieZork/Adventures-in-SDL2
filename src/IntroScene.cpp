@@ -153,10 +153,9 @@ void IntroScene::RenderContent()
 
 	switch (phase) {
 	case 0:
-		display.SetLowRes();
-		introTxt->Render(40, 40);
-		break;
 	case 1:
+		display.SetLowRes();
+		introTxt->Render(40, 40, fadeAlpha);
 		break;
 	case 2:
 		display.SetHighRes();
