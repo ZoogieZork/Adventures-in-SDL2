@@ -47,6 +47,9 @@ public:
 	/** Reset the scene to the initial state. */
 	virtual void Reset() { }
 
+	/** Clean up any temp resources not needed when scene is not in focus. */
+	virtual void Cleanup() { }
+
 	/**
 	 * Define custom handling of when an SDL event arrives.
 	 * @param evt The SDL event.

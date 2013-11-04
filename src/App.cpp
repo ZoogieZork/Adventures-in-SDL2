@@ -351,6 +351,7 @@ void App::Run()
 
 		// If a new scene was requested, switch to it.
 		if (nextScene) {
+			scene->Cleanup();
 			scene = nextScene;
 			nextScene.reset();
 			scene->Reset();
