@@ -187,8 +187,10 @@ void FmtTextDecor::SetText(const std::string &s)
 	if (text) {
 		text.reset();
 	}
-	this->s = s;
-	Reformat();
+	if (this->s != s) {
+		this->s = s;
+		Reformat();
+	}
 }
 
 /**
