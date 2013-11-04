@@ -47,6 +47,7 @@ void MainLoopScene::OnWalkOffEdgeLeft(std::shared_ptr<Player> player)
 	else {
 		if (levelLoop == 3) {
 			level->HideLayer(1);
+			level->ShowLayer(3);
 		}
 		levelLoop--;
 		player->SetPos(511, player->GetPosY());
@@ -62,6 +63,7 @@ void MainLoopScene::OnWalkOffEdgeRight(std::shared_ptr<Player> player)
 		levelLoop++;
 		if (levelLoop == 3) {
 			level->ShowLayer(1);
+			level->HideLayer(3);
 		}
 		player->SetPos(-31, player->GetPosY());
 	}
