@@ -36,6 +36,35 @@ SideScrollScene::~SideScrollScene()
 {
 }
 
+/**
+ * Sample the movement controls and move the player position.
+ * @param timeDiff Milliseconds since last frame.
+ */
+void SideScrollScene::ApplyPlayerMovement(float timeDiff)
+{
+	if (timeDiff == 0) return;
+
+	auto move = director.SampleMovement();
+	if (move.x == 0) return;
+	
+	const Config &cfg = Config::instance;
+	auto player = director.GetMainPlayer();
+
+	float dx = static_cast<float>(cfg.playerSpeed) *
+		move.x * (timeDiff / 1000.0f);
+
+	//TODO: Collision detection.
+	player->Move(dx, 0);
+
+	float px = player->GetPosX();
+	if (px <= -32) {
+		OnWalkOffEdgeLeft(player);
+	}
+	else if (px >= 512) {
+		OnWalkOffEdgeRight(player);
+	}
+}
+
 void SideScrollScene::Reset()
 {
 	auto player = director.GetMainPlayer();
@@ -45,31 +74,9 @@ void SideScrollScene::Reset()
 
 void SideScrollScene::Advance(Uint32 lastTick, Uint32 tick)
 {
-	const Config &cfg = Config::instance;
-
-	auto move = director.SampleMovement();
-	
-	auto player = director.GetMainPlayer();
-
-	float timeDiff = static_cast<float>(tick - lastTick);
-	float dx = 0;
-	if (timeDiff != 0 && move.x != 0) {
-		dx = static_cast<float>(cfg.playerSpeed) *
-			move.x * (timeDiff / 1000.0f);
-
-		//TODO: Collision detection.
-		player->Move(dx, 0);
-
-		float px = player->GetPosX();
-		if (px <= -32) {
-			OnWalkOffEdgeLeft(player);
-		}
-		else if (px >= 512) {
-			OnWalkOffEdgeRight(player);
-		}
+	if (!SDL_IsTextInputActive()) {
+		ApplyPlayerMovement(static_cast<float>(tick - lastTick));
 	}
-
-	lastTick = tick;
 }
 
 void SideScrollScene::RenderContent()

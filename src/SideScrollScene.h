@@ -40,6 +40,9 @@ public:
 	virtual void OnWalkOffEdgeLeft(std::shared_ptr<Player> player) { };
 	virtual void OnWalkOffEdgeRight(std::shared_ptr<Player> player) { };
 
+private:
+	void ApplyPlayerMovement(float timeDiff);
+
 public:
 	// Scene
 	virtual void Reset();
