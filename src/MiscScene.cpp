@@ -41,6 +41,11 @@ void MiscScene::OnAction()
 	}
 }
 
+void MiscScene::OnCancel()
+{
+	miscTxt->PrevPage();
+}
+
 void MiscScene::Preload()
 {
 	SUPER::Preload();

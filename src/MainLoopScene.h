@@ -43,6 +43,7 @@ public:
 
 	// Scene
 	virtual void OnAction();
+	virtual void OnCancel();
 
 	virtual void Preload();
 	virtual void Reload();

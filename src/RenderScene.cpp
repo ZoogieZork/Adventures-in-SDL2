@@ -41,6 +41,11 @@ void RenderScene::OnAction()
 	}
 }
 
+void RenderScene::OnCancel()
+{
+	renderTxt->PrevPage();
+}
+
 void RenderScene::Preload()
 {
 	SUPER::Preload();

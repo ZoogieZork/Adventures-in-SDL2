@@ -41,6 +41,11 @@ void InitScene::OnAction()
 	}
 }
 
+void InitScene::OnCancel()
+{
+	initTxt->PrevPage();
+}
+
 void InitScene::Preload()
 {
 	SUPER::Preload();

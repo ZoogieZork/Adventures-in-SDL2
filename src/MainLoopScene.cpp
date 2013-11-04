@@ -74,6 +74,11 @@ void MainLoopScene::OnAction()
 	}
 }
 
+void MainLoopScene::OnCancel()
+{
+	eventTxt->PrevPage();
+}
+
 void MainLoopScene::Preload()
 {
 	SUPER::Preload();
