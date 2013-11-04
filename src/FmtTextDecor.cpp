@@ -213,7 +213,7 @@ void FmtTextDecor::Render(int x, int y, int alpha, bool cursor,
 	SDL_SetTextureColorMod(font->typeCase, 0xff, 0xff, 0xff);
 
 	unsigned int count = 0;
-	int cursorX = 0, cursorY = 0;
+	int cursorX = x, cursorY = y;
 	for (auto iter = rends.cbegin(); iter != rends.cend(); ++iter) {
 		if (fmtColor != iter->fmtColor) {
 			fmtColor = iter->fmtColor;
