@@ -10,14 +10,14 @@
 ----
 ^3SDL_Init
 
-^oSDL_Init(SDL_INIT_EVERYTHING)^7 to use all SDL subsystems, or use the flags
+^oSDL_Init^7(SDL_INIT_EVERYTHING) to use all SDL subsystems, or use the flags
 to pick-and-choose which subsystems you want to use.
 
-^oSDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO)^7 for example.
+^oSDL_Init^7(SDL_INIT_AUDIO | SDL_INIT_VIDEO) for example.
 ----
 ^3SDL_CreateWindow
 
-^oSDL_Window *win = SDL_CreateWindow("My Game",
+^oSDL_Window^7 *win = ^oSDL_CreateWindow^7(^5"My Game"^7,
     SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
     1024, 768,
     SDL_WINDOW_RESIZABLE)
@@ -34,8 +34,8 @@ All properties can be changed later:
 
 ^7The renderer handles 2D graphics.
 
-^oSDL_Renderer *rend = SDL_CreateRenderer(win, -1,
-    SDL_RENDERER_ACCELERATED)^7
+^oSDL_Renderer^7 *rend = ^oSDL_CreateRenderer^7(win, -1,
+    SDL_RENDERER_ACCELERATED)
 
 The -1 lets SDL pick the best renderer for you (Direct3D, OpenGL, etc.).
 
