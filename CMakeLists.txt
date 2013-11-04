@@ -77,6 +77,8 @@ set(AISDL_SRCS
 	src/SideScrollScene.h
 	src/SpriteMap.cpp
 	src/SpriteMap.h
+	src/TextInputScene.cpp
+	src/TextInputScene.h
 	src/Ttf.cpp
 	src/Ttf.h
 	src/main.cpp
