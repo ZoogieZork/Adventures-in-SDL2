@@ -25,6 +25,7 @@
 #include "MainLoopScene.h"
 #include "Player.h"
 #include "PreloadScene.h"
+#include "RenderScene.h"
 #include "ResStr.h"
 #include "Scene.h"
 #include "TextInputScene.h"
@@ -71,6 +72,7 @@ App::App(int startingScene) :
 	AddScene(std::make_shared<InitScene>(*this, display));
 	AddScene(std::make_shared<MainLoopScene>(*this, display));
 	AddScene(std::make_shared<TextInputScene>(*this, display));
+	AddScene(std::make_shared<RenderScene>(*this, display));
 	AddScene(std::make_shared<FinalScene>(*this, display));
 
 	// Create the main player.

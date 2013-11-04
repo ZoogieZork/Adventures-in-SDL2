@@ -1,0 +1,86 @@
+^32D Rendering
+
+^7There are two kinds of SDL bitmap objects:
+  - ^oSDL_Surface^7 objects live in system memory.
+  - ^oSDL_Texture^7 objects live in GPU memory and are ^3write-only^7!
+
+First create/load your bitmap as an ^oSDL_Surface^7 then create an
+^oSDL_Texture^7 from it.
+
+Then, create an ^oSDL_Texture^7 from the surface and use that for drawing on
+the screen.
+----
+^3Surfaces
+
+^7You can both read and write to surfaces.
+
+If you load an image from disk (with ^oSDL_image^7) or render text (with ^oSDL_ttf^7),
+you'll get an ^oSDL_Surface^7.
+
+Use ^oSDL_CreateRGBSurface^7 to create a new surface.
+
+Use ^oSDL_ConvertSurface^7 to convert between pixel formats.
+----
+^3Surfaces: Drawing
+^7
+  - ^oSDL_SetClipRect^7 - Set clipping region.
+  - ^oSDL_FillRect^7 - Fill an area with a color.
+  - ^oSDL_BlitSurface^7 - Draw a surface on another.
+  - ^oSDL_BlitScaled^7 - Draw a surface on another, with scaling.
+----
+^3Surfaces: Pixel-by-pixel
+
+^7Before the pixels in a surface can be accessed, it must be locked.
+
+^oSDL_Surface^7 *surface = ^oSDL_LoadBMP^7("foo.bmp");
+^8if^7 (^oSDL_MUSTLOCK^7(surface)) {
+  ^oSDL_LockSurface^7(surface);
+}
+^:// surface->pixels now points to the pixel data^7
+^8if^7 (^oSDL_MUSTLOCK^7(surface)) {
+  ^oSDL_UnlockSurface^7(surface);
+}
+
+^oSDL_MUSTLOCK^7 is used to skip locking if the OS doesn't require it.
+----
+^3Textures
+
+^7Use ^oSDL_CreateTextureFromSurface^7 to convert a surface to a texture.
+
+Textures live on the video hardware and are ^3write-only^7!
+----
+^3Textures: Updating
+
+^7Two types of textures: STATIC and STREAMING.
+
+Static textures are updated using ^oSDL_UpdateTexture^7 (slow!).
+
+Streaming textures are created by passing ^oSDL_TEXTUREACCESS_STREAMING^7
+to ^oSDL_CreateTexture^7.  Update them with ^oSDL_LockTexture^7 and
+^oSDL_UnlockTexture^7.
+----
+^3Textures: Drawing
+^7
+  - ^oSDL_SetRenderTarget^7 - Render to a texture or to the screen.
+  - ^oSDL_SetRenderDrawColor^7 - Set current color.
+  - ^oSDL_RenderSetClipRect^7 - Set clipping region.
+  - ^oSDL_RenderClear^7 - Fill with current color.
+  - ^oSDL_RenderFillRect^7 - Fill an area.
+  - ^oSDL_RenderCopy^7 - Draw a texture, with scaling.
+  - ^oSDL_RenderCopyEx^7 - Draw a texture, with scaling, rotation, etc.
+  - ... and many, many others.
+----
+^3Textures: The screen
+
+^7The default render target is the backbuffer for the screen.
+
+When finished drawing the current frame, call ^oSDL_RenderPresent^7.
+----
+^3Textures: Scaling
+
+^7Creating a "retro" style pixel-art game?
+
+^oSDL_RenderSetLogicalSize^7 sets a virtual resolution, so all draw operations are
+scaled to fit.
+
+^oSDL_RenderSetScale^7 to set the scaling directly.

@@ -67,6 +67,8 @@ set(AISDL_SRCS
 	src/PlayerDecor.h
 	src/PreloadScene.cpp
 	src/PreloadScene.h
+	src/RenderScene.cpp
+	src/RenderScene.h
 	src/Res.cpp
 	src/Res.h
 	src/ResStr.cpp
