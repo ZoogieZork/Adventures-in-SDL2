@@ -18,28 +18,43 @@
 
 #pragma once
 
-#include "Scene.h"
+#include "SideScrollScene.h"
 
 namespace AISDL {
 
-class FmtTextDecor;
+class Level;
+class LevelDecor;
+class PagedTextDecor;
 
 /**
  * All about the main event loop.
  * @author Michael Imamura
  */
-class MainLoopScene : public Scene {
-	typedef Scene SUPER;
+class MainLoopScene : public SideScrollScene {
+	typedef SideScrollScene SUPER;
 public:
 	MainLoopScene(Director &director, Display &display);
 	virtual ~MainLoopScene();
 
 public:
+	// SideScrollScene
+	virtual void OnWalkOffEdgeLeft(std::shared_ptr<Player> player);
+	virtual void OnWalkOffEdgeRight(std::shared_ptr<Player> player);
+
 	// Scene
+	virtual void OnAction();
+
 	virtual void Preload();
+	virtual void Reload();
+	virtual void Reset();
 	virtual void Advance(Uint32 lastTick, Uint32 tick);
 	virtual void RenderContent();
+
+private:
+	int levelLoop;
+	std::shared_ptr<Level> level;
+	std::unique_ptr<LevelDecor> levelDecor;
+	std::unique_ptr<PagedTextDecor> eventTxt;
 };
 
 }  // namespace AISDL
-

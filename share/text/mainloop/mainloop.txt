@@ -1,0 +1,32 @@
+^3Events
+
+^7Every input event generates an ^oSDL_Event^7 on the event queue.
+
+To pull events from the queue:
+  - ^oSDL_WaitEvent^7 blocks until an event happens.
+  - ^oSDL_PollEvent^7 is non-blocking.
+----
+^3Typical Main Loop
+
+^6bool^7 quit = ^6false^7;
+^oSDL_Event^7 evt;
+^8while^7 (!quit) {
+  ^8while^7 (^oSDL_PollEvent^7(&evt)) {
+    ^8switch^7 (evt.type) {
+      ^8case^7 ^oSDL_QUIT^7: quit = ^6true^7; ^8break^7;
+      ^:// ... other events ...^7
+    }
+  }
+  ^:// Render next frame.^7
+}
+----
+^3Custom Events
+
+^7Use ^oSDL_PushEvent^7 with a ^oSDL_USEREVENT^7 event to create your own events.
+
+^oSDL_Event^7 evt;
+evt.type = ^oSDL_USEREVENT^7;
+evt.user.code = 1234;  ^:// Your own custom event code.^7
+evt.user.data1 = ^6nullptr^7;  ^:// Custom data.^7
+evt.user.data2 = ^6nullptr^7;  ^:// More custom data.^7
+^oSDL_PushEvent^7(&evt);
