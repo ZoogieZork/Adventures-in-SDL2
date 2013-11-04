@@ -21,6 +21,7 @@
 namespace AISDL {
 
 class Display;
+class FmtTextDecor;
 class Player;
 class SpriteMap;
 
@@ -32,6 +33,7 @@ class PlayerDecor {
 public:
 	PlayerDecor(Display &display, std::shared_ptr<Player> player,
 		std::shared_ptr<SpriteMap> sprite);
+	~PlayerDecor();
 
 public:
 	void Advance(Uint32 tick);
@@ -41,6 +43,9 @@ private:
 	Display &display;
 	std::weak_ptr<Player> player;
 	std::shared_ptr<SpriteMap> sprite;
+	bool balloonVisible;
+	int balloonBounceY;
+	std::unique_ptr<FmtTextDecor> balloon;
 };
 
 }  // namespace AISDL

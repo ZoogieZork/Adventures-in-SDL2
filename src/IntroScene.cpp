@@ -49,6 +49,11 @@ void IntroScene::OnWalkOffEdgeRight(std::shared_ptr<Player> player)
 	player->SetPos(-31, player->GetPosY());
 }
 
+void IntroScene::OnInteract()
+{
+	director.GetMainPlayer()->Say("Hi!");
+}
+
 void IntroScene::OnAction()
 {
 	switch (phase) {

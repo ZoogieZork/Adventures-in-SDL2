@@ -43,6 +43,7 @@ public:
 	virtual void OnWalkOffEdgeRight(std::shared_ptr<Player> player);
 
 	// Scene
+	virtual void OnInteract();
 	virtual void OnAction();
 
 	virtual void Preload();

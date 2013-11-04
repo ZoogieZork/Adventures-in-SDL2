@@ -77,6 +77,7 @@ void SideScrollScene::Advance(Uint32 lastTick, Uint32 tick)
 	if (!SDL_IsTextInputActive()) {
 		ApplyPlayerMovement(static_cast<float>(tick - lastTick));
 	}
+	playerDecor->Advance(tick);
 }
 
 void SideScrollScene::RenderContent()

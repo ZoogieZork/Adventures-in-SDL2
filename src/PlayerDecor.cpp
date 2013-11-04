@@ -19,6 +19,7 @@
 #include "StdAfx.h"
 
 #include "Display.h"
+#include "FmtTextDecor.h"
 #include "Player.h"
 #include "SpriteMap.h"
 
@@ -34,7 +35,13 @@ namespace AISDL {
  */
 PlayerDecor::PlayerDecor(Display &display, std::shared_ptr<Player> player,
 	std::shared_ptr<SpriteMap> sprite) :
-	display(display), player(player), sprite(sprite)
+	display(display), player(player), sprite(sprite),
+	balloonVisible(false), balloonBounceY(0),
+	balloon(new FmtTextDecor(display, display.res.talkFont, "", 512))
+{
+}
+
+PlayerDecor::~PlayerDecor()
 {
 }
 
@@ -44,6 +51,20 @@ void PlayerDecor::Advance(Uint32 tick)
 	if (!p) return;
 
 	//TODO: Animate walking.
+
+	const std::string &balloonText = p->GetBalloonText();
+	balloonVisible = !balloonText.empty();
+	if (balloonVisible) {
+		balloon->SetText("^0" + balloonText);
+
+		Uint32 balloonTsDiff = tick - p->GetBalloonTs();
+		if (balloonTsDiff > 300) {
+			balloonBounceY = 0;
+		}
+		else {
+			balloonBounceY = ((balloonTsDiff % 100) < 50) ? 1 : 0;
+		}
+	}
 }
 
 void PlayerDecor::Render()
@@ -59,12 +80,28 @@ void PlayerDecor::Render()
 	case Player::Direction::LEFT:  spriteIdx = 24; break;
 	}
 
-	//TODO: Apply world->screen transform for pos.
 	//FIXME: We assume player sprite is 30x45.
-	sprite->Render(
-		static_cast<int>(p->GetPosX()) + 1,
-		static_cast<int>(p->GetPosY()) - 13,
-		spriteIdx);
+	int px = static_cast<int>(p->GetPosX()) + 1;
+	int py = static_cast<int>(p->GetPosY()) - 13;
+
+	//TODO: Apply world->screen transform for pos.
+	sprite->Render(px, py, spriteIdx);
+
+	// Draw the dialog balloon centered above the player.
+	if (balloonVisible) {
+		int bw = balloon->MeasureWidth();
+		int bh = balloon->MeasureHeight();
+		int bx = (px + 15) - (bw / 2);
+		int by = py - bh - balloonBounceY;
+
+		SDL_Rect bgRect = { bx - 6, by, bw + 12, bh + 2 };
+		SDL_SetRenderDrawColor(display.renderer, 0xff, 0xff, 0xff, 0xbf);
+		SDL_RenderFillRect(display.renderer, &bgRect);
+		SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x00, 0xff);
+		SDL_RenderDrawRect(display.renderer, &bgRect);
+
+		balloon->Render(bx, by);
+	}
 }
 
 }  // namespace AISDL

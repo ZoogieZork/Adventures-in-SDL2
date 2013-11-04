@@ -75,5 +75,27 @@ void Player::SetDirection(Direction::type direction)
 	this->direction = direction;
 }
 
+/**
+ * Set the text that appears above the player.
+ * @param s The text.
+ */
+void Player::SetBalloonText(const std::string &s)
+{
+	balloonText = s;
+	balloonTs = SDL_GetTicks();
+}
+
+/**
+ * Make the player say something.
+ * @param s The text to say.
+ */
+void Player::Say(const std::string &s)
+{
+	SetBalloonText(s);
+
+	// Face the viewer.
+	direction = Direction::DOWN;
+}
+
 }  // namespace AISDL
 

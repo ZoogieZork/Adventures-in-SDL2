@@ -45,10 +45,17 @@ public:
 	void SetDirection(Direction::type direction);
 	Direction::type GetDirection() const { return direction; }
 
+	void SetBalloonText(const std::string &s);
+	void Say(const std::string &s);
+	const std::string &GetBalloonText() const { return balloonText; }
+	Uint32 GetBalloonTs() const { return balloonTs; }
+
 private:
 	std::string name;
 	float posX, posY;
 	Direction::type direction;
+	std::string balloonText;
+	Uint32 balloonTs;
 };
 
 }  // namespace AISDL
