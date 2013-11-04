@@ -44,6 +44,10 @@ TextInputScene::~TextInputScene()
 void TextInputScene::UpdatePlayerName()
 {
 	playerNameTxt->SetText(playerName);
+
+	// Note when the last input event occurred so we can keep the cursor
+	// visible.
+	lastInputTs = SDL_GetTicks();
 }
 
 void TextInputScene::OnKeyDown(SDL_KeyboardEvent &evt)
@@ -124,6 +128,7 @@ void TextInputScene::Reset()
 	playerName = "Ulric of Cogito";
 	playerNameTxt.reset(new FmtTextDecor(display, display.res.pixelFont,
 		playerName, 512));
+	UpdatePlayerName();
 
 	introTxt->FirstPage(PagedTextDecor::Anim::TYPEWRITER);
 
@@ -164,7 +169,7 @@ void TextInputScene::Advance(Uint32 lastTick, Uint32 tick)
 
 	introTxt->Advance(tick);
 
-	playerNameCursor = (tick % 1000) < 500;
+	playerNameCursor = ((lastInputTs - tick) % 1000) < 500;
 }
 
 void TextInputScene::RenderContent()

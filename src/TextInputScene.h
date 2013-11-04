@@ -65,6 +65,7 @@ private:
 	std::unique_ptr<LevelDecor> levelDecor;
 	std::unique_ptr<PagedTextDecor> introTxt;
 	std::unique_ptr<FmtTextDecor> playerNameTxt;
+	Uint32 lastInputTs;
 	std::string playerName;
 	bool playerNameCursor;
 };
