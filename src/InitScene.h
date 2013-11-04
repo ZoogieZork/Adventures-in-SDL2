@@ -1,5 +1,5 @@
 
-/* FinalScene.h
+/* InitScene.h
  *
  * Copyright (C) 2013 Michael Imamura
  *
