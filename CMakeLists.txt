@@ -59,6 +59,8 @@ set(AISDL_SRCS
 	src/LevelDecor.h
 	src/MainLoopScene.cpp
 	src/MainLoopScene.h
+	src/MiscScene.cpp
+	src/MiscScene.h
 	src/PagedTextDecor.cpp
 	src/PagedTextDecor.h
 	src/Player.cpp

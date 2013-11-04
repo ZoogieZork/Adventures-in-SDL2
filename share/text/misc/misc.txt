@@ -1,0 +1,35 @@
+^3Miscellaneous: Timing
+
+^oSDL_GetTicks^7 to get the time (in milliseconds).
+
+^oSDL_AddTimer^7 to call a function after a delay.
+This is run on a separate thread, so ^oSDL_PushEvent^7 with custom user events
+are useful here!
+----
+^3Miscellaneous: Logging
+
+^7SDL's built-in logger can be used by anybody, at any time (even before ^oSDL_Init^7).
+
+^oSDL_Log^7(^5"Widgets processed: %d"^7, numWidgets);
+
+Supports different log categories and log levels (warn, info, etc.).
+
+Intercept and redirect logs via ^oSDL_LogSetOutputFunction^7.
+----
+^3Miscellaneous: Threading
+
+^oSDL_CreateThread^7 to spawn new threads.
+
+Functions are provided for:
+  - Thread-local storage
+  - Mutexes, semaphores, and condition variables
+  - Atomic operations
+----
+^3Miscellaneous: Library loading
+
+^6void^7 (*myFunction)(^6int^7);
+^6void^7 *handle = ^oSDL_LoadObject^7(^5"module.so"^7);
+myFunction = ^oSDL_LoadFunction^7(handle, ^5"myFunction"^7);
+^8if^7 (myFunction) {
+  myFunction(1234);
+}
