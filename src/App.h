@@ -53,6 +53,7 @@ private:
 	void OnControllerButtonDown(SDL_ControllerButtonEvent &evt);
 	void OnKeyDown(SDL_KeyboardEvent &evt);
 	void OnKeyUp(SDL_KeyboardEvent &evt);
+	void OnUserEvent(SDL_UserEvent &evt);
 
 public:
 	void Run();

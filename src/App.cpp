@@ -32,6 +32,29 @@
 
 namespace AISDL {
 
+namespace {
+	struct UserEvent {
+		enum type {
+			FLASH_TIMER,
+		};
+	};
+
+	// Called by SDL_AddTimer.
+	Uint32 HandleFlashTimer(Uint32 interval, void *params)
+	{
+		// SDL_AddTimer runs callbacks on a separate thread, so to be safe
+		// we push an event so we actually handle it on the main thread.
+		// See App::OnUserEvent().
+		SDL_Event evt;
+		evt.type = SDL_USEREVENT;
+		evt.user.code = UserEvent::FLASH_TIMER;
+		SDL_PushEvent(&evt);
+
+		// Continue firing events on the same interval.
+		return interval;
+	}
+}
+
 /**
  * Constructor.
  * @param startingScene Index of the scene to start.
@@ -241,6 +264,21 @@ void App::OnKeyUp(SDL_KeyboardEvent &evt)
 }
 
 /**
+ * Handle when a user event is triggered.
+ * @param evt The event.
+ */
+void App::OnUserEvent(SDL_UserEvent &evt)
+{
+	switch (evt.code) {
+	case UserEvent::FLASH_TIMER:
+		clockDecor.Flash();
+		break;
+	default:
+		SDL_Log("Unhandled user event: %d", evt.code);
+	}
+}
+
+/**
  * Main loop.
  */
 void App::Run()
@@ -257,6 +295,9 @@ void App::Run()
 	for (int i = 0; i < SDL_NumJoysticks(); i++) {
 		AttachController(i);
 	}
+
+	// Flash the clock every 15 minutes.
+	SDL_AddTimer(15 * 60 * 1000, &HandleFlashTimer, nullptr);
 
 	while (!quit) {
 		// Process all events that have been triggered since the last
@@ -285,6 +326,11 @@ void App::Run()
 			case SDL_CONTROLLERDEVICEREMAPPED:
 				//TODO
 				SDL_Log("Remapped controller: %d", evt.cdevice.which);
+				break;
+
+			// SDL_UserEvent
+			case SDL_USEREVENT:
+				OnUserEvent(evt.user);
 				break;
 
 			case SDL_QUIT:
