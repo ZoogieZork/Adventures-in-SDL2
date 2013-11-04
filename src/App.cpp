@@ -293,6 +293,10 @@ void App::Run()
 	SDL_Event evt;
 	Uint32 lastTick = 0;
 
+	// SDL automatically enables text input at startup.
+	// We only want to use it in TextInputScene, so we turn it off here.
+	SDL_StopTextInput();
+
 	// Always start with the preload scene.
 	// When the preloader finishes, it'll request to switch to the next scene.
 	scene = std::make_shared<PreloadScene>(*this, display);
