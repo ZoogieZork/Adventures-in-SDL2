@@ -77,7 +77,7 @@ void Res::Preload(Display &display)
 	pixelFont = Ttf::Load(display, fontDir + "FifteenNarrow.ttf", 16);
 	clockFont = pixelFont;
 	bodyFont = Ttf::Load(display, fontDir + "Tuffy.ttf", 25);
-	talkFont = Ttf::Load(display, fontDir + "Minecraftia.ttf", 8);
+	talkFont = Ttf::Load(display, fontDir + "Minecraftia.ttf", 14);
 
 	const std::string spriteDir = resDir + "/sprites/";
 	playerSprite = SpriteMap::Load(display, spriteDir + "wizard.png", 30, 45);
