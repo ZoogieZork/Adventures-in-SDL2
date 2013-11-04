@@ -53,6 +53,9 @@ private:
 	void Reformat();
 
 public:
+	void SetText(const std::string &s);
+
+public:
 	size_t GetNumRenderables() const { return rends.size(); }
 
 	int MeasureHeight() const { return sizeHeight; }

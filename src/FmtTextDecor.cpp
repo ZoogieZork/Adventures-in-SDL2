@@ -179,6 +179,19 @@ void FmtTextDecor::Reformat()
 }
 
 /**
+ * Change the text to a static string.
+ * @param s The static string.
+ */
+void FmtTextDecor::SetText(const std::string &s)
+{
+	if (text) {
+		text.reset();
+	}
+	this->s = s;
+	Reformat();
+}
+
+/**
  * Render the text at the specified coordinates.
  * @param x The X coordinate.
  * @param y The Y coordinate.
