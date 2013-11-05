@@ -27,6 +27,16 @@
 
 namespace AISDL {
 
+namespace {
+	/// Sprite indexes for each frame of animation.
+	int WALK_ANIM[4][8] = {
+		{  4,  5,  6,  7,  4,  5,  6,  7 },  // Up
+		{ 16, 17, 18, 19, 20, 21, 22, 23 },  // Right
+		{  0,  0,  0,  0,  0,  0,  0,  0 },  // Down
+		{ 15, 14, 13, 12, 11, 10,  9,  8 },  // Left
+	};
+}
+
 /**
  * Constructor.
  * @param display The target display.
@@ -72,13 +82,8 @@ void PlayerDecor::Render()
 	auto p = player.lock();
 	if (!p) return;
 
-	int spriteIdx;
-	switch (p->GetDirection()) {
-	case Player::Direction::UP:    spriteIdx = 4;  break;
-	case Player::Direction::RIGHT: spriteIdx = 16; break;
-	case Player::Direction::DOWN:  spriteIdx = 0;  break;
-	case Player::Direction::LEFT:  spriteIdx = 24; break;
-	}
+	int animIdx = (static_cast<int>(p->GetAnimDistance()) / 8) % 8;
+	int spriteIdx = WALK_ANIM[p->GetDirection()][animIdx];
 
 	//FIXME: We assume player sprite is 30x45.
 	int px = static_cast<int>(p->GetPosX()) + 1;

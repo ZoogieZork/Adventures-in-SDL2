@@ -44,11 +44,14 @@ void SideScrollScene::ApplyPlayerMovement(float timeDiff)
 {
 	if (timeDiff == 0) return;
 
+	auto player = director.GetMainPlayer();
 	auto move = director.SampleMovement();
-	if (move.x == 0) return;
+	if (move.x == 0) {
+		player->Move(0, 0);
+		return;
+	}
 	
 	const Config &cfg = Config::instance;
-	auto player = director.GetMainPlayer();
 
 	float dx = static_cast<float>(cfg.playerSpeed) *
 		move.x * (timeDiff / 1000.0f);

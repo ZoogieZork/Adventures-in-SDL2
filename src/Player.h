@@ -37,10 +37,16 @@ public:
 	void SetName(const std::string &name);
 	const std::string &GetName() const { return name; }
 
+private:
+	void AdjustDirection(Direction::type direction, float distance);
+
+public:
 	void SetPos(float x, float y);
 	void Move(float dx, float dy);
 	float GetPosX() const { return posX; }
 	float GetPosY() const { return posY; }
+
+	float GetAnimDistance() const { return animDistance; }
 
 	void SetDirection(Direction::type direction);
 	Direction::type GetDirection() const { return direction; }
@@ -53,6 +59,7 @@ public:
 private:
 	std::string name;
 	float posX, posY;
+	float animDistance;
 	Direction::type direction;
 	std::string balloonText;
 	Uint32 balloonTs;

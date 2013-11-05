@@ -33,6 +33,24 @@ void Player::SetName(const std::string &name)
 	this->name = name;
 }
 
+/**
+ * Update the facing direction and total distance traveled in this direction.
+ * @param direction The new direction.
+ * @param distance The added distance traveled in this direction.
+ */
+void Player::AdjustDirection(Direction::type direction, float distance)
+{
+	if (this->direction == direction) {
+		// Moving in the same direction.
+		animDistance += fabs(distance);
+	}
+	else {
+		// Switched directions.
+		this->direction = direction;
+		animDistance = fabs(distance);
+	}
+}
+
 void Player::SetPos(float x, float y)
 {
 	this->posX = x;
@@ -47,22 +65,28 @@ void Player::SetPos(float x, float y)
  */
 void Player::Move(float dx, float dy)
 {
+	if (dx == 0 && dy == 0) {
+		// Stopped moving.
+		animDistance = 0;
+		return;
+	}
+
 	this->posX += dx;
 	this->posY += dy;
 
 	if (dx == 0) {
 		if (dy < 0) {
-			direction = Direction::UP;
+			AdjustDirection(Direction::UP, dy);
 		}
 		else if (dy > 0) {
-			direction = Direction::DOWN;
+			AdjustDirection(Direction::DOWN, dy);
 		}
 	}
 	else if (dx < 0) {
-		direction = Direction::LEFT;
+		AdjustDirection(Direction::LEFT, dx);
 	}
 	else {
-		direction = Direction::RIGHT;
+		AdjustDirection(Direction::RIGHT, dx);
 	}
 }
 
