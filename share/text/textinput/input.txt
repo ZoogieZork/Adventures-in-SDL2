@@ -1,0 +1,21 @@
+^3Text Input
+
+^7There's a lot of things to consider about text input:
+  - Unicode
+  - On-screen keyboards
+  - Input method editors
+----
+^3Preparing for text input
+
+^oSDL_StartTextInput^7 - Enable text input events.
+^oSDL_SetTextInputRect^7 - Give a hint to the OS where text will appear.
+...
+^oSDL_StopTextInput^7 - Disable text input events.
+----
+^3SDL Text Input Events
+
+^oSDL_TEXTEDITING^7
+Fired while text is being composed.
+
+^oSDL_TEXTINPUT^7
+Fired when composed, submitted text is added.

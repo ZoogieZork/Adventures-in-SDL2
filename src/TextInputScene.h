@@ -22,6 +22,7 @@
 
 namespace AISDL {
 
+class Conversation;
 class Level;
 class LevelDecor;
 class PagedTextDecor;
@@ -50,6 +51,7 @@ public:
 	virtual void OnWalkOffEdgeRight(std::shared_ptr<Player> player);
 
 	// Scene
+	virtual void OnInteract();
 	virtual void OnAction();
 
 	virtual void Preload();
@@ -61,10 +63,15 @@ public:
 	virtual void RenderContent();
 
 private:
+	int phase;
 	std::shared_ptr<Level> level;
 	std::unique_ptr<LevelDecor> levelDecor;
+	std::unique_ptr<PagedTextDecor> inputTxt;
+	std::unique_ptr<Conversation> convo;
 	std::unique_ptr<PagedTextDecor> introTxt;
 	std::unique_ptr<FmtTextDecor> playerNameTxt;
+	Uint32 fadeTs;
+	Uint8 fadeAlpha;
 	Uint32 lastInputTs;
 	std::string playerName;
 	bool playerNameCursor;
