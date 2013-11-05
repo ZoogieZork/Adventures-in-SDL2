@@ -49,6 +49,8 @@ set(AISDL_SRCS
 	src/FinalScene.h
 	src/FmtTextDecor.cpp
 	src/FmtTextDecor.h
+	src/ImageScene.cpp
+	src/ImageScene.h
 	src/InitScene.cpp
 	src/InitScene.h
 	src/IntroScene.cpp

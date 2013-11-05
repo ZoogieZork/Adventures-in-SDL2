@@ -20,6 +20,7 @@
 
 #include "Exception.h"
 #include "FinalScene.h"
+#include "ImageScene.h"
 #include "InitScene.h"
 #include "IntroScene.h"
 #include "MainLoopScene.h"
@@ -75,6 +76,7 @@ App::App(int startingScene) :
 	AddScene(std::make_shared<MainLoopScene>(*this, display));
 	AddScene(std::make_shared<TextInputScene>(*this, display));
 	AddScene(std::make_shared<RenderScene>(*this, display));
+	AddScene(std::make_shared<ImageScene>(*this, display));
 	AddScene(std::make_shared<TtfScene>(*this, display));
 	AddScene(std::make_shared<MiscScene>(*this, display));
 	AddScene(std::make_shared<FinalScene>(*this, display));
