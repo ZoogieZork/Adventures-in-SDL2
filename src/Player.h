@@ -52,6 +52,7 @@ public:
 	Direction::type GetDirection() const { return direction; }
 
 	void SetBalloonText(const std::string &s);
+	void Silence();
 	void Say(const std::string &s);
 	const std::string &GetBalloonText() const { return balloonText; }
 	Uint32 GetBalloonTs() const { return balloonTs; }

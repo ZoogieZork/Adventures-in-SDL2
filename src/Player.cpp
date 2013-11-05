@@ -110,15 +110,28 @@ void Player::SetBalloonText(const std::string &s)
 }
 
 /**
+ * Stop the player saying anything.
+ */
+void Player::Silence()
+{
+	balloonText.clear();
+}
+
+/**
  * Make the player say something.
- * @param s The text to say.
+ * @param s The text to say (empty string will silence the player).
  */
 void Player::Say(const std::string &s)
 {
-	SetBalloonText(s);
+	if (s.empty()) {
+		Silence();
+	}
+	else {
+		SetBalloonText(s);
 
-	// Face the viewer.
-	direction = Direction::DOWN;
+		// Face the viewer.
+		direction = Direction::DOWN;
+	}
 }
 
 }  // namespace AISDL
