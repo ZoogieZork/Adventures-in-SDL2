@@ -37,6 +37,9 @@ public:
 	ImageScene(Director &director, Display &display);
 	virtual ~ImageScene();
 
+private:
+	SDL_Texture *LoadPainting(const std::string &filename);
+
 public:
 	// SideScrollScene
 	virtual void OnWalkOffEdgeLeft(std::shared_ptr<Player> player);
@@ -51,11 +54,19 @@ public:
 	virtual void Reset();
 	virtual void Advance(Uint32 lastTick, Uint32 tick);
 	virtual void RenderContent();
+private:
+	void DrawPainting(SDL_Texture *texture, int x, int y, int w, int h);
 
 private:
 	std::shared_ptr<Level> level;
 	std::unique_ptr<LevelDecor> levelDecor;
 	std::unique_ptr<Conversation> convo;
+	SDL_Texture *cavePainting;
+	SDL_Texture *animePainting;
+	SDL_Texture *sunsetPainting;
+	bool showPaintings;
+	Uint32 flashTs;
+	Uint8 flashAlpha;
 };
 
 }  // namespace AISDL

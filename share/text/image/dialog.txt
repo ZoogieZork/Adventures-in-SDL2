@@ -1,3 +1,10 @@
-That's some fine public-domain art!
+This isn't much of an art gallery...
+----
+Well, we'll use SDL_image to make it prettier, then!
+----
 ----
 ...
+----
+That's some fine public-domain art!
+----
+I agree!
