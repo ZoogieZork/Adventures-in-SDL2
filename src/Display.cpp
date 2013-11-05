@@ -118,6 +118,20 @@ void Display::RenderTexture(SDL_Texture *texture, int x, int y)
 }
 
 /**
+ * Simply render a scaled texture to the screen.
+ * @param texture The texture to render (may not be @c nullptr);
+ * @param x The X coord of the upper-left corner of the texture.
+ * @param y The Y coord of the upper-left corner of the texture.
+ * @param w The scaled width.
+ * @param h The scaled height.
+ */
+void Display::RenderTexture(SDL_Texture *texture, int x, int y, int w, int h)
+{
+	SDL_Rect destRect = { x, y, w, h };
+	SDL_RenderCopy(renderer, texture, nullptr, &destRect);
+}
+
+/**
  * Switch to the virtual low-res mode (512x384).
  */
 void Display::SetLowRes()

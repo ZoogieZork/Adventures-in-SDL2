@@ -33,6 +33,7 @@ public:
 public:
 	SDL_Surface *NewAlphaSurface(int w, int h);
 	void RenderTexture(SDL_Texture *texture, int x, int y);
+	void RenderTexture(SDL_Texture *texture, int x, int y, int w, int h);
 
 public:
 	void SetLowRes();
