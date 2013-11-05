@@ -36,6 +36,9 @@ public:
 	void Start(std::shared_ptr<Player> player);
 	bool Next();
 
+public:
+	unsigned int GetPageNum() const { return pageNum; }
+
 private:
 	std::shared_ptr<ResStr> text;
 	std::shared_ptr<Player> player;
