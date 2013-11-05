@@ -1,0 +1,7 @@
+So, how do you do that?
+----
+Do what?
+----
+Talk in smooth text like that?
+----
+Oh, I just use SDL_ttf!

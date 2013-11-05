@@ -1,0 +1,13 @@
+^3SDL_ttf
+
+^7Load fonts and render with FreeType.
+----
+^3SDL_ttf: Example
+
+^oTTF_Init^7();
+...
+^oTTF_Font^7 *font = ^oTTF_OpenFont^7(^5"Tuffy.ttf"^7, 16);
+...
+^oSDL_Color^7 color = { 0, 0, 0 };
+^oSDL_Surface^7 *surface =
+  ^oTTF_RenderUTF8_Blended^7(font, ^5"My text"^7, color);

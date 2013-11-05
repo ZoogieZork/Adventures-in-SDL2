@@ -87,6 +87,8 @@ set(AISDL_SRCS
 	src/TextInputScene.h
 	src/Ttf.cpp
 	src/Ttf.h
+	src/TtfScene.cpp
+	src/TtfScene.h
 	src/main.cpp
 	src/adventures-in-sdl2.rc
 	src/resource.h)
