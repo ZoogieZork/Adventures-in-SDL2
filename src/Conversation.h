@@ -32,6 +32,7 @@ public:
 	Conversation(std::shared_ptr<ResStr> text);
 
 public:
+	//TODO: Allow participants to be customized.
 	void Start(std::shared_ptr<Player> player);
 	bool Next();
 
