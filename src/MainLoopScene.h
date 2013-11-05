@@ -22,6 +22,7 @@
 
 namespace AISDL {
 
+class Conversation;
 class Level;
 class LevelDecor;
 class PagedTextDecor;
@@ -56,6 +57,7 @@ private:
 	std::shared_ptr<Level> level;
 	std::unique_ptr<LevelDecor> levelDecor;
 	std::unique_ptr<PagedTextDecor> eventTxt;
+	std::unique_ptr<Conversation> loopSayings;
 };
 
 }  // namespace AISDL

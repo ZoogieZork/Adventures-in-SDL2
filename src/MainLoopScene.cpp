@@ -18,6 +18,7 @@
 
 #include "StdAfx.h"
 
+#include "Conversation.h"
 #include "Level.h"
 #include "LevelDecor.h"
 #include "PagedTextDecor.h"
@@ -61,6 +62,9 @@ void MainLoopScene::OnWalkOffEdgeRight(std::shared_ptr<Player> player)
 	}
 	else {
 		levelLoop++;
+
+		loopSayings->Next();
+
 		if (levelLoop == 3) {
 			level->ShowLayer(1);
 			level->HideLayer(3);
@@ -91,6 +95,7 @@ void MainLoopScene::Preload()
 	const std::string dir = display.res.resDir + "/text/mainloop/";
 	eventTxt.reset(new PagedTextDecor(display, display.res.bodyFont,
 		ResStr::Load(dir + "mainloop.txt"), 864));
+	loopSayings.reset(new Conversation(ResStr::Load(dir + "dialog.txt")));
 }
 
 void MainLoopScene::Reload()
@@ -112,6 +117,7 @@ void MainLoopScene::Reset()
 
 	auto player = director.GetMainPlayer();
 	player->SetPos(40, 320);
+	loopSayings->Start(player);
 }
 
 void MainLoopScene::Advance(Uint32 lastTick, Uint32 tick)
