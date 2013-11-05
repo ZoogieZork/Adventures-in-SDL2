@@ -18,6 +18,7 @@
 
 #include "StdAfx.h"
 
+#include "Conversation.h"
 #include "Level.h"
 #include "LevelDecor.h"
 #include "PagedTextDecor.h"
@@ -51,7 +52,7 @@ void IntroScene::OnWalkOffEdgeRight(std::shared_ptr<Player> player)
 
 void IntroScene::OnInteract()
 {
-	director.GetMainPlayer()->Say("Hi!");
+	convo->Next();
 }
 
 void IntroScene::OnAction()
@@ -85,6 +86,7 @@ void IntroScene::Preload()
 		ResStr::Load(dir + "intro.txt"), 432, true));
 	aboutTxt.reset(new PagedTextDecor(display, display.res.bodyFont,
 		ResStr::Load(dir + "about.txt"), 864));
+	convo.reset(new Conversation(ResStr::Load(dir + "dialog.txt")));
 }
 
 void IntroScene::Reload()
@@ -105,6 +107,7 @@ void IntroScene::Reset()
 
 	auto player = director.GetMainPlayer();
 	player->SetPos(40, 320);
+	convo->Start(player);
 }
 
 void IntroScene::Advance(Uint32 lastTick, Uint32 tick)
