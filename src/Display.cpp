@@ -100,6 +100,26 @@ SDL_Surface *Display::NewAlphaSurface(int w, int h)
 }
 
 /**
+ * Load an image file as a texture.
+ * @param filename The filename.
+ * @throws Exception If the file could not be loaded.
+ */
+SDL_Texture *Display::LoadTexture(const std::string &filename)
+{
+	SDL_Surface *surface = IMG_Load(filename.c_str());
+	if (!surface) {
+		throw Exception("Failed to load image: " + filename, IMG_GetError());
+	}
+
+	SDL_Texture *retv = SDL_CreateTextureFromSurface(renderer, surface);
+	if (!retv) {
+		throw Exception("Failed to create texture", SDL_GetError());
+	}
+
+	return retv;
+}
+
+/**
  * Simply render a texture to the screen.
  *
  * This handles the simple case where the whole texture is to be
