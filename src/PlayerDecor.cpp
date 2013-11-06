@@ -21,6 +21,7 @@
 #include "Display.h"
 #include "FmtTextDecor.h"
 #include "Player.h"
+#include "Sound.h"
 #include "SpriteMap.h"
 
 #include "PlayerDecor.h"
@@ -65,7 +66,13 @@ void PlayerDecor::Advance(Uint32 tick)
 	const std::string &balloonText = p->GetBalloonText();
 	balloonVisible = !balloonText.empty();
 	if (balloonVisible) {
-		balloon->SetText("^0" + balloonText);
+		// Check if balloon text changed.
+		if (prevBalloonText != balloonText) {
+			prevBalloonText = balloonText;
+			balloon->SetText("^0" + balloonText);
+
+			display.res.talkSound->Play();
+		}
 
 		Uint32 balloonTsDiff = tick - p->GetBalloonTs();
 		if (balloonTsDiff > 300) {
@@ -74,6 +81,9 @@ void PlayerDecor::Advance(Uint32 tick)
 		else {
 			balloonBounceY = ((balloonTsDiff % 100) < 50) ? 1 : 0;
 		}
+	}
+	else {
+		prevBalloonText.clear();
 	}
 }
 

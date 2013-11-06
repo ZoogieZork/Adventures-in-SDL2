@@ -43,6 +43,7 @@ private:
 	Display &display;
 	std::weak_ptr<Player> player;
 	std::shared_ptr<SpriteMap> sprite;
+	std::string prevBalloonText;
 	bool balloonVisible;
 	int balloonBounceY;
 	std::unique_ptr<FmtTextDecor> balloon;

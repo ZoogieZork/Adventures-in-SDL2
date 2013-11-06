@@ -88,6 +88,7 @@ void Res::Preload(Display &display)
 
 	const std::string soundDir = resDir + "/sounds/";
 	doorSound = Sound::Load(soundDir + "door14.wav");
+	talkSound = Sound::Load(soundDir + "ploep1.wav");
 }
 
 }  // namespace AISDL

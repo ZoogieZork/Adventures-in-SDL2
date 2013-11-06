@@ -53,6 +53,7 @@ public:
 	std::shared_ptr<SpriteMap> interiorTile;
 
 	std::shared_ptr<Sound> doorSound;
+	std::shared_ptr<Sound> talkSound;
 };
 
 }  // namespace AISDL
