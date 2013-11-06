@@ -108,6 +108,9 @@ static void InitApp()
 	if ((actualFmts & reqFmts) != reqFmts) {
 		throw Exception("SDL_mixer init", Mix_GetError());
 	}
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) {
+		throw Exception("SDL_mixer open", Mix_GetError());
+	}
 
 	if (TTF_Init() == -1) {
 		throw Exception("SDL_ttf init", TTF_GetError());
@@ -118,7 +121,11 @@ static void InitApp()
 static void ShutdownApp()
 {
 	TTF_Quit();
+
+	Mix_HaltChannel(-1);
+	Mix_CloseAudio();
 	Mix_Quit();
+
 	IMG_Quit();
 	SDL_Quit();
 }

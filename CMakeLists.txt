@@ -83,6 +83,8 @@ set(AISDL_SRCS
 	src/Scene.h
 	src/SideScrollScene.cpp
 	src/SideScrollScene.h
+	src/Sound.cpp
+	src/Sound.h
 	src/SpriteMap.cpp
 	src/SpriteMap.h
 	src/TextInputScene.cpp
