@@ -33,6 +33,12 @@ public:
 public:
 	size_t GetWidth() const { return width; }
 	size_t GetHeight() const { return height; }
+
+	template<typename Fn>
+	void ForEachLayer(Fn fn) const
+	{
+		std::for_each(layers.cbegin(), layers.cend(), fn);
+	}
 	size_t GetNumLayers() const { return layers.size(); }
 	const Layer &GetLayer(size_t i) const { return layers[i]; }
 
