@@ -451,8 +451,8 @@ std::shared_ptr<Player> App::GetMainPlayer() const
 }
 
 namespace {
-	const float DEAD_ZONE_MIN = -0.15f;
-	const float DEAD_ZONE_MAX = 0.15f;
+	const float DEAD_ZONE_MIN = -0.25f;
+	const float DEAD_ZONE_MAX = 0.25f;
 }
 
 float App::SampleControllerAxis(SDL_GameController *controller,
