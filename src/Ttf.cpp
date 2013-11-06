@@ -66,7 +66,7 @@ std::shared_ptr<Ttf> Ttf::Load(Display &display, const std::string &filename,
 {
 	TTF_Font *font = TTF_OpenFont(filename.c_str(), size);
 	if (!font) {
-		throw Exception(TTF_GetError());
+		throw Exception("Failed to load: " + filename, TTF_GetError());
 	}
 
 	return std::make_shared<Ttf>(display, font, size);
@@ -256,4 +256,3 @@ void Ttf::InitTypeCase()
 }
 
 }  // namespace AISDL
-
