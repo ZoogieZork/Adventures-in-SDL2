@@ -1,7 +1,11 @@
-Adventures-in-SDL2
+Adventures in SDL2
 ==================
 
-Not much to see here yet.  Mostly just experimenting with framework ideas.
+This is a somewhat-interactive presentation and demo on SDL2.
+
+Presented at the Linux Users Group at Georgia Tech (LUG@GT) on Wed Nov 06 2013.
+
+http://lugatgt.org/
 
 
 Prerequisites
@@ -13,7 +17,7 @@ Windows: Visual Studio 2010 or later, including the free Visual Studio Express e
 
 **SDL 2**
 
-SDL 2.0.0 or later is required, along with the standard extension libraries: SDL_image, SDL_ttf, SDL_mixer, and SDL_net.
+SDL 2.0.0 or later is required, along with the standard extension libraries: SDL_image, SDL_ttf, and SDL_mixer.
 
 *Ubuntu 13.05 "Raring" and Linux Mint 15 and earlier:* Snapshot PPA: https://launchpad.net/~zoogie/+archive/sdl2-snapshots
 
@@ -46,3 +50,19 @@ Using CMake-GUI:
 2. Set "Where to build the binaries" to be the "build" subdirectory (don't worry if it doesn't exist).
 3. Press "Generate".  Select the Visual Studio version you're using from the list ("Visual Studio 10" is for VS2010, "Visual Studio 11" is for VS2012, and "Visual Studio 12" is for VS2013).  I recommend using the 32-bit targets (i.e., not the "Win64" or "IA64" targets).  Leave the compiler selector at "Use default native compilers".
 4. Open the `build/adventures-in-sdl2.sln` solution in Visual Studio.
+
+
+Controls
+--------
+
+The presentation works with keyboard or gamepad controls.  The controls here are for an Xbox 360 wired controller.
+
+  - *Move character* - Gamepad **Left Stick**, Keyboard **A** and **D**
+  - *Next Slide* - Gamepad **A**, Keyboard **Enter**
+  - *Previous Slide* (on some scenes only) - Gamepad **B**, Keyboard **Esc**
+  - *Next Scene* - Gamepad **RB**, Keyboard **PgDn**
+  - *Previous Scene* - Gamepad **LB**, Keyboard **PgUp**
+  - *Character Dialog* (on some scenes only) - Gamepad **X**, Keyboard **E**
+  - *Show Clock* - Gamepad **Back**, Keyboard **Tab**
+  - *Toggle Fullscreen* - Keyboard **Alt-Enter**
+  - *Reload Assets* (for development) - Keyboard **F5**
