@@ -142,7 +142,14 @@ void FmtTextDecor::Reformat()
 					uint32_t idx = utf8::next(iter, iend);
 
 					// Allow "^^" as an escape sequence for "^".
-					if (idx == '^') break;
+					if (idx == '^') {
+						const Ttf::Glyph &glyph = font->glyphs['^'];
+						if (glyph.avail) {
+							rends.emplace_back(Rend(&glyph, x, y, fmtColor));
+							x += glyph.layoutW;
+						}
+						break;
+					}
 
 					fmtColor = (idx + 16) & 31;
 				}
@@ -159,7 +166,7 @@ void FmtTextDecor::Reformat()
 				const Ttf::Glyph &glyph = font->glyphs[ch];
 				if (!glyph.avail) continue;
 
-				rends.push_back(Rend(&glyph, x, y, fmtColor));
+				rends.emplace_back(Rend(&glyph, x, y, fmtColor));
 
 				x += glyph.layoutW;
 			}
