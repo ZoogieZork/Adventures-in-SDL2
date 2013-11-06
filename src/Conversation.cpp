@@ -48,7 +48,7 @@ void Conversation::Start(std::shared_ptr<Player> player)
 
 /**
  * Trigger the next line of the conversation.
- * @param @c true if there are more lines in the dialog.
+ * @return @c true if there are more lines in the dialog.
  */
 bool Conversation::Next()
 {
