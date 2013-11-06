@@ -28,6 +28,14 @@ Player::Player() :
 {
 }
 
+/**
+ * Clean up any scene-specific state to get ready for another scene.
+ */
+void Player::Reset()
+{
+	Silence();
+}
+
 void Player::SetName(const std::string &name)
 {
 	this->name = name;

@@ -365,10 +365,16 @@ void App::Run()
 
 		// If a new scene was requested, switch to it.
 		if (nextScene) {
+			// Shut down the old scene.
 			scene->Cleanup();
+
 			scene = nextScene;
 			nextScene.reset();
+
+			// Set up the new scene.
+			players.front()->Reset();
 			scene->Reset();
+
 			lastTick = 0;
 		}
 	}

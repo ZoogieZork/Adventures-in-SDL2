@@ -34,6 +34,9 @@ public:
 	};
 
 public:
+	void Reset();
+
+public:
 	void SetName(const std::string &name);
 	const std::string &GetName() const { return name; }
 
