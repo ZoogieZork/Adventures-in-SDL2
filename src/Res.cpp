@@ -21,6 +21,7 @@
 #include <sys/stat.h>
 
 #include "Exception.h"
+#include "Sound.h"
 #include "SpriteMap.h"
 #include "Ttf.h"
 
@@ -84,6 +85,9 @@ void Res::Preload(Display &display)
 
 	const std::string tileDir = resDir + "/tiles/";
 	interiorTile = SpriteMap::Load(display, tileDir + "inq-xp-mi.png", 32, 32);
+
+	const std::string soundDir = resDir + "/sounds/";
+	doorSound = Sound::Load(soundDir + "door14.wav");
 }
 
 }  // namespace AISDL

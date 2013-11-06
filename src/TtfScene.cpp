@@ -24,6 +24,7 @@
 #include "PagedTextDecor.h"
 #include "Player.h"
 #include "ResStr.h"
+#include "Sound.h"
 #include "SpriteMap.h"
 
 #include "TtfScene.h"
@@ -57,6 +58,7 @@ void TtfScene::OnInteract()
 void TtfScene::OnAction()
 {
 	if (!ttfTxt->NextPage(PagedTextDecor::Anim::FLING_UP)) {
+		display.res.doorSound->Play();
 		director.RequestNextScene();
 	}
 }

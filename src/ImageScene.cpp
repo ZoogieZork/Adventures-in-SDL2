@@ -27,6 +27,7 @@
 #include "PagedTextDecor.h"
 #include "Player.h"
 #include "ResStr.h"
+#include "Sound.h"
 #include "SpriteMap.h"
 
 #include "ImageScene.h"
@@ -83,6 +84,7 @@ void ImageScene::OnInteract()
 void ImageScene::OnAction()
 {
 	if (showPaintings) {
+		display.res.doorSound->Play();
 		director.RequestNextScene();
 	}
 	else {

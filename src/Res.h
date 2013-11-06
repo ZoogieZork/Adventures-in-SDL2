@@ -21,6 +21,7 @@
 namespace AISDL {
 
 class Display;
+class Sound;
 class SpriteMap;
 class Ttf;
 
@@ -50,6 +51,8 @@ public:
 	std::shared_ptr<SpriteMap> playerSprite;
 
 	std::shared_ptr<SpriteMap> interiorTile;
+
+	std::shared_ptr<Sound> doorSound;
 };
 
 }  // namespace AISDL

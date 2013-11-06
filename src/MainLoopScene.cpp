@@ -24,6 +24,7 @@
 #include "PagedTextDecor.h"
 #include "Player.h"
 #include "ResStr.h"
+#include "Sound.h"
 #include "SpriteMap.h"
 
 #include "MainLoopScene.h"
@@ -76,6 +77,7 @@ void MainLoopScene::OnWalkOffEdgeRight(std::shared_ptr<Player> player)
 void MainLoopScene::OnAction()
 {
 	if (!eventTxt->NextPage(PagedTextDecor::Anim::FLING_UP)) {
+		display.res.doorSound->Play();
 		director.RequestNextScene();
 	}
 }

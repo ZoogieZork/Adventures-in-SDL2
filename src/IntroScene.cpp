@@ -24,6 +24,7 @@
 #include "PagedTextDecor.h"
 #include "Player.h"
 #include "ResStr.h"
+#include "Sound.h"
 #include "SpriteMap.h"
 
 #include "IntroScene.h"
@@ -68,6 +69,7 @@ void IntroScene::OnAction()
 		break;
 	case 2:
 		if (!aboutTxt->NextPage(PagedTextDecor::Anim::FLING_UP)) {
+			display.res.doorSound->Play();
 			director.RequestNextScene();
 		}
 		break;
