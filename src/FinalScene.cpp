@@ -18,6 +18,7 @@
 
 #include "StdAfx.h"
 
+#include "Exception.h"
 #include "FmtTextDecor.h"
 #include "ResStr.h"
 
@@ -26,12 +27,16 @@
 namespace AISDL {
 
 FinalScene::FinalScene(Director &director, Display &display) :
-	SUPER(director, display, "Wrap-up and Credits")
+	SUPER(director, display, "Wrap-up and Credits"),
+	qrCode(nullptr)
 {
 }
 
 FinalScene::~FinalScene()
 {
+	if (qrCode) {
+		SDL_DestroyTexture(qrCode);
+	}
 }
 
 void FinalScene::OnAction()
@@ -48,9 +53,22 @@ void FinalScene::Preload()
 {
 	SUPER::Preload();
 
-	const std::string dir = display.res.resDir + "/text/final/";
+	std::string dir;
+
+	dir = display.res.resDir + "/text/final/";
 	finalTxt.reset(new FmtTextDecor(display, display.res.bodyFont,
 		ResStr::Load(dir + "final.txt"), 640));
+
+	dir = display.res.resDir + "/images/final/";
+	SDL_Surface *surface = IMG_Load((dir + "url-qr.png").c_str());
+	if (!surface) {
+		throw Exception("Failed to load QR code", IMG_GetError());
+	}
+	qrCode = SDL_CreateTextureFromSurface(display.renderer, surface);
+	if (!qrCode) {
+		throw Exception("Failed to create texture", SDL_GetError());
+	}
+
 }
 
 void FinalScene::Advance(Uint32 lastTick, Uint32 tick)
@@ -64,6 +82,8 @@ void FinalScene::RenderContent()
 	display.SetHighRes();
 
 	finalTxt->Render(40, 40);
+
+	display.RenderTexture(qrCode, 80, 200, 240, 240);
 }
 
 }  // namespace AISDL

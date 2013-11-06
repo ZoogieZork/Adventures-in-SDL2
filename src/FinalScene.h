@@ -45,6 +45,7 @@ public:
 
 private:
 	std::unique_ptr<FmtTextDecor> finalTxt;
+	SDL_Texture *qrCode;
 };
 
 }  // namespace AISDL
