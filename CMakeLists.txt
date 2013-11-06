@@ -89,6 +89,8 @@ set(AISDL_SRCS
 	src/SpriteMap.h
 	src/TextInputScene.cpp
 	src/TextInputScene.h
+	src/TitleScene.cpp
+	src/TitleScene.h
 	src/Ttf.cpp
 	src/Ttf.h
 	src/TtfScene.cpp

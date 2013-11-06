@@ -32,6 +32,7 @@
 #include "Scene.h"
 #include "TextInputScene.h"
 #include "TtfScene.h"
+#include "TitleScene.h"
 
 #include "App.h"
 
@@ -71,6 +72,7 @@ App::App(int startingScene) :
 	clockDecor(display),
 	keyLeft(0), keyRight(0), keyUp(0), keyDown(0)
 {
+	AddScene(std::make_shared<TitleScene>(*this, display));
 	AddScene(std::make_shared<IntroScene>(*this, display));
 	AddScene(std::make_shared<InitScene>(*this, display));
 	AddScene(std::make_shared<MainLoopScene>(*this, display));
@@ -492,7 +494,7 @@ Director::MovementState App::SampleMovement() const
 			active++;
 		}
 	}
-	
+
 	if (keyUp != 0 || keyRight != 0 || keyDown != 0 || keyLeft != 0) {
 		x += keyLeft + keyRight;
 		y += keyUp + keyDown;
