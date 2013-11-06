@@ -146,13 +146,9 @@ void ImageScene::RenderContent()
 	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(display.renderer);
 
-	//TODO: Use separate levels for the layers.
-
 	// Draw the background layer.
 	display.SetLowRes();
-	level->HideAllLayers();
-	level->ShowLayer(0);
-	levelDecor->Render();
+	levelDecor->RenderLayer(0);
 
 	// Draw the paintings.
 	if (showPaintings) {
@@ -164,9 +160,7 @@ void ImageScene::RenderContent()
 
 	// Draw the foreground layer.
 	display.SetLowRes();
-	level->HideAllLayers();
-	level->ShowLayer(1);
-	levelDecor->Render();
+	levelDecor->RenderLayer(1);
 
 	SUPER::RenderContent();
 }
