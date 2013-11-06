@@ -158,9 +158,9 @@ void TextInputScene::Reset()
 	phase = 0;
 
 	//FIXME: The current pixelFont does not have some of the Unicode characters
-	//       we'd like to have.  
+	//       we'd like to have.
 	playerName = "Ulric of Cogito";
-	playerNameTxt.reset(new FmtTextDecor(display, display.res.pixelFont,
+	playerNameTxt.reset(new FmtTextDecor(display, display.res.bodyFont,
 		playerName, 512));
 	UpdatePlayerName();
 
@@ -245,8 +245,9 @@ void TextInputScene::RenderContent()
 			introTxt->Render(256 - (introTxtWidth / 2), 40);
 
 			// Draw the text input area.
+			display.SetHighRes();
 			int playerNameTxtWidth = playerNameTxt->MeasureWidth();
-			playerNameTxt->Render(256 - (playerNameTxtWidth / 2), 80, 255,
+			playerNameTxt->Render(512 - (playerNameTxtWidth / 2), 160, 255,
 				playerNameCursor);
 		}
 		break;
