@@ -45,6 +45,7 @@ public:
 private:
 	std::unique_ptr<FmtTextDecor> engageTxt;
 	Uint8 engageAlpha;
+	SDL_Texture *logo;
 };
 
 }  // namespace AISDL

@@ -26,12 +26,14 @@
 namespace AISDL {
 
 TitleScene::TitleScene(Director &director, Display &display) :
-	SUPER(director, display, "Title")
+	SUPER(director, display, "Title"),
+	logo(nullptr)
 {
 }
 
 TitleScene::~TitleScene()
 {
+	if (logo) SDL_DestroyTexture(logo);
 }
 
 void TitleScene::OnAction()
@@ -46,6 +48,8 @@ void TitleScene::Preload()
 	//TODO: Support the "Start" button, for the sake of tradition.
 	engageTxt.reset(new FmtTextDecor(display, display.res.bodyFont,
 		"^7Press the ^2(A)^7 button to start", 1024));
+
+	logo = display.LoadTexture(display.res.resDir + "/images/logo.png");
 }
 
 void TitleScene::Advance(Uint32 lastTick, Uint32 tick)
@@ -61,6 +65,9 @@ void TitleScene::RenderContent()
 	SDL_SetRenderDrawColor(display.renderer, 0x00, 0x00, 0x00, 0xff);
 	SDL_RenderClear(display.renderer);
 	display.SetHighRes();
+
+	SDL_SetTextureAlphaMod(logo, 0x3f);
+	display.RenderTexture(logo, 512 - 250, 200);
 
 	int engageTxtWidth = engageTxt->MeasureWidth();
 	engageTxt->Render(512 - (engageTxtWidth / 2), 512, engageAlpha);
