@@ -61,6 +61,7 @@ void IntroScene::OnAction()
 	switch (phase) {
 	case 0:
 		if (!introTxt->NextPage(PagedTextDecor::Anim::TYPEWRITER)) {
+			revealSound->Play();
 			fadeTs = SDL_GetTicks();
 			phase++;
 		}
@@ -80,10 +81,15 @@ void IntroScene::Preload()
 {
 	SUPER::Preload();
 
+	std::string dir;
+
+	dir = display.res.resDir + "/sounds/intro/";
+	revealSound = Sound::Load(dir + "old-music-box-1.wav");
+
 	level = Level::Load(display.res.resDir + "/levels/intro");
 	levelDecor.reset(new LevelDecor(display, level, display.res.interiorTile));
 
-	const std::string dir = display.res.resDir + "/text/intro/";
+	dir = display.res.resDir + "/text/intro/";
 	introTxt.reset(new PagedTextDecor(display, display.res.pixelFont,
 		ResStr::Load(dir + "intro.txt"), 432, true));
 	aboutTxt.reset(new PagedTextDecor(display, display.res.bodyFont,
