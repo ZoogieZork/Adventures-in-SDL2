@@ -37,6 +37,25 @@ LevelDecor::LevelDecor(Display &display, std::shared_ptr<Level> level,
 {
 }
 
+void LevelDecor::RenderLayer(const Layer &layer, size_t width, size_t height)
+{
+	if (!layer.IsVisible()) return;
+
+	for (size_t y = 0; y < height; y++) {
+		auto iter = layer.GetRow(y);
+		for (size_t x = 0; x < width; x++) {
+			int tileIdx = *iter;
+			if (tileIdx) {
+				defaultSprite->Render(x * 32, y * 32, tileIdx);
+			}
+			++iter;
+		}
+	}
+}
+
+/**
+ * Draw all layers.
+ */
 void LevelDecor::Render()
 {
 	//TODO: Handle offset and viewport.
@@ -44,22 +63,23 @@ void LevelDecor::Render()
 	size_t width = std::min<size_t>(16, level->GetWidth());
 	size_t height = std::min<size_t>(12, level->GetHeight());
 
-	for (size_t layerIdx = 0; layerIdx < level->GetNumLayers(); layerIdx++) {
-		const Layer &layer = level->GetLayer(layerIdx);
-		if (!layer.IsVisible()) continue;
+	level->ForEachLayer([&](const Layer &layer) {
+		RenderLayer(layer, width, height);
+	});
+}
 
-		for (size_t y = 0; y < height; y++) {
-			auto iter = layer.GetRow(y);
-			for (size_t x = 0; x < width; x++) {
-				int tileIdx = *iter;
-				if (tileIdx != 0) {
-					//SDL_Log("<%u, %u> = %x", x * 32, y * 32, tileIdx);
-					defaultSprite->Render(x * 32, y * 32, tileIdx);
-				}
-				++iter;
-			}
-		}
-	}
+/**
+ * Draw a single layer.
+ * @param index The layer index.
+ */
+void LevelDecor::RenderLayer(size_t index)
+{
+	//TODO: Handle offset and viewport.
+
+	size_t width = std::min<size_t>(16, level->GetWidth());
+	size_t height = std::min<size_t>(12, level->GetHeight());
+
+	RenderLayer(level->GetLayer(index), width, height);
 }
 
 }

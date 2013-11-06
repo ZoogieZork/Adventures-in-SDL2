@@ -21,6 +21,7 @@
 namespace AISDL {
 
 class Display;
+class Layer;
 class Level;
 class SpriteMap;
 
@@ -32,9 +33,12 @@ class LevelDecor {
 public:
 	LevelDecor(Display &display, std::shared_ptr<Level> level,
 		std::shared_ptr<SpriteMap> defaultSprite);
-	
+
+private:
+	void RenderLayer(const Layer &layer, size_t width, size_t height);
 public:
 	void Render();
+	void RenderLayer(size_t index);
 
 private:
 	Display &display;
