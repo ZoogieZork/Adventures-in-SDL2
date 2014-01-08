@@ -73,17 +73,17 @@ std::shared_ptr<Sound> Sound::Load(const std::string &filename)
 
 void Sound::Play()
 {
+	SDL_LockAudio();
 	int channel = Mix_PlayChannel(-1, chunk, 0);
 	if (channel == -1) {
 		SDL_Log("No available channel for sound.");
 	}
 	else {
-		//FIXME: We assume that we'll finish doing this before this sound has
-		//       finished playing.
 		playingSounds.reserve(channel + 1);
 		playingSounds[channel] = shared_from_this();
 		//SDL_Log("Sound is playing on channel %d", channel);
 	}
+	SDL_UnlockAudio();
 }
 
 }  // namespace AISDL
