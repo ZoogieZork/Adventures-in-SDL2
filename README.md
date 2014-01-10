@@ -33,7 +33,7 @@ CMake 2.8 or higher is required.  Most Linux distros should have a package for t
 Building
 --------
 
-Note: Once CMake has generated the build files, it doesn't need to be run again -- the build files will detect changes to the `CMakeLists.txt` file and re-run CMake for you.
+Note: Once CMake has generated the build files, it doesn't need to be run again — the build files will detect changes to the `CMakeLists.txt` file and re-run CMake for you.
 
 **Linux**
 
@@ -57,12 +57,14 @@ Controls
 
 The presentation works with keyboard or gamepad controls.  The controls here are for an Xbox 360 wired controller.
 
-  - *Move character* - Gamepad **Left Stick**, Keyboard **A** and **D**
-  - *Next Slide* - Gamepad **A**, Keyboard **Enter**
-  - *Previous Slide* (on some scenes only) - Gamepad **B**, Keyboard **Esc**
-  - *Next Scene* - Gamepad **RB**, Keyboard **PgDn**
-  - *Previous Scene* - Gamepad **LB**, Keyboard **PgUp**
-  - *Character Dialog* (on some scenes only) - Gamepad **X**, Keyboard **E**
-  - *Show Clock* - Gamepad **Back**, Keyboard **Tab**
-  - *Toggle Fullscreen* - Keyboard **Alt-Enter**
-  - *Reload Assets* (for development) - Keyboard **F5**
+    ___________________Gamepad______Keyboard___________________________
+    Move character     Left Stick   A, D
+    Next Slide         A            Enter
+    Previous Slide     B            Esc           (on some scenes only)
+    Next Scene         RB           PgDn
+    Previous Scene     LB           PgUp
+    Character Dialog   X            E             (on some scenes only)
+    Show Clock         Back         Tab
+    Toggle Fullscreen               Alt-Enter
+    Reload Assets                   F5            (for development)
+
